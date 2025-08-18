@@ -19,7 +19,7 @@
                 <div class="nav-close" id="nav-close"><i class="fa-solid fa-xmark"></i></div>
                 <li><a href="products.html">პროდუქცია</a></li>
                 <li><a href="#about">ჩვენს შესახებ</a></li>
-                <li><a href="#footer">კონტაქტი</a></li>
+                <li><a href="#contact">კონტაქტი</a></li>
             </ul>
         </nav>
         <div class="nav-toggle" id="nav-toggle"><i class="fa-solid fa-bars"></i></div>
@@ -30,7 +30,7 @@
             <div class="container">
                 <h2>გახადეთ თქვენი სახლი უფრო ჭკვიანი და უსაფრთხო</h2>
                 <p>ავტომატური სისტემები წყლის, გაზის გაჟონვისა და უსაფრთხოებისთვის.</p>
-                <a href="#footer" class="btn">უფასო კონსულტაცია</a>
+                <a href="#contact" class="btn">უფასო კონსულტაცია</a>
             </div>
         </section>
 
@@ -38,7 +38,8 @@
             <div class="container">
                 <h2 class="products-title">პოპულარული პროდუქცია</h2>
                 <div class="swiper product-slider">
-                    <div class="swiper-wrapper" id="featured-products-wrapper"></div>
+                    <div class="swiper-wrapper" id="featured-products-wrapper">
+                        </div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
@@ -47,13 +48,14 @@
         </section>
 
         <section id="about" class="about">
-             <div class="container">
+            <div class="container">
                 <h2>რატომ Jarvis HomeTech?</h2>
-                <p>ჩვენი მისიაა...</p>
+                <p>ჩვენი მისიაა, შევქმნათ უსაფრთხო და კომფორტული გარემო თქვენს სახლში თანამედროვე ტექნოლოგიების დახმარებით. ჩვენ გთავაზობთ მხოლოდ სანდო და შემოწმებულ მოწყობილობებს, რომელთა მონტაჟი მარტივია და გამოყენება - მოსახერებელი.</p>
                 <div class="video-container">
-                    <h3>ნახეთ ვიდეო...</h3>
-                    <video controls muted loop autoplay playsinline style="width: 100%; height: 100%; border-radius: 5px;">
+                    <h3>ნახეთ ვიდეო, თუ როგორ მუშაობს სისტემა</h3>
+                    <video controls muted loop autoplay playsinline style="width: 100%; border-radius: 5px;">
                         <source src="photos/1000012986.mp4" type="video/mp4">
+                        თქვენი ბრაუზერი არ უჭერს მხარს ვიდეოს ჩვენებას.
                     </video>
                 </div>
             </div>
@@ -63,13 +65,26 @@
             <div class="container">
                 <h2>როგორ ვმუშაობთ</h2>
                 <div class="process-steps">
-                    <div class="step">...</div>
-                    <div class="step">...</div>
-                    <div class="step">...</div>
+                    <div class="step"><i class="fas fa-phone-alt"></i><h3>1. კონსულტაცია</h3><p>დაგვიკავშირდით და მიიღეთ უფასო კონსულტაცია თქვენი სახლისთვის საუკეთესო გადაწყვეტილების მისაღებად.</p></div>
+                    <div class="step"><i class="fas fa-tools"></i><h3>2. მონტაჟი</h3><p>ჩვენი სპეციალისტები სწრაფად და ხარისხიანად დაამონტაჟებენ მოწყობილობებს თქვენთვის მოსახერხებელ დროს.</p></div>
+                    <div class="step"><i class="fas fa-shield-alt"></i><h3>3. გარანტია და მხარდაჭერა</h3><p>მიიღეთ სრული გარანტია ყველა მოწყობილობაზე და ჩვენი გუნდის მუდმივი ტექნიკური მხარდაჭერა.</p></div>
                 </div>
             </div>
         </section>
-            
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>დაგვიკავშირდით</h2>
+                <p>დაგვიტოვეთ თქვენი მონაცემები და ჩვენი სპეციალისტი დაგიკავშირდებათ კონსულტაციისთვის.</p>
+                <form id="contact-form" action="https://formspree.io/f/myzpadrg" method="POST">
+                    <input type="text" name="name" placeholder="თქვენი სახელი" required>
+                    <input type="tel" name="phone" placeholder="თქვენი ტელეფონის ნომერი" required>
+                    <textarea name="message" placeholder="თქვენი შეტყობინება (არასავალდებულო)"></textarea>
+                    <button type="submit" class="btn">გაგზავნა</button>
+                </form>
+                <p id="form-status"></p>
+            </div>
+        </section>
     </main>
 
     <footer id="footer">
