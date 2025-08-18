@@ -130,14 +130,16 @@ section.products {
 .product-card {
     background: #fff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px; /* ოდნავ ვზრდით მომრგვალებას */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* ვამცირებთ საწყის ჩრდილს */
     text-align: center;
-    transition: transform 0.3s ease;
+    border: 1px solid #eee; /* ვამატებთ ღია ნაცრისფერ ჩარჩოს */
+    transition: all 0.3s ease; /* ვამატებთ რბილ ეფექტს */
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* ბარათი ოდნავ ზემოთ აიწევს */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* ჩრდილს ვზრდით */
 }
 
 .product-card img {
@@ -255,6 +257,7 @@ footer p {
     }
 
 }
+
 
 
 
