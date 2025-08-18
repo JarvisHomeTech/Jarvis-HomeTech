@@ -411,62 +411,98 @@ footer {
     font-size: 22px; /* იკონის ზომა */
 }
 
-/* ======================= მობილურის მენიუს სტილები ======================= */
+/* ======================= HEADER სტილები (დესკტოპი და მობილური) ======================= */
 
-/* დამალე "დახურვის" და "ჰამბურგერ" ღილაკები კომპიუტერის ვერსიაში */
+/* --- 1. სტილები დესკტოპისთვის (დიდი ეკრანები) --- */
+
+.header {
+    display: flex;
+    justify-content: space-between; /* ლოგოს და მენიუს ერთმანეთს აშორებს */
+    align-items: center; /* ასწორებს ვერტიკალურად */
+    padding: 15px 30px; /* შიდა დაშორებები */
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #333;
+    text-decoration: none;
+}
+
+.nav__links {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* დაშორება მენიუს ლინკებს შორის */
+    list-style: none; /* წერტილების მოშორება */
+}
+
+.nav__links a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav__links a:hover {
+    color: #007bff;
+}
+
+/* დამალე მობილურის ღილაკები დესკტოპზე */
 .nav-toggle,
 .nav-close {
     display: none;
 }
 
-/* Media Query: ეს სტილები იმუშავებს მხოლოდ მაშინ, როცა ეკრანის სიგანე 768 პიქსელზე ნაკლებია */
+
+/* --- 2. სტილები მობილურისთვის (პატარა ეკრანები) --- */
+
 @media screen and (max-width: 768px) {
+    
     /* გამოაჩინე ჰამბურგერ ღილაკი */
     .nav-toggle {
-        display: block; /* ან flex */
+        display: block;
         font-size: 1.5rem;
         cursor: pointer;
-        color: #333; /* შეგიძლიათ ფერი შეცვალოთ */
     }
 
-    /* მენიუს ლინკების სტილი, როცა მენიუ დახურულია */
+    /* მენიუს ლინკების კონტეინერის სტილი */
     .nav__links {
         position: fixed;
         top: 0;
-        right: -100%; /* თავიდან მენიუ დამალულია ეკრანის გარეთ */
-        width: 80%; /* მენიუს სიგანე */
+        right: -100%; /* თავიდან მენიუ დამალულია */
+        width: 80%;
         height: 100%;
-        background-color: #fff; /* მენიუს ფონი */
+        background-color: #fff;
         box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-        padding: 6rem 2rem 0 2rem;
-        display: flex;
+        padding: 6rem 2rem 0;
+        
+        /* შევცვალოთ flex თვისებები მობილურისთვის */
         flex-direction: column; /* დაალაგე ლინკები ვერტიკალურად */
-        gap: 2rem;
+        align-items: flex-start;
+        gap: 2.5rem;
         transition: right 0.4s ease;
-        z-index: 100;
     }
 
-    /* ეს კლასი დაემატება JavaScript-ით, როცა მენიუ იხსნება */
+    /* ეს კლასი ემატება JavaScript-ით და მენიუს გამოაჩენს */
     .show-menu {
-        right: 0; /* მენიუ შემოდის ეკრანზე */
+        right: 0;
     }
 
     /* დახურვის ღილაკის სტილი */
     .nav-close {
-        display: block; /* ან flex */
+        display: block;
         position: absolute;
         top: 1.5rem;
         right: 1.5rem;
         font-size: 1.8rem;
         cursor: pointer;
-        color: #333;
     }
 }
-
-
-
-
-
 
 
 
