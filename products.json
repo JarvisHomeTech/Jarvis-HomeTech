@@ -13,7 +13,7 @@
             "photos/12.jpg",
             "photos/13.jpg"
         ],
-        "video": "photos/54.mp4"
+        "video": ""
     },
     {
         "id": "gas-valve-02",
@@ -30,7 +30,7 @@
             "photos/1000012386.png"
             
         ],
-        "video": "photos/17.mp4"
+        "video": ""
     },
     {
         "id": "door-sensor-03",
@@ -45,7 +45,7 @@
             "photos/1000012786.png"
             
         ],
-        "video": "photos/15.mp4"
+        "video": ""
     },
     {
         "id": "smart-plug-04",
@@ -62,7 +62,7 @@
             "photos/22.jpg"
             
         ],
-        "video": "photos/16.mp4"
+        "video": ""
     },
     {
         "id": "motion-light-05",
@@ -78,9 +78,10 @@
             "photos/9.jpg"
             
         ],
-        "video": "photos/222.mp4"
+        "video": ""
     }
 ]
+
 
 
 
