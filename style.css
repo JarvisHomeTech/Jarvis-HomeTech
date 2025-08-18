@@ -143,7 +143,7 @@ section {
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
+    gap: 30px;
     margin: 0 auto;
 }
 
@@ -402,13 +402,14 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 50px auto; /* აцентриრებს და აშორებს სათაურს */
+    margin: 0 auto 50px auto !important; /* აцентриრებს და აშორებს სათაურს */
 }
 
 .product-icon-wrapper i {
     color: #007bff; /* იკონის ლურჯი ფერი */
     font-size: 22px; /* იკონის ზომა */
 }
+
 
 
 
