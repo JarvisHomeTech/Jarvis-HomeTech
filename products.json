@@ -8,7 +8,10 @@
         "old_price": "300 ₾",
         "image": "photos/1000012403.png",
         "images": [
-            "photos/1000012403.png"
+            "photos/1000012403.png",
+            "photos/1000012377.png",
+            "photos/12.jpg",
+            "photos/13.jpg"
         ],
         "video": "photos/54.mp4"
     },
@@ -21,7 +24,10 @@
         "old_price": "350 ₾",
         "image": "photos/1000012391.png",
         "images": [
-            "photos/1000012391.png"
+            "photos/1000012391.png",
+            "photos/1000012390.png",
+            "photos/44.jpg",
+            "photos/1000012386.png"
             
         ],
         "video": "photos/17.mp4"
@@ -35,7 +41,8 @@
         "old_price": "79 ₾",
         "image": "photos/1000012785.png",
         "images": [
-            "photos/1000012785.png"
+            "photos/1000012785.png",
+            "photos/1000012786.png"
             
         ],
         "video": "photos/15.mp4"
@@ -49,7 +56,10 @@
         "old_price": "69 ₾",
         "image": "photos/1000012801.png",
         "images": [
-            "photos/1000012801.png"
+            "photos/1000012801.png",
+            "photos/1000012796.png",
+            "photos/11.jpg",
+            "photos/22.jpg"
             
         ],
         "video": "photos/16.mp4"
@@ -63,7 +73,9 @@
         "old_price": "59 ₾",
         "image": "photos/1000013019.png",
         "images": [
-            "photos/1000013019.png"
+            "photos/1000013019.png",
+            "photos/8.jpg",
+            "photos/9.jpg"
             
         ],
         "video": "photos/222.mp4"
@@ -72,5 +84,4 @@
 
 
 
-
-
+ს
