@@ -102,12 +102,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`;
                 });
                 galleryWrapper.innerHTML = slidesHTML;
+
+                // --- START: შეცვლილი ნაწილი ---
                 new Swiper('.product-gallery-slider', {
                     autoHeight: true,
                     loop: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
-                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    on: {
+                        // ეს ფუნქცია გამოიძახება ყოველ ჯერზე, როდესაც სლაიდი შეიცვლება
+                        slideChange: function () {
+                            // სლაიდერის შიგნით ვპოულობთ ყველა <video> ელემენტს
+                            const videos = document.querySelectorAll('.product-gallery-slider video');
+                            // ვაჩერებთ თითოეული ვიდეოს დაკვრას
+                            videos.forEach(video => {
+                                video.pause();
+                            });
+                        }
+                    }
                 });
+                // --- END: შეცვლილი ნაწილი ---
+
             } else {
                 document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი ვერ მოიძებნა</h1>';
             }
@@ -115,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('შეცდომა პროდუქტის დეტალების ჩატვირთვისას:', error);
         }
     }
-    
+
     // --- ფორმის და სქროლის ლოგიკა ---
     const form = document.getElementById("contact-form");
     if (form) {
-        form.addEventListener("submit", async function(event) {
+        form.addEventListener("submit", async function (event) {
             event.preventDefault();
             const data = new FormData(event.target);
             try {
@@ -149,5 +164,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
-
+});s
