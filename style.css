@@ -411,6 +411,57 @@ footer {
     font-size: 22px; /* იკონის ზომა */
 }
 
+/* ======================= მობილურის მენიუს სტილები ======================= */
+
+/* დამალე "დახურვის" და "ჰამბურგერ" ღილაკები კომპიუტერის ვერსიაში */
+.nav-toggle,
+.nav-close {
+    display: none;
+}
+
+/* Media Query: ეს სტილები იმუშავებს მხოლოდ მაშინ, როცა ეკრანის სიგანე 768 პიქსელზე ნაკლებია */
+@media screen and (max-width: 768px) {
+    /* გამოაჩინე ჰამბურგერ ღილაკი */
+    .nav-toggle {
+        display: block; /* ან flex */
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #333; /* შეგიძლიათ ფერი შეცვალოთ */
+    }
+
+    /* მენიუს ლინკების სტილი, როცა მენიუ დახურულია */
+    .nav__links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* თავიდან მენიუ დამალულია ეკრანის გარეთ */
+        width: 80%; /* მენიუს სიგანე */
+        height: 100%;
+        background-color: #fff; /* მენიუს ფონი */
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        padding: 6rem 2rem 0 2rem;
+        display: flex;
+        flex-direction: column; /* დაალაგე ლინკები ვერტიკალურად */
+        gap: 2rem;
+        transition: right 0.4s ease;
+        z-index: 100;
+    }
+
+    /* ეს კლასი დაემატება JavaScript-ით, როცა მენიუ იხსნება */
+    .show-menu {
+        right: 0; /* მენიუ შემოდის ეკრანზე */
+    }
+
+    /* დახურვის ღილაკის სტილი */
+    .nav-close {
+        display: block; /* ან flex */
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #333;
+    }
+}
 
 
 
