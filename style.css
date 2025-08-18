@@ -507,9 +507,28 @@ footer {
 
 
 
+/* SwiperJS სლაიდერის სტილები */
+.product-slider {
+    width: 100%;
+    height: auto;
+    padding: 20px 10px 50px 10px; /* დავამატეთ ქვედა დაშორება წერტილებისთვის */
+}
 
+.swiper-slide {
+    height: auto; /* ავტომატური სიმაღლე, რომ ყველა კარტი თანაბარი იყოს */
+    display: flex;
+    justify-content: center;
+}
 
+/* ისრების და წერტილების ფერის შეცვლა */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #007bff;
+}
 
+.swiper-pagination-bullet-active {
+    background-color: #007bff;
+}
 
 
 
