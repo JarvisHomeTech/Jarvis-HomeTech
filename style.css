@@ -210,10 +210,34 @@ section.products {
 
 /* ფუტერი */
 footer {
-    background: var(--secondary-color);
-    color: var(--light-text-color);
+    background: #2c3e50; /* უფრო მუქი, დახვეწილი ფერი */
+    color: #ecf0f1;
     text-align: center;
-    padding: 20px 0;
+    padding: 40px 0 20px 0;
+}
+
+.footer-content h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.footer-content p {
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    color: #bdc3c7;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+}
 }
 
 footer p {
@@ -303,6 +327,7 @@ footer p {
         width: 100%;
     }
 }
+
 
 
 
