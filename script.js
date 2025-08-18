@@ -73,74 +73,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- პროდუქტის დეტალური გვერდის ჩატვირთვის ფუნქცია (ვიდეოს გაჩერებით) ---
-async function loadProductDetails() {
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get('id');
-    if (!productId) {
-        document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი არ არის მითითებული</h1>';
-        return;
-    }
-
-    try {
-        const response = await fetch('products.json');
-        if (!response.ok) throw new Error('პროდუქტების ფაილი ვერ მოიძებნა!');
-        const products = await response.json();
-        const product = products.find(p => p.id === productId);
-
-        if (product) {
-            document.title = product.name;
-            document.getElementById('product-name').textContent = product.name;
-            document.getElementById('product-full-description').textContent = product.full_description;
-            document.getElementById('product-price').innerHTML = formatPrice(product); // ვიყენებთ ფასის ფორმატირების ფუნქციას
-            document.getElementById('order-button').href = `https://m.me/61578859507900`;
-
-            const galleryWrapper = document.getElementById('product-gallery-wrapper');
-            let slidesHTML = '';
-
-            if (product.video && product.video.trim() !== "") {
-                slidesHTML += `
-                    <div class="swiper-slide video-slide">
-                        <video controls muted loop playsinline>
-                            <source src="${product.video}" type="video/mp4">
-                        </video>
-                    </div>`;
-            }
-            
-            product.images.forEach(img => {
-                slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`;
-            });
-            
-            galleryWrapper.innerHTML = slidesHTML;
-            
-            // --- სლაიდერის ინიციალიზაცია ---
-            const gallerySwiper = new Swiper('.product-gallery-slider', {
-                autoHeight: true,
-                loop: false,
-                pagination: { el: '.swiper-pagination', clickable: true },
-                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
-            });
-
-            // --- ივენთი, რომელიც აჩერებს ვიდეოს სლაიდის შეცვლისას ---
-            gallerySwiper.on('slideChange', function () {
-                // ვპოულობთ ყველა ვიდეოს სლაიდერში
-                const videos = gallerySwiper.el.querySelectorAll('video');
-                // ვმოქმედებთ თითოეულ ვიდეოზე
-                videos.forEach(video => {
-                    // ვაპაუზებთ ვიდეოს და ვურთავთ ხმას (თუ ჩართული იყო)
-                    if (!video.paused) {
-                        video.pause();
-                    }
-                });
-            });
-
-        } else {
-            document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი ვერ მოიძებნა</h1>';
+    // --- პროდუქტის დეტალური გვერდის ჩატვირთვის ფუნქცია ---
+    async function loadProductDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+        if (!productId) {
+            document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი არ არის მითითებული</h1>';
+            return;
         }
-    } catch (error) {
-        console.error('შეცდომა პროდუქტის დეტალების ჩატვირთვისას:', error);
+        try {
+            const response = await fetch('products.json');
+            if (!response.ok) throw new Error('პროდუქტების ფაილი ვერ მოიძებნა!');
+            const products = await response.json();
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                document.title = product.name;
+                document.getElementById('product-name').textContent = product.name;
+                document.getElementById('product-full-description').textContent = product.full_description;
+                document.getElementById('product-price').innerHTML = formatPrice(product);
+                document.getElementById('order-button').href = `https://m.me/61578859507900`;
+
+                const galleryWrapper = document.getElementById('product-gallery-wrapper');
+                let slidesHTML = '';
+                if (product.video && product.video.trim() !== "") {
+                    slidesHTML += `<div class="swiper-slide video-slide"><video controls muted loop autoplay playsinline><source src="${product.video}" type="video/mp4"></video></div>`;
+                }
+                product.images.forEach(img => {
+                    slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`;
+                });
+                galleryWrapper.innerHTML = slidesHTML;
+                new Swiper('.product-gallery-slider', {
+                    autoHeight: true,
+                    loop: false,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+                });
+            } else {
+                document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი ვერ მოიძებნა</h1>';
+            }
+        } catch (error) {
+            console.error('შეცდომა პროდუქტის დეტალების ჩატვირთვისას:', error);
+        }
     }
-}
+    
     // --- ფორმის და სქროლის ლოგიკა ---
     const form = document.getElementById("contact-form");
     if (form) {
@@ -175,5 +150,4 @@ async function loadProductDetails() {
         });
     });
 });
-
 
