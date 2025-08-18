@@ -402,13 +402,14 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 50px auto !important; /* აцентриრებს და აშორებს სათაურს */
+    margin: 50px; /* აцентриრებს და აშორებს სათაურს */
 }
 
 .product-icon-wrapper i {
     color: #007bff; /* იკონის ლურჯი ფერი */
     font-size: 22px; /* იკონის ზომა */
 }
+
 
 
 
