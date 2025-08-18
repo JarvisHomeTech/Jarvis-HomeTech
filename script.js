@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- პროდუქტების ჩატვირთვის ლოგიკა ---
     async function loadProducts() {
-        const featuredProductsWrapper = document.querySelector('#featured-products-wrapper'); // index.html-სთვის
-        const productsGrid = document.querySelector('.products-grid'); // products.html-სთვის
+        const featuredProductsWrapper = document.querySelector('#featured-products-wrapper');
+        const productsGrid = document.querySelector('.products-grid');
 
         if (!featuredProductsWrapper && !productsGrid) {
             return; 
@@ -54,13 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).join('');
                 
                 new Swiper('.product-slider', {
-                    loop: true, spaceBetween: 20,
+                    loop: true,
+                    spaceBetween: 20, // დაპატარავებული დაშორება
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     breakpoints: {
                         640: { slidesPerView: 2 },
                         768: { slidesPerView: 3 },
-                        1024: { slidesPerView: 4 }
+                        1024: { slidesPerView: 4 } // დაპატარავებული სლაიდერი
                     }
                 });
             }
@@ -118,5 +119,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
 });
