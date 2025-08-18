@@ -9,7 +9,7 @@
         "images": [
             "photos/1000012403.png"
         ],
-        "video_url": ""
+        "video": "photos/1000012986.mp4"
     },
     {
         "id": "gas-valve-02",
@@ -21,7 +21,7 @@
         "images": [
             "photos/1000012391.png"
         ],
-        "video_url": ""
+        "video": ""
     },
     {
         "id": "door-sensor-03",
@@ -33,7 +33,7 @@
         "images": [
             "photos/1000012785.png"
         ],
-        "video_url": ""
+        "video": ""
     },
     {
         "id": "smart-plug-04",
@@ -45,7 +45,7 @@
         "images": [
             "photos/1000012801.png"
         ],
-        "video_url": ""
+        "video": ""
     },
     {
         "id": "motion-light-05",
@@ -57,6 +57,6 @@
         "images": [
             "photos/1000013019.png"
         ],
-        "video_url": ""
+        "video": ""
     }
 ]
