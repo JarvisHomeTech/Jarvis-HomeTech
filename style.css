@@ -18,7 +18,7 @@ h1, h2, h3 { color: var(--secondary-color); }
 
 /* ======================= 3. სექციები (HERO, ABOUT, PROCESS, CONTACT) ======================= */
 section { padding: 60px 0; }
-.hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('photos/ffffffff.jpg') no-repeat center center/cover; color: #fff; height: 60vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+.hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('photos/ffffffff.jpg') no-repeat center center/cover; color: #fff; height: 60vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0 30px; }
 .hero h2 { font-size: 3rem; color: #fff; }
 .about, .process, .contact { text-align: center; }
 .video-container { margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
@@ -68,5 +68,6 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
     products-title { text-align: center; }
 }
+
 
 
