@@ -267,6 +267,42 @@ footer p {
         margin-bottom: 15px; /* დაშორება იკონკასა და სათაურს შორის */
     }
 
+    /* როგორ ვმუშაობთ სექციის სტილი */
+.process {
+    background-color: var(--background-color); /* ღია ნაცრისფერი ფონი */
+    text-align: center;
+}
+
+.process-steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.step {
+    background-color: #fff;
+    padding: 30px 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    width: 32%;
+}
+
+.step i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+/* მობილურისთვის ადაპტაცია */
+@media (max-width: 768px) {
+    .process-steps {
+        flex-direction: column;
+    }
+    .step {
+        width: 100%;
+    }
+}
 
 
 
