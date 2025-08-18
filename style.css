@@ -111,8 +111,12 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .product-details-slider { min-width: 0; position: relative; width: 100%; }
 .product-gallery-slider { border-radius: 12px; overflow: hidden; border: 1px solid #eef0f3; }
 .product-gallery-slider .swiper-slide { background-color: #f9f9f9; display: flex; align-items: center; justify-content: center; }
-.product-gallery-slider .swiper-slide img,
-.product-gallery-slider .swiper-slide video { display: block; width: 100%; height: 100%; object-fit: contain; /* max-height შეზღუდვა მოხსნილია */}.product-details-info h1 { font-size: 2.5rem; margin-bottom: 20px; }
+.product-gallery-slider .swiper-slide img {
+    display: block;
+    width: 80%;  /* <<-- ზომა შემცირდა */
+    height: 80%; /* <<-- ზომა შემცირდა */
+    object-fit: contain;
+.product-gallery-slider .swiper-slide video { display: block; width: 800%; height: 800%; object-fit: contain; /* max-height შეზღუდვა მოხსნილია */}.product-details-info h1 { font-size: 2.5rem; margin-bottom: 20px; }
 .product-details-info #product-full-description { line-height: 1.8; color: #555; margin-bottom: 30px; }
 .product-details-info #product-price { font-size: 2rem; font-weight: bold; margin-bottom: 30px; justify-content: flex-start; }
 .product-details-info .new-price { font-size: 2rem; }
@@ -132,4 +136,5 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
     .product-details-layout { grid-template-columns: 1fr; }
 }
+
 
