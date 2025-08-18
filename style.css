@@ -393,5 +393,21 @@ footer {
 }
 
 
+/* პროდუქტის იკონის სტილები (Font Awesome მეთოდი) */
+.product-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    background-color: #e6f2ff; /* ფონის ღია ლურჯი ფერი */
+    border-radius: 50%; /* ამრგვალებს ფონს */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px auto; /* აцентриრებს და აშორებს სათაურს */
+}
+
+.product-icon-wrapper i {
+    color: #007bff; /* იკონის ლურჯი ფერი */
+    font-size: 22px; /* იკონის ზომა */
+}
 
 
