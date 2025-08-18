@@ -258,6 +258,11 @@ footer p {
 
 }
 
+    .product-card i {
+        font-size: 2.5rem; /* იკონკის ზომა */
+        color: var(--primary-color); /* იკონკის ფერი (საიტის მთავარი ლურჯი ფერი) */
+        margin-bottom: 15px; /* დაშორება იკონკასა და სათაურს შორის */
+    }
 
 
 
