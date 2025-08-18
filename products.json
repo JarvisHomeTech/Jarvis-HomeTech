@@ -8,8 +8,9 @@
         "image": "photos/1000012403.png",
         "images": [
             "photos/1000012403.png"
+            
         ],
-        "video": "photos/1000012986.mp4"
+        "video": ""
     },
     {
         "id": "gas-valve-02",
@@ -20,8 +21,10 @@
         "image": "photos/1000012391.png",
         "images": [
             "photos/1000012391.png"
+            "photos/1000012390.png"
+            "photos/1000012386.png"
         ],
-        "video": ""
+        "video": "photos/1000012986.mp4"
     },
     {
         "id": "door-sensor-03",
@@ -32,6 +35,8 @@
         "image": "photos/1000012785.png",
         "images": [
             "photos/1000012785.png"
+            "photos/1000012786.png"
+            
         ],
         "video": ""
     },
@@ -43,7 +48,9 @@
         "price": "49 ₾",
         "image": "photos/1000012801.png",
         "images": [
+            "photos/1000012796.png"
             "photos/1000012801.png"
+            
         ],
         "video": ""
     },
@@ -60,3 +67,4 @@
         "video": ""
     }
 ]
+
