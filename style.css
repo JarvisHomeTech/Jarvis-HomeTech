@@ -66,7 +66,7 @@ h1, h2, h3 {
     font-weight: bold; 
     font-size: 1.5rem; 
     text-decoration: none; 
-    color: #14148c; /* შესწორებული ფერი */
+    color: #14148c; 
 }
 
 .nav__links { 
@@ -101,7 +101,7 @@ section {
     color: #fff; 
     height: 60vh; 
     display: flex; 
-    flex-direction: column; /* დაემატა, რომ h2 და btn სწორად დალაგდეს */
+    flex-direction: column;
     justify-content: center; 
     align-items: center; 
     text-align: center; 
@@ -114,7 +114,7 @@ section {
 }
 
 .hero .btn { 
-    margin-top: 20px; /* შესწორება: ღილაკის დაშორება */
+    margin-top: 20px; 
 }
 
 .about, .process, .contact { 
@@ -202,7 +202,7 @@ section {
     left: 0; 
     width: 100%; 
     height: 100%; 
-    object-fit: cover !important; /* შესწორება: სურათის ზომა */
+    object-fit: cover !important;
     padding: 10px; 
 }
 
@@ -225,330 +225,14 @@ section {
     font-weight: 700; 
     color: var(--primary-color); 
     margin-top: auto; 
-}
-
-/* ======================= 5. სლაიდერი (SwiperJS) ======================= */
-.product-slider { 
-    width: 100%; 
-    height: auto; 
-    padding: 20px 10px 50px 10px; 
-}
-
-.swiper-slide { 
-    height: auto; 
-    display: flex; 
-    justify-content: center; 
-}
-
-.swiper-button-next, .swiper-button-prev { 
-    color: var(--primary-color); 
-}
-
-.swiper-pagination-bullet-active { 
-    background-color: var(--primary-color); 
-}
-
-/* ======================= 6. FOOTER, CONTACT, CHAT ======================= */
-#contact-form { 
-    max-width: 600px; 
-    margin: 30px auto 0; 
-    display: flex; 
-    flex-direction: column; 
-}
-
-#contact-form input, #contact-form textarea { 
-    width: 100%; 
-    padding: 12px; 
-    margin-bottom: 15px; 
-    border-radius: 5px; 
-    border: 1px solid #ddd; 
-    font-size: 1rem; 
-}
-
-#contact-form button { 
-    width: auto; 
-    align-self: center; 
-}
-
-footer { 
-    background: #2c3e50; 
-    color: #ecf0f1; 
-    text-align: center; 
-    padding: 40px 20px; 
-}
-
-.social-icons a { 
-    color: #fff; 
-    font-size: 1.2rem; 
-    margin: 0 10px; 
-    text-decoration: none; 
-    transition: color 0.3s ease; 
-}
-
-.social-icons a:hover { 
-    color: var(--primary-color); 
-}
-
-.floating-chat-widget { 
-    position: fixed; 
-    bottom: 30px; 
-    right: 30px; 
-    z-index: 1000; 
-}
-
-.chat-toggle-checkbox { 
-    display: none; 
-}
-
-.chat-toggle-button { 
-    background-color: #007bff; 
-    color: white; 
-    width: 60px; 
-    height: 60px; 
-    border-radius: 50%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    cursor: pointer; 
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2); 
-    transition: transform 0.3s ease, background-color 0.3s ease; 
-}
-
-.chat-toggle-button:hover { 
-    transform: scale(1.1); 
-    background-color: #0056b3; 
-}
-
-.chat-toggle-button svg { 
-    width: 32px; 
-    height: 32px; 
-    transition: opacity 0.2s ease, transform 0.2s ease; 
-}
-
-.chat-toggle-button .close-icon { 
-    opacity: 0; 
-    transform: rotate(-45deg) scale(0); 
-    position: absolute; 
-}
-
-.chat-toggle-checkbox:checked + .chat-toggle-button .main-icon { 
-    opacity: 0; 
-    transform: rotate(45deg) scale(0); 
-}
-
-.chat-toggle-checkbox:checked + .chat-toggle-button .close-icon { 
-    opacity: 1; 
-    transform: rotate(0) scale(1); 
-}
-
-.chat-options { 
-    position: absolute; 
-    bottom: 75px; 
-    right: 5px; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 15px; 
-    transition: opacity 0.3s ease, transform 0.3s ease; 
-    opacity: 0; 
-    transform: translateY(10px); 
-    pointer-events: none; 
-}
-
-.chat-toggle-checkbox:checked ~ .chat-options { 
-    opacity: 1; 
-    transform: translateY(0); 
-    pointer-events: auto; 
-}
-
-.chat-link { 
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%; 
-    color: white; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    text-decoration: none; 
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.2); 
-    transition: transform 0.3s ease; 
-}
-
-.chat-link:hover { 
-    transform: scale(1.15); 
-}
-
-.chat-link.messenger { 
-    background: linear-gradient(45deg, #0062E0, #19AFFF); 
-}
-
-.chat-link.whatsapp { 
-    background-color: #25D366; 
-}
-
-/* ======================= 7. პროდუქტის დეტალური გვერდი ======================= */
-/* ======================= 7. პროდუქტის დეტალური გვერდი (საბოლოო ვერსია) ======================= */
-.product-details-section { 
-    padding: 60px 0; 
-}
-
-.product-details-layout { 
-    display: grid; 
-    grid-template-columns: 1fr; 
-    gap: 40px; 
-    align-items: flex-start; 
-}
-
-@media screen and (min-width: 992px) { 
-    .product-details-layout { 
-        grid-template-columns: 1fr 1fr; 
-    } 
-}
-
-.product-details-slider {
-    /* ეს წესი ხელს უშლის შიგთავსს (ვიდეოს), რომ კონტეინერი გააფართოვოს */
-    min-width: 0;
-    position: relative;
-    width: 100%;
-}
-
-.product-gallery-slider { 
-    border-radius: 12px; 
-    overflow: hidden; 
-    border: 1px solid #eef0f3; 
-}
-
-.product-gallery-slider .swiper-slide { 
-    background-color: #f9f9f9; 
-    aspect-ratio: 1 / 1; 
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: center;
-}
-
-/* ეს არის ყველაზე მნიშვნელოვანი შესწორება */
-.product-gallery-slider .swiper-slide img,
-.product-gallery-slider .swiper-slide video { 
-    display: block;
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-}
-
-.product-details-info h1 { 
-    font-size: 2.5rem; 
-    margin-bottom: 20px; 
-}
-
-.product-details-info #product-full-description { 
-    line-height: 1.8; 
-    color: #555; 
-    margin-bottom: 30px; 
-}
-
-.product-details-info #product-price { 
-    font-size: 2rem; 
-    font-weight: bold; 
-    color: var(--primary-color); 
-    margin-bottom: 30px; 
-}
-
-.video-container iframe { 
-    width: 100%; 
-    height: auto; 
-    aspect-ratio: 16 / 9; 
-    border-radius: 12px; 
-    border: none; 
-}
-/* ======================= 8. მობილურის ვერსია (Media Queries) ======================= */
-@media screen and (max-width: 768px) {
-    .hero h2 { 
-        font-size: 2.1rem; 
-    }
-
-    section { 
-        padding: 40px 0; 
-    }
-
-    .process-steps { 
-        flex-direction: column; 
-    }
-
-    .step { 
-        width: 100%; 
-        margin-bottom: 20px; 
-    }
-
-    .products-section .products-title { 
-        text-align: center; 
-    }
-
-    .nav-toggle { 
-        display: block; 
-        font-size: 1.5rem; 
-        cursor: pointer; 
-        color: var(--secondary-color); 
-    }
-
-    .nav__links { 
-        position: fixed; 
-        top: 0; 
-        right: -100%; 
-        width: 80%; 
-        height: 100%; 
-        background-color: #fff; 
-        box-shadow: -2px 0 10px rgba(0,0,0,0.1); 
-        padding: 6rem 2rem 0; 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 2.5rem; 
-        transition: right 0.4s ease; 
-        z-index: 100; 
-    }
-
-    .show-menu { 
-        right: 0; 
-    }
-
-    .nav-close { 
-        display: block; 
-        position: absolute; 
-        top: 1.5rem; 
-        right: 1.5rem; 
-        font-size: 1.8rem; 
-        cursor: pointer; 
-    }
-}
-
-/* ======================= ფასდაკლების სტილები ======================= */
-.product-price {
-    display: flex;
-    align-items: baseline; /* ასწორებს ტექსტებს ერთ ხაზზე */
-    justify-content: center; /* აцентриრებს ფასებს */
-    gap: 10px; /* დაშორება ძველ და ახალ ფასს შორის */
+    gap: 10px;
 }
 
 .old-price {
     font-size: 1rem;
-    color: #f00; /* წითელი ფერი */
-    text-decoration: line-through; /* გადახაზული ტექსტი */
-    opacity: 0.7;
-}
-
-.new-price {
-    font-size: 1.15rem; /* პროდუქტის ბარათზე */
-    font-weight: 700;
-    color: var(--primary-color); /* ლურჯი ფერი */
-}
-
-/* ფასების სტილი დეტალურ გვერდზე */
-.product-details-info .product-price {
-    justify-content: flex-start; /* მარცხნივ სწორება */
-}
-
-.product-details-info .new-price {
-    font-size: 2rem;
-}
-
-.product-details-info .old-price {
-    font-size: 1.5rem;
-}
+    color: #f00;
+    text-decoration: line-through;
+    opacity:
