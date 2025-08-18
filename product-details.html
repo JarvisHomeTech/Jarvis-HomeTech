@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>პროდუქტის დეტალები</title>
+    <link rel="icon" type="image/png" href="photos/favicon.png">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <a class="logo" href="index.html">JARVIS HomeTech</a>
+        <nav>
+            <ul class="nav__links">
+                <div class="nav-close" id="nav-close"><i class="fa-solid fa-xmark"></i></div>
+                <li><a href="products.html">პროდუქცია</a></li>
+                <li><a href="index.html#about">ჩვენს შესახებ</a></li>
+                <li><a href="index.html#footer">კონტაქტი</a></li>
+            </ul>
+        </nav>
+        <div class="nav-toggle" id="nav-toggle"><i class="fa-solid fa-bars"></i></div>
+    </header>
+
+    <main>
+        <section class="product-details-section">
+            <div class="container">
+                <div class="product-details-layout">
+                    <div class="product-details-slider">
+                        <div class="swiper product-gallery-slider">
+                            <div class="swiper-wrapper" id="product-images-wrapper">
+                                </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                    <div class="product-details-info">
+                        <h1 id="product-name">პროდუქტი იტვირთება...</h1>
+                        <p id="product-full-description"></p>
+                        <div id="product-price"></div>
+                        <a href="index.html#contact" class="btn">შეკვეთა</a>
+                    </div>
+                </div>
+                <div id="product-video-container" class="video-container" style="display:none; margin-top:40px;">
+                    <h3>პროდუქტის ვიდეო</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+            <p>&copy; 2025 Jarvis HomeTech. ყველა უფლება დაცულია.</p>
+            <p>ტელ: 599-608-105 | იმეილი: jarvishometech1@gmail.com</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61578859507900" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="floating-chat-widget">...</div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
