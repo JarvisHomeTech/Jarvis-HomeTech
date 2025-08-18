@@ -532,6 +532,55 @@ footer {
 
 
 
+/* ======================= პროდუქტების ცხრილის სტილები ======================= */
+.table-container {
+    overflow-x: auto; /* მობილურზე ჰორიზონტალური სქროლი რომ ჰქონდეს */
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse; /* აერთიანებს უჯრების ჩარჩოებს */
+    margin: 20px 0;
+    font-size: 0.9em;
+    min-width: 600px; /* მინიმალური სიგანე, რომ მობილურზე არ აირიოს */
+}
+
+.product-table thead tr {
+    background-color: #007bff;
+    color: #ffffff;
+    text-align: left;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px 15px;
+    border: 1px solid #dddddd;
+}
+
+.product-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+/* ზებრა-ეფექტი რიგებისთვის */
+.product-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.product-table tbody tr:last-of-type {
+    border-bottom: 2px solid #007bff;
+}
+
+.table-product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.btn-table {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
 
 
 
