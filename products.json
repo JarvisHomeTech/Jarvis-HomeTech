@@ -21,8 +21,7 @@
         "image": "photos/1000012391.png",
         "images": [
             "photos/1000012391.png"
-            "photos/1000012390.png"
-            "photos/1000012386.png"
+            
         ],
         "video": "photos/1000012986.mp4"
     },
@@ -35,7 +34,7 @@
         "image": "photos/1000012785.png",
         "images": [
             "photos/1000012785.png"
-            "photos/1000012786.png"
+            
             
         ],
         "video": ""
@@ -49,7 +48,7 @@
         "image": "photos/1000012801.png",
         "images": [
             "photos/1000012796.png"
-            "photos/1000012801.png"
+            
             
         ],
         "video": ""
@@ -67,4 +66,5 @@
         "video": ""
     }
 ]
+
 
