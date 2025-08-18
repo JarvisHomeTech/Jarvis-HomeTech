@@ -68,3 +68,65 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .show-menu { right: 0; }
     .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
 }
+/* ======================= პროდუქტის დეტალური გვერდი ======================= */
+.product-details-section {
+    padding: 60px 0;
+}
+
+.product-details-layout {
+    display: grid;
+    grid-template-columns: 1fr; /* მობილურზე ერთი სვეტი */
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* დესკტოპზე ვაკეთებთ 2 სვეტიან დიზაინს */
+@media screen and (min-width: 992px) {
+    .product-details-layout {
+        grid-template-columns: 1fr 1fr; 
+    }
+}
+
+.product-gallery-slider {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #eef0f3;
+}
+
+.product-gallery-slider .swiper-slide {
+    background-color: #f9f9f9;
+}
+
+.product-gallery-slider img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 20px;
+}
+
+.product-details-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.product-details-info #product-full-description {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.product-details-info #product-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    border: none;
+}
