@@ -1,4 +1,7 @@
 /* ძირითადი სტილები */
+html {
+    scroll-behavior: smooth;
+}
 :root {
     --primary-color: #007bff;
     --secondary-color: #333;
@@ -263,6 +266,7 @@ footer p {
         color: var(--primary-color); /* იკონკის ფერი (საიტის მთავარი ლურჯი ფერი) */
         margin-bottom: 15px; /* დაშორება იკონკასა და სათაურს შორის */
     }
+
 
 
 
