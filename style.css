@@ -10,7 +10,7 @@ h1, h2, h3 { color: var(--secondary-color); }
 
 /* ======================= 2. HEADER ======================= */
 .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-.logo { font-weight: bold; font-size: 1.5rem; color: #007BFF; text-decoration: none; }
+.logo { font-weight: bold; font-size: 1.5rem; color: #14148c; text-decoration: none; }
 .nav__links { display: flex; align-items: center; gap: 30px; list-style: none; }
 .nav__links a { text-decoration: none; color: #555; font-weight: 500; transition: color 0.3s ease; }
 .nav__links a:hover { color: var(--primary-color); }
@@ -71,5 +71,6 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .show-menu { right: 0; }
     .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
 }
+
 
 
