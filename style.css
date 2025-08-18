@@ -73,7 +73,7 @@ header nav ul li a:hover {
 
 /* მთავარი სექცია */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1500x600.png?text=Smart+Home+Background') no-repeat center center/cover;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('photos/ffffffff.jpg') no-repeat center center/cover;
     color: var(--light-text-color);
     height: 60vh;
     display: flex;
@@ -208,4 +208,5 @@ footer {
 
 footer p {
     margin: 5px 0;
+
 }
