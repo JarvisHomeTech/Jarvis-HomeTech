@@ -1,45 +1,45 @@
 /* ======================= 1. ძირითადი სტილები ======================= */
-:root { 
-    --primary-color: #007bff; 
-    --secondary-color: #212529; 
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #212529;
 }
-*, *::before, *::after { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-html { 
-    scroll-behavior: smooth; 
+html {
+    scroll-behavior: smooth;
 }
-body { 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-    line-height: 1.6; 
-    background-color: #fff; 
-    color: #333; 
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+    color: #333;
 }
-.container { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    padding: 0 20px; 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
-h1, h2, h3 { 
-    color: var(--secondary-color); 
+h1, h2, h3 {
+    color: var(--secondary-color);
 }
-.btn { 
-    display: inline-block; 
-    background: var(--primary-color); 
-    color: #fff; 
-    padding: 10px 20px; 
-    text-decoration: none; 
-    border-radius: 5px; 
-    border: none; 
-    cursor: pointer; 
-    font-size: 1rem; 
-    transition: all 0.3s ease; 
+.btn {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
-.btn:hover { 
-    background-color: #0056b3; 
-    transform: translateY(-2px); 
+.btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 /* ======================= 2. HEADER ======================= */
@@ -105,21 +105,21 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .chat-link.whatsapp { background-color: #25D366; }
 
 /* ======================= 7. პროდუქტის დეტალური გვერდი (საბოლოო ვერსია) ======================= */
-.product-details-section { 
-    padding: 60px 0; 
+.product-details-section {
+    padding: 60px 0;
 }
 
-.product-details-layout { 
-    display: grid; 
-    grid-template-columns: 1fr; 
-    gap: 40px; 
-    align-items: flex-start; 
+.product-details-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: flex-start;
 }
 
-@media screen and (min-width: 992px) { 
-    .product-details-layout { 
-        grid-template-columns: 1fr 1fr; 
-    } 
+@media screen and (min-width: 992px) {
+    .product-details-layout {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .product-details-slider {
@@ -128,51 +128,60 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     width: 100%;
 }
 
-.product-gallery-slider { 
-    border-radius: 12px; 
-    overflow: hidden; 
-    border: 1px solid #eef0f3; 
+.product-gallery-slider {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #eef0f3;
 }
 
-/* ზოგადი სტილი ყველა სლაიდისთვის (ფოტოები დაპატარავდება) */
-.product-gallery-slider .swiper-slide { 
-    background-color: #f9f9f9; 
-    aspect-ratio: 1 / 1; 
+/* ზოგადი სტილი ყველა სლაიდისთვის (ფოტოებისთვის) */
+.product-gallery-slider .swiper-slide {
+    background-color: #f9f9f9;
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px; /* <<-- გავზარდეთ დაშორება, რაც ფოტოებს დააპატარავებს */
+    padding: 40px;
 }
 
-/* სპეციალური სტილი ვიდეოსთვის (რომ ვიდეო ისევ დიდი დარჩეს) */
+/* --- START: დამატებული კოდი --- */
+/* სპეციალური სტილი ვიდეოსთვის, რომ ჩარჩო მოშორდეს */
 .product-gallery-slider .swiper-slide.video-slide {
-    padding: 0; /* <<-- ვიდეოს ვუშლით დაშორებას */
+    padding: 0; /* <<-- ვუშლით შიდა დაშორებას */
+    background-color: #000; /* <<-- ვუცვლით ფონს შავ ფერზე */
 }
+/* --- END: დამატებული კოდი --- */
+
+/* ეს სტილი უკვე აღარ გვჭირდება, რადგან ზემოთ დავამატეთ უკეთესი ვარიანტი
+.product-gallery-slider .swiper-slide.video-slide {
+    padding: 0;
+}
+*/
 
 .product-gallery-slider .swiper-slide img,
-.product-gallery-slider .swiper-slide video { 
+.product-gallery-slider .swiper-slide video {
     display: block;
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-.product-details-info h1 { 
-    font-size: 2.5rem; 
-    margin-bottom: 20px; 
+.product-details-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
-.product-details-info #product-full-description { 
-    line-height: 1.8; 
-    color: #555; 
-    margin-bottom: 30px; 
+.product-details-info #product-full-description {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
 }
 
-.product-details-info #product-price { 
-    font-size: 2rem; 
-    font-weight: bold; 
-    color: var(--primary-color); 
-    margin-bottom: 30px; 
+.product-details-info #product-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 30px;
     justify-content: flex-start;
 }
 
@@ -184,12 +193,12 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     font-size: 1.5rem;
 }
 
-.video-container iframe { 
-    width: 100%; 
-    height: auto; 
-    aspect-ratio: 16 / 9; 
-    border-radius: 12px; 
-    border: none; 
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    border: none;
 }
 /* ======================= 8. მობილურის ვერსია (Media Queries) ======================= */
 @media screen and (max-width: 768px) {
@@ -204,7 +213,3 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
     .product-details-layout { grid-template-columns: 1fr; }
 }
-
-
-
-
