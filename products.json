@@ -8,9 +8,12 @@
         "old_price": "300 ₾",
         "image": "photos/1000012403.png",
         "images": [
-            "photos/1000012403.png"
+            "photos/1000012403.png",
+            "photos/1000012377.png",
+            "photos/12.jpg",
+            "photos/13.jpg"
         ],
-        "video": "photos/1000012986.mp4"
+        "video": "photos/54.mp4"
     },
     {
         "id": "gas-valve-02",
@@ -21,7 +24,11 @@
         "old_price": "350 ₾",
         "image": "photos/1000012391.png",
         "images": [
-            "photos/1000012391.png"
+            "photos/1000012391.png",
+            "photos/1000012390.png",
+            "photos/44.jpg",
+            "photos/1000012386.png"
+            
         ],
         "video": ""
     },
@@ -65,4 +72,5 @@
         "video": ""
     }
 ]
+
 
