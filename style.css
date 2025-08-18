@@ -45,10 +45,13 @@ header .container {
 }
 
 header .company-name {
-    font-size: 1.8rem;
+    font-family: 'Poppins', sans-serif; /* ვიყენებთ ახალ, დახვეწილ შრიფტს */
+    font-size: 1.9rem;                   /* ოდნავ ვზრდით ზომას */
+    font-weight: 700;                    /* ვამუქებთ ტექსტს (Bold) */
+    color: #2980b9;                      /* ვანიჭებთ ლურჯ ფერს (თქვენი ლოგოს მსგავსს) */
+    letter-spacing: -0.5px;              /* ასოებს შორის მანძილს ოდნავ ვამცირებთ დახვეწილი ვიზუალისთვის */
     margin: 0;
 }
-
 header nav ul {
     list-style: none;
     padding: 0;
@@ -251,3 +254,4 @@ footer p {
     }
 
 }
+
