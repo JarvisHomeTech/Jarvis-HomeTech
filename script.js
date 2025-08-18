@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- პროდუქტების ჩატვირთვის ლოგიკა ---
     async function loadProducts() {
-        const featuredProductsWrapper = document.querySelector('#featured-products-wrapper');
-        const productsGrid = document.querySelector('.products-grid');
+        const featuredProductsWrapper = document.querySelector('#featured-products-wrapper'); // index.html-სთვის
+        const productsGrid = document.querySelector('.products-grid'); // products.html-სთვის
 
         if (!featuredProductsWrapper && !productsGrid) {
             return; 
@@ -54,14 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).join('');
                 
                 new Swiper('.product-slider', {
-                    loop: true,
-                    spaceBetween: 30,
+                    loop: true, spaceBetween: 20,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     breakpoints: {
-                        640: { slidesPerView: 2, spaceBetween: 20 },
-                        768: { slidesPerView: 3, spaceBetween: 30 },
-                        1024: { slidesPerView: 4, spaceBetween: 30 } // <-- შეიცვალა 3-დან 4-მდე
+                        640: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        1024: { slidesPerView: 4 }
                     }
                 });
             }
@@ -72,18 +71,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('შეცდომა პროდუქტების ჩატვირთვისას:', error);
+            const container = productsGrid || featuredProductsWrapper;
+            if (container) container.innerHTML = '<p>პროდუქტების ჩატვირთვისას მოხდა შეცდომა.</p>';
         }
     }
 
     loadProducts();
 
-    // --- ფორმის გაგზავნის ლოგიკა (თუ გაქვთ) ---
-    // ... აქ შეგიძლიათ ჩასვათ ფორმის კოდი ...
+    // --- ფორმის გაგზავნის ლოგიკა ---
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    if (form) {
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            try {
+                const response = await fetch(event.target.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    status.innerHTML = "გმადლობთ, თქვენი შეტყობინება გაიგზავნა!";
+                    status.style.color = "green";
+                    form.reset();
+                } else {
+                    status.innerHTML = "მოხდა შეცდომა, სცადეთ თავიდან.";
+                    status.style.color = "red";
+                }
+            } catch (error) {
+                status.innerHTML = "მოხდა შეცდომა, სცადეთ თავიდან.";
+                status.style.color = "red";
+            }
+        });
+    }
 
     // --- Smooth Scroll ლოგიკა ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            // ... აქ შეგიძლიათ ჩასვათ smooth scroll-ის კოდი ...
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
         });
     });
 
