@@ -168,9 +168,28 @@
     </div>
     
     <script src="script.js"></script>
+    <script>
+    const navMenu = document.querySelector('.nav__links');
+    const navToggle = document.getElementById('nav-toggle');
+    const navClose = document.getElementById('nav-close');
 
+    /*===== მენიუს გამოჩენა =====*/
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.add('show-menu');
+        });
+    }
+
+    /*===== მენიუს დამალვა =====*/
+    if (navClose) {
+        navClose.addEventListener('click', () => {
+            navMenu.classList.remove('show-menu');
+        });
+    }
+</script>
 </body>
 </html>
+
 
 
 
