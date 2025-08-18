@@ -1,57 +1,97 @@
-window.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', () => {
 
-    // --- ფორმის გაგზავნის ლოგიკა ---
-    const form = document.getElementById("contact-form");
-    const status = document.getElementById("form-status");
+    // --- მობილურის მენიუს ლოგიკა ---
+    const navMenu = document.querySelector('.nav__links');
+    const navToggle = document.getElementById('nav-toggle');
+    const navClose = document.getElementById('nav-close');
 
-    if (form) {
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const data = new FormData(event.target);
-            
-            try {
-                const response = await fetch(event.target.action, {
-                    method: form.method,
-                    body: data,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    status.innerHTML = "გმადლობთ, თქვენი შეტყობინება გაიგზავნა!";
-                    status.style.color = "green";
-                    form.reset();
-                } else {
-                    const data = await response.json();
-                    if (Object.hasOwn(data, 'errors')) {
-                        status.innerHTML = data["errors"].map(error => error.message).join(", ");
-                    } else {
-                        status.innerHTML = "მოხდა შეცდომა, სცადეთ თავიდან.";
-                    }
-                    status.style.color = "red";
-                }
-            } catch (error) {
-                status.innerHTML = "მოხდა შეცდომა, სცადეთ თავიდან.";
-                status.style.color = "red";
-            }
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.add('show-menu');
         });
     }
 
-    // --- მენიუს ლინკებზე რბილი გადასვლის (Smooth Scroll) ლოგიკა ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+    if (navClose) {
+        navClose.addEventListener('click', () => {
+            navMenu.classList.remove('show-menu');
+        });
+    }
 
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+    // --- პროდუქტების ჩატვირთვის ფუნქცია ---
+    async function loadProducts() {
+        // შევამოწმოთ, რომელ გვერდზე ვართ და შესაბამისი კონტეინერი ავირჩიოთ
+        const productsGrid = document.querySelector('.products-grid'); // products.html-სთვის
+        const featuredProductsWrapper = document.querySelector('#featured-products-wrapper'); // index.html-სთვის
 
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
+        if (!productsGrid && !featuredProductsWrapper) {
+            return; // თუ არცერთი კონტეინერი არ არის, გავჩერდეთ
+        }
+
+        try {
+            const response = await fetch('products.json');
+            if (!response.ok) throw new Error('პროდუქტების ფაილი ვერ მოიძებნა!');
+            
+            const products = await response.json();
+
+            // ფუნქცია, რომელიც ქმნის ერთი პროდუქტის HTML-ს
+            const createProductCard = (product) => {
+                return `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-card-content">
+                            <div>
+                                <div class="product-icon-wrapper">
+                                    <i class="${product.icon}"></i>
+                                </div>
+                                <h3 class="product-name">${product.name}</h3>
+                                <p class="product-description">${product.description}</p>
+                                <div class="product-price">${product.price}</div>
+                            </div>
+                            <a href="products.html" class="btn product-btn">დეტალურად</a>
+                        </div>
+                    </div>
+                `;
+            };
+
+            // თუ products.html გვერდზე ვართ, ჩავტვირთოთ ყველა პროდუქტი
+            if (productsGrid) {
+                productsGrid.innerHTML = products.map(createProductCard).join('');
+            }
+
+            // თუ index.html გვერდზე ვართ, ჩავტვირთოთ პროდუქტები სლაიდერისთვის
+            if (featuredProductsWrapper) {
+                featuredProductsWrapper.innerHTML = products.map(product => {
+                    return `<div class="swiper-slide">${createProductCard(product)}</div>`;
+                }).join('');
+                
+                // სლაიდერის ინიციალიზაცია მხოლოდ პროდუქტების ჩატვირთვის შემდეგ
+                new Swiper('.product-slider', {
+                    loop: true,
+                    spaceBetween: 30,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    breakpoints: {
+                        640: { slidesPerView: 1 },
+                        768: { slidesPerView: 2 },
+                        1024: { slidesPerView: 3 },
+                    }
                 });
             }
-        });
-    });
+
+        } catch (error) {
+            console.error('შეცდომა პროდუქტების ჩატვირთვისას:', error);
+            if (productsGrid) productsGrid.innerHTML = '<p>პროდუქტების ჩატვირთვისას მოხდა შეცდომა.</p>';
+            if (featuredProductsWrapper) featuredProductsWrapper.innerHTML = '<p>პროდუქტების ჩატვირთვისას მოხდა შეცდომა.</p>';
+        }
+    }
+
+    // გამოვიძახოთ პროდუქტების ჩატვირთვის ფუნქცია
+    loadProducts();
 
 });
