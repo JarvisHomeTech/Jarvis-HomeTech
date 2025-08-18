@@ -188,6 +188,7 @@ section.products {
     box-sizing: border-box;
 }
 
+
 #contact-form button {
     width: auto;
     align-self: center;
@@ -208,5 +209,45 @@ footer {
 
 footer p {
     margin: 5px 0;
+
+}
+
+/* --- მობილური ვერსიის სტილები --- */
+@media (max-width: 768px) {
+
+    /* 1. ვასწორებთ ჰედერს და მენიუს */
+    header .container {
+        flex-direction: column; /* ლოგო და მენიუ განლაგდება ერთმანეთის ქვეშ */
+        align-items: center; /* ცენტრირება */
+    }
+
+    header .company-name {
+        margin-bottom: 15px; /* დაშორება ლოგოსა და მენიუს შორის */
+    }
+    
+    header nav ul {
+        justify-content: center; /* მენიუს ღილაკების ცენტრირება */
+        width: 100%;
+    }
+
+    header nav ul li {
+        margin: 0 10px; /* ღილაკებს შორის დაშორების შემცირება */
+    }
+
+    /* 2. ვამცირებთ მთავარი სათაურის შრიფტს */
+    .hero h2 {
+        font-size: 2.1rem; /* საგრძნობლად ვამცირებთ შრიფტის ზომას, რომ ერთ-ორ ხაზზე დაეტიოს */
+        line-height: 1.3;  /* ვამცირებთ ხაზებს შორის დაშორებას */
+    }
+
+    /* 3. ვაუმჯობესებთ პროდუქტების ბლოკს */
+    .product-grid {
+        grid-template-columns: 1fr; /* პროდუქტები გამოჩნდება ერთ სვეტში, ერთმანეთის ქვეშ */
+    }
+    
+    /* 4. ვამცირებთ სექციებს შორის ცარიელ ადგილს */
+    section {
+        padding: 40px 0;
+    }
 
 }
