@@ -402,7 +402,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: middle;/* აцентриრებს და აშორებს სათაურს */
+    margin-left: 70px;/* აцентриრებს და აშორებს სათაურს */
     
 }
 
@@ -410,6 +410,7 @@ footer {
     color: #007bff; /* იკონის ლურჯი ფერი */
     font-size: 22px; /* იკონის ზომა */
 }
+
 
 
 
