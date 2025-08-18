@@ -519,3 +519,36 @@ footer {
     }
 }
 
+/* ======================= ფასდაკლების სტილები ======================= */
+.product-price {
+    display: flex;
+    align-items: baseline; /* ასწორებს ტექსტებს ერთ ხაზზე */
+    justify-content: center; /* აцентриრებს ფასებს */
+    gap: 10px; /* დაშორება ძველ და ახალ ფასს შორის */
+}
+
+.old-price {
+    font-size: 1rem;
+    color: #f00; /* წითელი ფერი */
+    text-decoration: line-through; /* გადახაზული ტექსტი */
+    opacity: 0.7;
+}
+
+.new-price {
+    font-size: 1.15rem; /* პროდუქტის ბარათზე */
+    font-weight: 700;
+    color: var(--primary-color); /* ლურჯი ფერი */
+}
+
+/* ფასების სტილი დეტალურ გვერდზე */
+.product-details-info .product-price {
+    justify-content: flex-start; /* მარცხნივ სწორება */
+}
+
+.product-details-info .new-price {
+    font-size: 2rem;
+}
+
+.product-details-info .old-price {
+    font-size: 1.5rem;
+}
