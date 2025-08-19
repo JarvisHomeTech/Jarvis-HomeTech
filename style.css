@@ -105,46 +105,69 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .chat-link.whatsapp { background-color: #25D366; }
 
 /* ======================= 7. პროდუქტის დეტალური გვერდი (საბოლოო ვერსია) ======================= */
-/* START: შეცვლილი კოდი */
 .product-details-section {
     padding: 60px 0;
 }
+
+/* მობილურის ვერსიის განლაგება */
 .product-details-layout {
     display: flex;
-    flex-direction: column; /* მობილურზე ელემენტები ერთმანეთის ქვეშაა */
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.product-details-info {
-    order: 1; /* სათაური და აღწერა გამოჩნდება პირველი */
+/* JS კოდი ისევ იგივე ID-ით პოულობს სათაურს, ამიტომ h1-ის სტილი აქ გადმოვიტანოთ */
+#product-name {
+    font-size: 2.2rem; /* მობილურისთვის ზომა შევამციროთ */
+    margin-bottom: 0;
+    line-height: 1.3;
+    order: 1; /* 1. სათაური */
 }
 
 .product-details-slider {
-    order: 2; /* სურათების/ვიდეოს სლაიდერი გამოჩნდება მეორე */
-}
-
-/* კომპიუტერის ვერსიისთვის განლაგების გასწორება */
-@media screen and (min-width: 992px) {
-    .product-details-layout {
-        flex-direction: row; /* კომპიუტერზე ელემენტები გვერდიგვერდ ჯდება */
-        gap: 40px;
-        align-items: flex-start;
-    }
-
-    /* ვაბრუნებთ თავდაპირველ თანმიმდევრობას კომპიუტერისთვის */
-    .product-details-info,
-    .product-details-slider {
-        order: unset; /* order-ის გაუქმება */
-        flex: 1; /* ორივე ბლოკი იკავებს თანაბარ სივრცეს */
-    }
-}
-/* END: შეცვლილი კოდი */
-
-.product-details-slider {
+    order: 2; /* 2. სლაიდერი */
     min-width: 0;
     position: relative;
     width: 100%;
 }
+
+.product-details-info {
+    order: 3; /* 3. დანარჩენი ინფორმაცია */
+}
+
+/* კომპიუტერის ვერსიის განლაგება */
+@media screen and (min-width: 992px) {
+    .product-details-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* ვქმნით 2 სვეტიან ბადეს */
+        grid-template-rows: auto 1fr; /* ვქმნით 2 სტრიქონს, პირველი ავტომატური სიმაღლის (სათაურისთვის) */
+        gap: 0 40px; /* 0 დაშორება ზემოთ-ქვემოთ, 40px მარჯვნივ-მარცხნივ */
+        align-items: flex-start;
+    }
+
+    /* ელემენტების განლაგება ბადეში */
+    .product-details-slider {
+        grid-column: 1 / 2;  /* იკავებს 1-ელ სვეტს */
+        grid-row: 1 / 3;     /* იკავებს 2-ვე სტრიქონს */
+        order: unset;
+    }
+
+    #product-name {
+        grid-column: 2 / 3;  /* იკავებს მე-2 სვეტს */
+        grid-row: 1 / 2;     /* იკავებს 1-ელ სტრიქონს */
+        align-self: flex-end; /* სათაური ჩამოიწევს ქვემოთ, აღწერასთან ახლოს */
+        margin-bottom: 20px;
+        font-size: 2.5rem; /* ვუბრუნებთ სტანდარტულ ზომას */
+        order: unset;
+    }
+
+    .product-details-info {
+        grid-column: 2 / 3;  /* იკავებს მე-2 სვეტს */
+        grid-row: 2 / 3;     /* იკავებს მე-2 სტრიქონს */
+        order: unset;
+    }
+}
+
 .product-gallery-slider {
     border-radius: 12px;
     overflow: hidden;
@@ -168,10 +191,6 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-.product-details-info h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
 }
 .product-details-info #product-full-description {
     line-height: 1.8;
@@ -210,20 +229,18 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .nav__links { position: fixed; top: 0; right: -100%; width: 80%; height: 100%; background-color: #fff; box-shadow: -2px 0 10px rgba(0,0,0,0.1); padding: 6rem 2rem 0; flex-direction: column; align-items: flex-start; gap: 2.5rem; transition: right 0.4s ease; z-index: 100; }
     .show-menu { right: 0; }
     .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
-    /* The product-details-layout for mobile is already handled above, so this can be removed if it only contains this line */
-    /* .product-details-layout { grid-template-columns: 1fr; } */
 }
 
 /* ======================= START: Showcase Section "ტექნოლოგია, რომელიც ზრუნავს" ======================= */
 .showcase-section {
     padding: 80px 0;
-    background-color: #ffffff; /* ღია ფონი, რომ მოერგოს თქვენს საიტს */
+    background-color: #ffffff;
 }
 .showcase-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 4rem; /* დაშორება სურათსა და ტექსტს შორის */
+    gap: 4rem;
 }
 .showcase-image-container {
     text-align: center;
@@ -238,10 +255,10 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     margin-bottom: 1.5rem;
     text-align: left;
     line-height: 1.2;
-    color: var(--secondary-color); /* იყენებს თქვენი საიტის სათაურის ფერს */
+    color: var(--secondary-color);
 }
 .showcase-content p {
-    color: #555; /* თქვენი საიტის ტექსტის ფერი */
+    color: #555;
     margin-bottom: 2rem;
     text-align: left;
 }
@@ -257,13 +274,12 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     gap: 15px;
     margin-bottom: 1rem;
     font-size: 1.1rem;
-    color: #333; /* თქვენი საიტის ტექსტის ფერი */
+    color: #333;
 }
 .showcase-content ul li i {
-    color: var(--primary-color); /* იყენებს თქვენს მთავარ ლურჯ ფერს */
+    color: var(--primary-color);
     font-size: 1.4rem;
 }
-/* ღილაკის სტილი, რომელიც ერგება თქვენს დიზაინს */
 .btn.btn-secondary {
     background: transparent;
     color: var(--primary-color);
@@ -274,27 +290,26 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     background: var(--primary-color);
     color: #fff;
 }
-/* მობილური ვერსიისთვის ადაპტაცია */
 @media screen and (max-width: 992px) {
     .showcase-container {
-        grid-template-columns: 1fr; /* სვეტები ერთმანეთის ქვეშ განლაგდება */
+        grid-template-columns: 1fr;
         text-align: center;
     }
     .showcase-image-container {
-        order: 1; /* სურათი იქნება პირველი */
+        order: 1;
     }
     .showcase-content {
-        order: 2; /* ტექსტი იქნება მეორე */
+        order: 2;
     }
     .section-title-left,
     .showcase-content p,
     .showcase-content ul {
-        text-align: center; /* ყველაფერი ცენტრში გასწორდება */
+        text-align: center;
     }
     .showcase-content ul {
         display: inline-block;
         margin: 0 auto 2.5rem auto;
-        text-align: left; /* სიის ტექსტი მაინც მარცხნივ სწორდება */
+        text-align: left;
     }
 }
 /* ======================= END: Showcase Section ======================= */
