@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>პროდუქტის დეტალები</title>
+    <title>Jarvis HomeTech - ჭკვიანი სახლის სისტემები</title>
     <link rel="icon" type="image/png" href="photos/favicon.png">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -18,35 +18,88 @@
             <ul class="nav__links">
                 <div class="nav-close" id="nav-close"><i class="fa-solid fa-xmark"></i></div>
                 <li><a href="products.html">პროდუქცია</a></li>
-                <li><a href="index.html#about">ჩვენს შესახებ</a></li>
-                <li><a href="index.html#contact">კონტაქტი</a></li>
+                <li><a href="#about">ჩვენს შესახებ</a></li>
+                <li><a href="#contact">კონტაქტი</a></li>
             </ul>
         </nav>
         <div class="nav-toggle" id="nav-toggle"><i class="fa-solid fa-bars"></i></div>
     </header>
 
     <main>
-        <section class="product-details-section">
+        <section class="hero">
             <div class="container">
-                <div class="product-details-layout">
-                    <h1 id="product-name">პროდუქტი იტვირთება...</h1>
+                <h2>გახადეთ თქვენი სახლი უფრო ჭკვიანი და უსაფრთხო</h2>
+                <p>ავტომატური სისტემები წყლის, გაზის გაჟონვისა და უსაფრთხოებისთვის.</p>
+                <a href="#contact" class="btn">უფასო კონსულტაცია</a>
+            </div>
+        </section>
 
-                    <div class="product-details-slider">
-                        <div class="swiper product-gallery-slider">
-                            <div class="swiper-wrapper" id="product-gallery-wrapper">
-                                </div>
-                            <div class="swiper-button-prev"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-details-info">
-                        <p id="product-full-description"></p>
-                        <div id="product-price"></div>
-                        <a href="" id="order-button" target="_blank" class="btn">შეკვეთა</a>
-                    </div>
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2 class="products-title">Top Products</h2>
+                <div class="swiper product-slider">
+                    <div class="swiper-wrapper" id="featured-products-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
+            </div>
+        </section>
+
+        <section class="showcase-section">
+            <div class="container showcase-container">
+                <div class="showcase-image-container">
+                    <img src="photos/1000012403.png" alt="Smart Valve Controller" class="showcase-image">
+                </div>
+                <div class="showcase-content">
+                    <h2 class="section-title-left">ტექნოლოგია, რომელიც ზრუნავს</h2>
+                    <p>ჩვენი ფლაგმანი მოწყობილობა — წყლისა და გაზის ჭკვიანი გადამკეტი თავისი სენსორით, მონტაჟი სრულიად უფასოდ, სწრაფად და მარტივად. ის თქვენი სახლის უხილავი მცველია, რომელიც მუშაობს 24/7.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> მართვა მობილური აპლიკაციით</li>
+                        <li><i class="fas fa-check-circle"></i> ავტომატური რეაგირება წამებში</li>
+                        <li><i class="fas fa-check-circle"></i> სრული თავსებადობა Tuya Smart ეკოსისტემასთან</li>
+                    </ul>
+                    <a href="product-details.html?id=water-valve-01" class="btn btn-secondary">წყალი</a>
+                    <a href="product-details.html?id=gas-valve-02" class="btn btn-secondary">გაზი</a>
+                </div>
+            </div>
+        </section>
+        <section id="about" class="about">
+            <div class="container">
+                <h2>რატომ Jarvis HomeTech?</h2>
+                <p>ჩვენი მისიაა, შევქმნათ უსაფრთხო და კომფორტული გარემო თქვენს სახლში თანამედროვე ტექნოლოგიების დახმარებით. ჩვენ გთავაზობთ მხოლოდ სანდო და შემოწმებულ მოწყობილობებს, რომელთა მონტაჟი მარტივია და გამოყენება - მოსახერებელი.</p>
+                <div class="video-container">
+                    <h3>ნახეთ ვიდეო, თუ როგორ მუშაობს სისტემა</h3>
+                    <video controls muted loop autoplay playsinline style="width: 100%; border-radius: 5px;">
+                        <source src="photos/24.mp4" type="video/mp4">
+                        თქვენი ბრაუზერი არ უჭერს მხარს ვიდეოს ჩვენებას.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section class="process">
+            <div class="container">
+                <h2>როგორ ვმუშაობთ</h2>
+                <div class="process-steps">
+                    <div class="step"><i class="fas fa-phone-alt"></i><h3>1. კონსულტაცია</h3><p>დაგვიკავშირდით და მიიღეთ უფასო კონსულტაცია.</p></div>
+                    <div class="step"><i class="fas fa-tools"></i><h3>2. მონტაჟი</h3><p>ჩვენი სპეციალისტები სწრაფად და ხარისხიანად დაამონტაჟებენ მოწყობილობებს.</p></div>
+                    <div class="step"><i class="fas fa-shield-alt"></i><h3>3. გარანტია და მხარდაჭერა</h3><p>მიიღეთ სრული გარანტია და ჩვენი გუნდის მუდმივი ტექნიკური მხარდაჭერა.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>დაგვიკავშირდით</h2>
+                <p>დაგვიტოვეთ თქვენი მონაცემები და ჩვენი სპეციალისტი დაგიკავშირდებათ კონსულტაციისთვის.</p>
+                <form id="contact-form" action="https://formspree.io/f/myzpadrg" method="POST">
+                    <input type="text" name="name" placeholder="თქვენი სახელი" required>
+                    <input type="tel" name="phone" placeholder="თქვენი ტელეფონის ნომერი" required>
+                    <textarea name="message" placeholder="თქვენი შეტყობინება (არასავალდებულო)"></textarea>
+                    <button type="submit" class="btn">გაგზავნა</button>
+                </form>
+                <p id="form-status"></p>
             </div>
         </section>
     </main>
@@ -60,8 +113,8 @@
             </div>
         </div>
     </footer>
-    
-  <div class="floating-chat-widget">
+
+    <div class="floating-chat-widget">
     <input type="checkbox" id="chat-toggle" class="chat-toggle-checkbox">
     <label for="chat-toggle" class="chat-toggle-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="main-icon"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
@@ -69,11 +122,15 @@
     </label>
     <div class="chat-options">
         <a href="https://m.me/61578859507900" target="_blank" class="chat-link messenger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 4.974 0 11.111c0 3.494 1.833 6.574 4.625 8.52V24l3.932-2.242c1.077.34 2.231.523 3.443.523C18.627 22.281 24 17.307 24 11.111S18.627 0 12 0zm1.196 14.933l-2.618-2.625-5.314 2.625 5.86-5.908 2.618 2.625 5.314-2.625-5.86 5.908z"/></svg></a>
-        <a href="https://wa.me/995599608105" target="_blank" class="chat-link whatsapp"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.52 16c-.22 0-.67-.13-1.3-.44-.32-.16-.54-.25-.76.25-.22.5-.87 1.04-1.07 1.24s-.4.18-.74.06c-.34-.12-1.42-.52-2.7-1.65-1-.88-1.67-1.96-1.93-2.3s-.27-.56-.1-.74c.17-.18.36-.45.51-.62s.2-.28.3-.47.05-.36-.02-.52c-.08-.17-.74-1.78-.97-2.44s-.46-.56-.63-.57h-.5c-.18 0-.46.06-.7.31s-1 1-1 2.44c0 1.44 1.02 2.82 1.17 3.02s2.05 3.12 5 4.35c.73.3 1.3.48 1.75.62s.87.13 1.18.08c.37-.06 1.16-.48 1.32-1.03.17-.55.17-1.02.12-1.1s-.18-.12-.4-.24z"/></svg></a>
+        <a href="https://wa.me/995599608105" target="_blank" class="chat-link whatsapp"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.52 16c-.22 0-.67-.13-1.3-.44-.32-.16-.54-.25-.76.25-.22.5-.87 1.04-1.07 1.24s-.4.18-.74.06c-.34-.12-1.42-.52-2.7-1.65-1-.88-1.67-1.96-1.93-2.3s-.27-.56-.1-.74c.17-.18.36-.45.51-.62s.2-.28.3-.47.05-.36-.02-.52c-.08-.17-.74-1.78-.97-2.44s-.46-.56-.63-.57h-.5c-.18 0-.46.06-.7.31s-1 1-1 2.44c0 1.44 1.02 2.82 1.17 3.02s2.05 3.12 5 4.35c.73.3 1.3.48 1.75.62s.87.13 1.18.08c.37-.06 1.16-.48 1.32-1.03.17-.55.17-1.02.۱۲-1.1s-.18-.12-.4-.24z"/></svg></a>
     </div>
 </div>
-    
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js" defer></script>
+
 </body>
 </html>
+
+
+
+
