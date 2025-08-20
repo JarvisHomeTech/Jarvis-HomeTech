@@ -52,7 +52,7 @@ h1, h2, h3 {
 
 /* ======================= 3. სექციები ======================= */
 section { padding: 60px 0; }
-.hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('photos/ffffffff.jpg') no-repeat center center/cover; color: #fff; height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+.hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('photos/ffffffff.jpg') no-repeat center center/cover; color: #fff; height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
 .hero h2 { font-size: 3rem; color: #fff; }
 .hero .btn { margin-top: 20px; }
 .about, .process, .contact { text-align: center; }
@@ -313,3 +313,4 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     }
 }
 /* ======================= END: Showcase Section ======================= */
+
