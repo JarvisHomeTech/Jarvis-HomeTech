@@ -103,25 +103,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 galleryWrapper.innerHTML = slidesHTML;
 
-                // --- START: შეცვლილი ნაწილი ---
                 new Swiper('.product-gallery-slider', {
                     autoHeight: true,
                     loop: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     on: {
-                        // ეს ფუნქცია გამოიძახება ყოველ ჯერზე, როდესაც სლაიდი შეიცვლება
                         slideChange: function () {
-                            // სლაიდერის შიგნით ვპოულობთ ყველა <video> ელემენტს
                             const videos = document.querySelectorAll('.product-gallery-slider video');
-                            // ვაჩერებთ თითოეული ვიდეოს დაკვრას
                             videos.forEach(video => {
                                 video.pause();
                             });
                         }
                     }
                 });
-                // --- END: შეცვლილი ნაწილი ---
 
             } else {
                 document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი ვერ მოიძებნა</h1>';
@@ -131,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- ფორმის და სქროლის ლოგიკა ---
+    // --- ფორმის ლოგიკა ---
     const form = document.getElementById("contact-form");
     if (form) {
         form.addEventListener("submit", async function (event) {
@@ -154,15 +149,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- START: განახლებული სქროლის ლოგიკა ---
+    function scrollToSection(targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const header = document.querySelector('.header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = targetPosition - headerHeight;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    // კლიკზე სქროლვის დამმუშავებელი
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
+            // მობილურის მენიუს დახურვა ლინკზე კლიკისას
+            const navMenu = document.querySelector('.nav__links');
+            if (navMenu && navMenu.classList.contains('show-menu')) {
+                navMenu.classList.remove('show-menu');
             }
+            scrollToSection(targetId);
         });
     });
-});
 
+    // გვერდის ჩატვირთვისას სქროლვის დამმუშავებელი (მაგ: .../#contact ლინკისთვის)
+    window.addEventListener("load", () => {
+        if (window.location.hash) {
+            // მცირე დაყოვნება, რომ ყველაფერმა ჩატვირთვა მოასწროს
+            setTimeout(() => {
+                scrollToSection(window.location.hash);
+            }, 100);
+        }
+    });
+    // --- END: განახლებული სქროლის ლოგიკა ---
+
+});
