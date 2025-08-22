@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ======================= START: CART LOGIC ======================= //
 
-    let cart = JSON.parse(localStorage.getItem('jarvisCartV1')) || [];
+    let cart = JSON.parse(localStorage.getItem('jarvisCartV2')) || [];
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
     const cartItemsContainer = document.getElementById('cart-body');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateCart = () => {
         renderCartItems();
-        localStorage.setItem('jarvisCartV1', JSON.stringify(cart));
+        localStorage.setItem('jarvisCartV2', JSON.stringify(cart));
     };
 
     const renderCartItems = () => {
@@ -85,12 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
     cartItemsContainer.addEventListener('click', (e) => {
         const target = e.target.closest('button');
         if (!target) return;
-        
         const id = target.dataset.id;
         if (!id) return;
         
         const itemInCart = cart.find(item => item.id === id);
-        
+        if (!itemInCart) return;
+
         if (target.classList.contains('quantity-change')) {
             const change = parseInt(target.dataset.change);
             itemInCart.quantity += change;
@@ -113,13 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return message;
     };
 
-    document.getElementById('checkout-messenger-btn').addEventListener('click', () => {
+    document.getElementById('checkout-messenger-btn').addEventListener('click', (e) => {
+        e.preventDefault();
         if (cart.length === 0) return alert('კალათა ცარიელია!');
         const link = `https://m.me/61578859507900?text=${encodeURIComponent(generateOrderMessage())}`;
         window.open(link, '_blank');
     });
 
-    document.getElementById('checkout-whatsapp-btn').addEventListener('click', () => {
+    document.getElementById('checkout-whatsapp-btn').addEventListener('click', (e) => {
+        e.preventDefault();
         if (cart.length === 0) return alert('კალათა ცარიელია!');
         const link = `https://wa.me/995599608105?text=${encodeURIComponent(generateOrderMessage())}`;
         window.open(link, '_blank');
@@ -149,8 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const products = await response.json();
 
             document.body.addEventListener('click', (e) => {
-                const button = e.target.closest('.btn-add-to-cart, .btn-add-to-cart-small');
+                const button = e.target.closest('.btn-add-to-cart-small');
                 if (button) {
+                    e.preventDefault(); // პრობლემა #4-ის ფიქსი
+                    e.stopPropagation(); // პრობლემა #4-ის ფიქსი
                     const productId = button.dataset.id;
                     const product = products.find(p => p.id === productId);
                     if (product) addToCart(product);
@@ -160,13 +164,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const createProductCard = (product) => `
                 <div class="product-card">
                     <a href="product-details.html?id=${product.id}" class="product-card-link">
-                        <div class="product-image-container">
-                            <img src="${product.image}" alt="${product.name}">
-                            <button class="btn-add-to-cart-small" data-id="${product.id}" title="კალათაში დამატება"><i class="fas fa-cart-plus"></i></button>
-                        </div>
+                        <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
                         <div class="product-info">
                             <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price">${formatPrice(product)}</div>
+                            <div class="product-price-and-cart">
+                                <div class="product-price">${formatPrice(product)}</div>
+                                <button class="btn-add-to-cart-small" data-id="${product.id}" title="კალათაში დამატება"><i class="fas fa-cart-plus"></i></button>
+                            </div>
                         </div>
                     </a>
                 </div>`;
@@ -194,13 +198,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('product-full-description').textContent = product.full_description;
                 document.getElementById('product-price').innerHTML = formatPrice(product);
 
-                const oldOrderButton = document.getElementById('order-button');
+                const actionsContainer = document.getElementById('product-actions');
                 const addToCartBtn = document.createElement('button');
                 addToCartBtn.className = 'btn btn-add-to-cart';
                 addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> კალათაში დამატება';
                 addToCartBtn.addEventListener('click', () => addToCart(product));
                 
-                oldOrderButton.parentElement.replaceChild(addToCartBtn, oldOrderButton);
+                actionsContainer.prepend(addToCartBtn); // პრობლემა #2-ის ფიქსი
 
                 // Gallery Logic
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
@@ -212,8 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 galleryWrapper.innerHTML = slidesHTML;
 
                 new Swiper('.product-gallery-slider', {
-                    autoHeight: true,
-                    loop: false,
+                    autoHeight: true, loop: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     on: {
@@ -238,12 +241,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const headerHeight = header ? header.offsetHeight : 0;
             const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = targetPosition - headerHeight;
-
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
     }
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        if(anchor.id === 'nav-cart-btn') return; // Do not scroll for cart button
+        if(anchor.id === 'nav-cart-btn') return;
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
