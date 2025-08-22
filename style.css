@@ -1,23 +1,19 @@
-/* ======================= style.css (full) ======================= */
 :root {
     --primary-color: #007bff;
     --secondary-color: #212529;
     --accent-color: #ff3b3b;
     --success-color: #28a745;
 }
-
 /* reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
 html { scroll-behavior: smooth }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; background: #fff; color: #333 }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px }
 h1, h2, h3 { color: var(--secondary-color) }
-
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-color); color: #fff; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 1rem; transition: all .18s ease; text-decoration: none; }
 .btn:hover { transform: translateY(-2px) }
 .btn-secondary { background: var(--primary-color) }
 .btn-add-to-cart { background: #28a745 }
-
 /* header */
 .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, .05); position: sticky; top: 0; z-index: 1100 }
 .logo { font-weight: 700; font-size: 1.5rem; color: #14148c; text-decoration: none }
@@ -26,41 +22,33 @@ h1, h2, h3 { color: var(--secondary-color) }
 .nav__links a { text-decoration: none; color: #555; font-weight: 500; transition: color .2s }
 .nav__links a:hover { color: var(--primary-color) }
 .nav-toggle, .nav-close { display: none }
-
 .header-controls { display: flex; align-items: center; gap: 12px }
 .nav-cart { display: inline-flex; align-items: center; gap: 8px; color: var(--primary-color); text-decoration: none }
 .nav-cart i { font-size: 22px }
 .nav-cart .nav-cart-text { font-weight: 600 }
-
 /* badges */
 .cart-badge { display: inline-block; min-width: 22px; height: 22px; border-radius: 999px; background: var(--accent-color); color: #fff; font-size: 12px; line-height: 22px; text-align: center; padding: 0 6px; margin-left: 6px }
 .cart-badge.tiny { min-width: 18px; height: 18px; line-height: 18px; font-size: 11px; position: absolute; right: -6px; top: -6px }
-
 /* sections */
 section { padding: 60px 0 }
-
 /* Hero Section - New Design */
 .hero { background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .6)), url(photos/ffffffff.jpg) no-repeat center center/cover; height: 70vh; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
 .hero h2 { font-size: 2.8rem; font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0, 0, 0, .7); line-height: 1.3; max-width: 800px; margin-bottom: 1rem; }
 .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; color: #fff; text-shadow: 1px 1px 4px rgba(0, 0, 0, .7); opacity: .95; }
 .hero .btn { padding: 15px 35px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; text-transform: uppercase; }
-
 /* About Section & Video */
 .about .container { text-align: center }
 .video-container { margin-top: 30px }
 .responsive-video { display: block; margin: 0 auto; width: 100%; max-width: 560px; height: auto; object-fit: cover; border-radius: 8px }
-
 /* How We Work Section - Desktop Styles */
 .process { text-align: center; }
 .process h2 { margin-bottom: 40px; }
 .process-steps { display: flex; justify-content: space-around; align-items: flex-start; gap: 20px; }
 .process-steps .step { flex: 1; max-width: 300px; text-align: center; }
 .process-steps .step i { font-size: 3rem; color: var(--primary-color); margin-bottom: 15px; }
-
 /* Contact Section - Centered */
 .contact { text-align: center; }
 .contact p { margin-bottom: 20px; }
-
 /* showcase */
 .showcase-container { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem }
 .showcase-image { max-width: 450px; width: 100% }
@@ -69,7 +57,6 @@ section { padding: 60px 0 }
 .showcase-content ul { list-style: none; padding: 0; margin-bottom: 2rem; text-align: left }
 .showcase-content ul li { display: flex; align-items: center; gap: 15px; margin-bottom: 1rem; font-size: 1.1rem; color: #333 }
 .showcase-content ul li i { color: var(--success-color); font-size: 1.4rem }
-
 /* products */
 .products-section { padding: 60px 20px; background: #f9f9f9 }
 .products-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center }
@@ -87,19 +74,16 @@ section { padding: 60px 0 }
 .product-price-and-cart { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 10px }
 .btn-add-to-cart-small { background: #fff; color: var(--primary-color); border: 1px solid #eef0f3; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: all .3s; box-shadow: 0 2px 5px rgba(0, 0, 0, .1) }
 .btn-add-to-cart-small:hover { background: var(--primary-color); color: #fff; transform: scale(1.1) }
-
 /* swiper */
 .product-slider { width: 100%; height: auto; padding: 20px 10px 50px 10px }
 .swiper-slide { height: auto; display: flex }
 .swiper-slide>.product-card { height: 100% }
 .swiper-button-next, .swiper-button-prev { color: var(--primary-color) }
 .swiper-pagination-bullet-active { background: var(--primary-color) }
-
 /* forms & footer */
 #contact-form { max-width: 600px; margin: 30px auto 0; display: flex; flex-direction: column }
 #contact-form input, #contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1rem }
 footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 20px }
-
 /* floating chat */
 .floating-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px }
 .chat-toggle-checkbox { display: none }
@@ -109,7 +93,6 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .chat-link.messenger { background: #0078FF }
 .chat-link.whatsapp { background: #25D366 }
 .chat-toggle-checkbox:checked~.chat-options { display: flex }
-
 /* product details */
 .product-details-section { padding: 60px 0 }
 .product-details-layout { display: flex; flex-direction: column; gap: 20px }
@@ -130,7 +113,6 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .product-gallery-slider .swiper-slide img, .product-gallery-slider .swiper-slide video { display: block; width: 100%; height: 100%; object-fit: contain }
 .product-actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap }
 .product-actions .btn { flex: 1; min-width: 200px }
-
 /* cart styles */
 .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 380px; height: 100%; background: #fff; z-index: 1200; box-shadow: -5px 0 15px rgba(0, 0, 0, .15); transition: right .4s ease-in-out; display: flex; flex-direction: column }
 .cart-sidebar.open { right: 0 }
@@ -155,7 +137,6 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .checkout-btn { display: flex; width: 100%; padding: 15px; font-size: 1.1rem; text-align: center; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px }
 .messenger-btn { background: #0078FF; color: #fff; border: none }
 .whatsapp-btn { background: #25D366; color: #fff; border: none }
-
 /* responsive adjustments */
 @media screen and (max-width:768px) {
     .nav__links { position: fixed; top: 0; right: -100%; width: 280px; height: 100%; background: #fff; box-shadow: -8px 0 30px rgba(0, 0, 0, .08); flex-direction: column; padding: 20px; gap: 18px; transition: right .25s ease; z-index: 1200 }
@@ -163,212 +144,103 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .nav-toggle { display: inline-flex; background: none; border: none; font-size: 20px; cursor: pointer; position: relative }
     .nav-close { display: block; margin-bottom: 10px }
     .nav__links a { font-size: 18px }
-    
     .nav-cart .nav-cart-text { display: none; }
     #hamburger-cart-count { display: none !important }
-
     .hero { height: 60vh; }
     .hero h2 { font-size: 2.2rem; }
     .hero p { font-size: 1.1rem; }
     .hero .btn { padding: 12px 30px; font-size: 1rem; }
-
     .process { padding: 30px 16px }
     .process-steps { display: block }
     .process-steps .step { max-width: none; width: 100%; padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
     .process-steps .step:last-child { border-bottom: none; }
     .process-steps .step i { font-size: 28px; display: block; margin-bottom: 8px; }
-
     .showcase-container { grid-template-columns: 1fr; gap: 20px; padding: 0 12px }
     .showcase-image { max-width: 320px; margin: 0 auto }
     .video-container { margin-top: 20px }
     .responsive-video { max-height: 320px }
-
     .floating-chat-widget { right: 14px; bottom: 18px }
     .products-title { font-size: 1.6rem }
     .cart-sidebar { width: 100%; max-width: 420px }
 }
-
 /* desktop polish */
 @media screen and (min-width:769px) {
     #cart-count { display: inline-block }
     .cart-badge { background: var(--accent-color) }
 }
-
 /* small polish */
 a { color: inherit }
 
+/* ========================================================= */
+/* === მსგავსი პროდუქტები (ახალი კომპაქტური მობილური დიზაინი) === */
+/* ========================================================= */
 #related-products {
-    padding-top: 40px; /* სექციის ზედა დაშორება */
-    padding-bottom: 60px; /* სექციის ქვედა დაშორება footer-მდე */
-    background-color: #f9f9f9; /* ღია ფონი, რომ ვიზუალურად გამოირჩეს */
-}
-
-/* ================================================= */
-/* ===   მსგავსი პროდუქტების სლაიდერის გასწორება   === */
-/* ================================================= */
-
-/* 1. განვსაზღვრავთ მთავარ სექციას და ვზღუდავთ მის საზღვრებს */
-#related-products {
-    padding: 50px 0;
     background-color: #f9f9f9;
-    overflow: hidden; /* ეს ხელს შეუშლის შიგთავსის "გადმოსვლას" */
 }
-
-/* 2. ვაკონკრეტებთ, რომ ჩვენი Swiper კონტეინერი იყოს მოწესრიგებული */
-#related-products .swiper {
-    width: 100%;
-    height: auto;
-    position: relative;
-    padding: 0 45px; /* ვამატებთ ადგილს გვერდითი ღილაკებისთვის */
-}
-
-/* 3. ვასწორებთ თითოეული სლაიდის შიდა განლაგებას */
-#related-products .swiper-slide {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: auto; /* სიმაღლე დამოკიდებულია კონტენტზე */
-}
-
-/* 4. ვაკონკრეტებთ სურათის ზომას, რომ არ გამოიწვიოს "აფეთქება" */
-#related-products .showcase-img-box {
-    height: 220px;
-}
-#related-products .showcase-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-/* 5. ვასწორებთ სლაიდერის ღილაკების პოზიციას ჩვენს კონკრეტულ სლაიდერში */
-#related-products .swiper-button-next,
-#related-products .swiper-button-prev {
-    top: 40%; /* ვაყენებთ სურათის სიმაღლის ცენტრში */
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    color: var(--secondary-color);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-#related-products .swiper-button-next::after,
-#related-products .swiper-button-prev::after {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-#related-products .swiper-button-prev {
-    left: 0;
-}
-
-#related-products .swiper-button-next {
-    right: 0;
-}
-
-/* ======================================================= */
-/* ===   მსგავსი პროდუქტების ბარათების ზომის კორექცია   === */
-/* ======================================================= */
-
-/* სლაიდერს ვაძლევთ ცოტა მეტ ადგილს გვერდებიდან */
-#related-products .swiper {
-    padding: 0 40px;
-}
-
-/* ვამცირებთ სურათის კონტეინერის სიმაღლეს */
-#related-products .product-image-container {
-    padding-top: 85%; /* სურათი გახდება უფრო ნაკლებად კვადრატული */
-}
-
-/* ვამცირებთ ბარათის შიდა დაშორებებს */
-#related-products .product-info {
-    padding: 10px;
-}
-
-/* ვამცირებთ ტექსტების ზომას და დაშორებებს */
-#related-products .product-name {
-    font-size: 0.9rem; /* 1rem-ის მაგივრად */
-    min-height: 36px;
-    margin-bottom: 8px;
-}
-
-#related-products .product-price .new-price,
-#related-products .product-price .old-price {
-    font-size: 1rem; /* ფასიც შედარებით პატარავდება */
-}
-
-/* ვამცირებთ კალათის ღილაკს */
-#related-products .btn-add-to-cart-small {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
-}
-
-/* ======================================================== */
-/* ===   მსგავსი პროდუქტების მობილური ვერსიის კორექცია   === */
-/* ======================================================== */
-
-/* ეს სტილები ჩაირთვება მხოლოდ 768px-ზე პატარა ეკრანებზე */
+/* ეს სტილები იმოქმედებს მხოლოდ 768px-ზე პატარა ეკრანებზე */
 @media screen and (max-width: 768px) {
-
-    /* 1. სექციას და სლაიდერს ვაძლევთ მობილურისთვის შესაფერის დაშორებებს */
+    /* 1. სექციის ზოგადი სტილი */
     #related-products {
         padding: 40px 0;
     }
-
+    #related-products .container {
+        padding: 0;
+    }
+    #related-products .section-title {
+        padding: 0 15px 15px 15px; /* სათაურს ვაძლევთ დაშორებას */
+        text-align: left;
+        font-size: 1.2rem;
+    }
+    /* 2. სლაიდერის კონტეინერს ვასუფთავებთ */
     #related-products .swiper {
-        padding: 0 35px; /* დაშორება გვერდებიდან ისრებისთვის */
+        padding: 0;
     }
-
-    /* 2. ვამცირებთ ბარათის შიდა კონტენტის ზომებს, რომ ყველაფერი კარგად ჩაეტიოს */
-    #related-products .product-info {
-        padding: 8px;
+    #related-products .swiper-wrapper {
+        padding: 0 15px; /* ვამატებთ დაშორებას სიის დასაწყისსა და ბოლოში */
     }
-
-    #related-products .product-name {
-        font-size: 13px; /* ფონტს ვაპატარავებთ */
-        min-height: 34px; /* ვაძლევთ 2 ხაზის სიმაღლეს */
-        line-height: 1.3;
-        margin-bottom: 6px;
-    }
-
-    /* 3. ვასწორებთ ფასის ბლოკს, რომ ერთ ხაზზე დაეტიოს */
-    #related-products .product-price-and-cart {
-        padding-top: 5px;
-    }
-
-    #related-products .product-price {
-        gap: 5px; /* ვამცირებთ დაშორებას ძველ და ახალ ფასს შორის */
-    }
-    
-    #related-products .product-price .new-price,
-    #related-products .product-price .old-price {
-        font-size: 14px; /* საგრძნობლად ვამცირებთ ფასის ფონტს */
-    }
-    
-    #related-products .btn-add-to-cart-small {
-        width: 32px;
-        height: 32px;
-        font-size: 14px;
-    }
-
-    /* 4. ვასწორებთ სლაიდერის ისრებს მობილურისთვის */
     #related-products .swiper-button-next,
     #related-products .swiper-button-prev {
-        width: 30px;
-        height: 30px;
-        top: 38%; /* პოზიციის კორექცია სურათის სიმაღლის მიხედვით */
+        display: none; /* ვმალავთ ისრებს მობილურზე */
     }
-
-    #related-products .swiper-button-next::after,
-    #related-products .swiper-button-prev::after {
-        font-size: 14px; /* ისრების ზომის დაკლება */
+    /* 3. პროდუქტის ბარათის ახალი ფორმა */
+    #related-products .product-card.compact {
+        background: #fff;
+        border: 1px solid #f0f0f0;
+        border-radius: 8px;
+        overflow: hidden;
     }
-
-    #related-products .swiper-button-prev {
-        left: 5px;
+    #related-products .product-card.compact .product-image-container {
+        aspect-ratio: 1 / 1; /* სურათს ვქმნით იდეალურად კვადრატულს */
     }
-
-    #related-products .swiper-button-next {
-        right: 5px;
+    #related-products .product-card.compact img {
+        padding: 5px; /* სურათს შიგნიდან ვაძლევთ პატარა დაშორებას */
+        object-fit: contain;
+    }
+    /* 4. ტექსტური ინფორმაციის ბლოკი */
+    #related-products .product-card.compact .product-info {
+        padding: 8px;
+        text-align: left;
+    }
+    #related-products .product-card.compact .product-name {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 6px;
+        /* ტექსტს ვზღუდავთ 2 ხაზზე */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+        min-height: 36px;
+    }
+    /* 5. ფასების ბლოკი */
+    #related-products .product-card.compact .product-price {
+        gap: 6px;
+    }
+    #related-products .product-card.compact .new-price {
+        font-size: 15px;
+        font-weight: 700;
+    }
+    #related-products .product-card.compact .old-price {
+        font-size: 12px;
     }
 }
