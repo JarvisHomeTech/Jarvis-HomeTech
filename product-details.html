@@ -1,92 +1,96 @@
-<!DOCTYPE html>
-<html lang="ka">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>პროდუქტის დეტალები</title>
-  <link rel="icon" type="image/png" href="photos/favicon.png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="header">
-    <div class="header-left">
-      <a class="logo" href="index.html">JARVIS HomeTech</a>
-    </div>
+<!DOCTYPE html> 
+ <html lang="ka"> 
+ <head> 
+     <meta charset="UTF-8" /> 
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+     <title>პროდუქტის დეტალები</title> 
+     <link rel="icon" type="image/png" href="photos/favicon.png" /> 
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" /> 
+     <link rel="stylesheet" href="style.css" /> 
+ </head> 
+ <body> 
+ <header class="header"> 
+     <a class="logo" href="index.html">JARVIS HomeTech</a> 
 
-    <div class="header-right">
-      <button id="cart-open-btn" class="nav-cart" aria-label="Open cart" title="ჩემი კალათა">
-        <i class="fas fa-shopping-cart cart-icon" aria-hidden="true"></i>
-        <span id="cart-count-badge" class="cart-badge">0</span>
-      </button>
-      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" title="მენიუ"><i class="fa-solid fa-bars"></i></button>
-    </div>
+     <nav> 
+         <ul class="nav__links" id="nav-links"> 
+             <li class="nav-close" id="nav-close"><a href="#" aria-label="close menu"><i class="fa-solid fa-xmark"></i></a></li> 
+             <li><a href="products.html">პროდუქცია</a></li> 
+             <li><a href="index.html#about">ჩვენს შესახებ</a></li> 
+             <li><a href="index.html#contact">კონტაქტი</a></li> 
+         </ul> 
+     </nav> 
 
-    <nav id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
-      <div class="drawer-header">
-        <a class="logo drawer-logo" href="index.html">JARVIS HomeTech</a>
-        <button id="drawer-close" class="drawer-close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <ul class="drawer-list">
-        <li class="drawer-item drawer-cart">
-          <button id="drawer-cart-btn" class="drawer-cart-btn">
-            <i class="fas fa-shopping-cart"></i>
-            <span>ჩემი კალათა</span>
-            <span id="drawer-cart-count" class="cart-badge small">0</span>
-          </button>
-        </li>
-        <li class="drawer-item"><a href="products.html">პროდუქცია</a></li>
-        <li class="drawer-item"><a href="index.html#about">ჩვენს შესახებ</a></li>
-        <li class="drawer-item"><a href="index.html#contact">კონტაქტი</a></li>
-      </ul>
-    </nav>
-  </header>
+     <div class="header-controls"> 
+         <a href="#" id="nav-cart-btn" class="nav-cart" title="ჩემი კალათა" aria-label="ჩემი კალათა"> 
+             <i class="fas fa-shopping-cart"></i> 
+             <span id="cart-count" class="cart-badge">0</span> 
+             <span class="nav-cart-text">ჩემი კალათა</span> 
+         </a> 
+         <button class="nav-toggle" id="nav-toggle" aria-label="მენიუ"> 
+             <i class="fa-solid fa-bars"></i> 
+             <span id="hamburger-cart-count" class="cart-badge tiny">0</span> 
+         </button> 
+     </div> 
+ </header> 
 
-  <main>
-    <section class="product-details-section">
-      <div class="container">
-        <div class="product-details-layout">
-          <h1 id="product-name">პროდუქტი იტვირთება...</h1>
+ <main> 
+     <section class="product-details-section"> 
+         <div class="container"> 
+             <div class="product-details-layout"> 
+                 <h1 id="product-name">პროდუქტი იტვირთება...</h1> 
 
-          <div class="product-details-slider">
-            <div class="swiper product-gallery-slider">
-              <div class="swiper-wrapper" id="product-gallery-wrapper"></div>
-              <div class="swiper-button-prev"></div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
+                 <div class="product-details-slider"> 
+                     <div class="swiper product-gallery-slider"> 
+                         <div class="swiper-wrapper" id="product-gallery-wrapper"></div> 
+                         <div class="swiper-button-prev"></div> 
+                         <div class="swiper-button-next"></div> 
+                         <div class="swiper-pagination"></div> 
+                     </div> 
+                 </div> 
 
-          <div class="product-details-info">
-            <p id="product-full-description"></p>
-            <div id="product-price"></div>
-            <div class="product-actions" id="product-actions">
-              <a href="#" id="order-button" target="_blank" class="btn btn-secondary"><i class="fab fa-facebook-messenger"></i> შეკვეთა მესენიჯრით</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+                 <div class="product-details-info"> 
+                     <p id="product-full-description"></p> 
+                     <div id="product-price"></div> 
+                     <div class="product-actions" id="product-actions"> 
+                         <a href="#" id="order-button" target="_blank" class="btn btn-secondary"><i class="fab fa-facebook-messenger"></i> შეკვეთა მესენჯერში</a> 
+                     </div> 
+                 </div> 
+             </div> 
+         </div> 
+     </section> 
+ </main> 
 
-  <footer id="footer"></footer>
+ <footer id="footer"></footer> 
 
-  <div class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
-    <div class="cart-header">
-      <h3>თქვენი კალათა</h3>
-      <button class="cart-close-btn" id="cart-close-btn" aria-label="close cart">&times;</button>
-    </div>
-    <div class="cart-body" id="cart-body"></div>
-    <div class="cart-footer">
-      <div class="cart-total"><span>სულ ჯამი:</span><span id="cart-total">0.00 ₾</span></div>
-      <a id="checkout-messenger-btn" class="btn checkout-btn messenger-btn" target="_blank"><i class="fab fa-facebook-messenger"></i> შეკვეთა მესენჯერით</a>
-      <a id="checkout-whatsapp-btn" class="btn checkout-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> შეკვეთა WhatsApp-ით</a>
-    </div>
-  </div>
-  <div id="cart-overlay" class="cart-overlay" aria-hidden="true"></div>
+ <div class="cart-sidebar" id="cart-sidebar"> 
+     <div class="cart-header"> 
+         <h3>თქვენი კალათა</h3> 
+         <button class="cart-close-btn" id="cart-close-btn">&times;</button> 
+     </div> 
+     <div class="cart-body" id="cart-body"></div> 
+     <div class="cart-footer"> 
+         <div class="cart-total"> 
+             <span>სულ ჯამი:</span> 
+             <span id="cart-total">0.00 ₾</span> 
+         </div> 
+         <a id="checkout-messenger-btn" class="btn checkout-btn messenger-btn" target="_blank"><i class="fab fa-facebook-messenger"></i> შეკვეთა მესენჯერით</a> 
+         <a id="checkout-whatsapp-btn" class="btn checkout-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> შეკვეთა WhatsApp-ით</a> 
+     </div> 
+ </div> 
+ <div class="cart-overlay" id="cart-overlay"></div> 
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js" defer></script>
-</body>
-</html>
+ <div class="floating-chat-widget"> 
+     <input type="checkbox" id="chat-toggle" class="chat-toggle-checkbox" /> 
+     <label for="chat-toggle" class="chat-toggle-button"><i class="fab fa-facebook-messenger"></i></label> 
+     <div class="chat-options"> 
+         <a href="https://m.me/61578859507900" target="_blank" class="chat-link messenger"><i class="fab fa-facebook-messenger"></i><span>Messenger</span></a> 
+         <a href="https://wa.me/995599608105" target="_blank" class="chat-link whatsapp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a> 
+     </div> 
+ </div> 
+
+ <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> 
+ <script src="script.js" defer></script> 
+ </body> 
+ </html>
