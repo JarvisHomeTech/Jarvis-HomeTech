@@ -196,3 +196,9 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 
 /* small polish */
 a { color: inherit }
+
+#related-products {
+    padding-top: 40px; /* სექციის ზედა დაშორება */
+    padding-bottom: 60px; /* სექციის ქვედა დაშორება footer-მდე */
+    background-color: #f9f9f9; /* ღია ფონი, რომ ვიზუალურად გამოირჩეს */
+}
