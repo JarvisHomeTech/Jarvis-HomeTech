@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jarvis HomeTech - ჭკვიანი სახლის სისტემები</title>
     <link rel="icon" type="image/png" href="photos/favicon.png">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -45,13 +46,28 @@
             </div>
         </section>
 
-        <section class="showcase-section" id="showcase">
-            </section>
-
+        <section class="showcase-section">
+            <div class="container showcase-container">
+                <div class="showcase-image-container">
+                    <img src="photos/1000012403.png" alt="Smart Valve Controller" class="showcase-image">
+                </div>
+                <div class="showcase-content">
+                    <h2 class="section-title-left">ტექნოლოგია, რომელიც ზრუნავს</h2>
+                    <p>ჩვენი ფლაგმანი მოწყობილობა — წყლისა და გაზის ჭკვიანი გადამკეტი თავისი სენსორით, მონტაჟი სრულიად უფასოდ, სწრაფად და მარტივად. ის თქვენი სახლის უხილავი მცველია, რომელიც მუშაობს 24/7.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> ავტომატური რეაგირება წამებში</li>
+                        <li><i class="fas fa-check-circle"></i> იცავს შენს ოჯახს და სახლს 24/7</li>
+                        <li><i class="fas fa-check-circle"></i> მართე სმარტფონით დედამიწის ნებისმიერი წერტილიდან</li>
+                    </ul>
+                    <a href="product-details.html?id=water-valve-01" class="btn btn-secondary">წყალი</a>
+                    <a href="product-details.html?id=gas-valve-02" class="btn btn-secondary">გაზი</a>
+                </div>
+            </div>
+        </section>
         <section id="about" class="about">
             <div class="container">
                 <h2>რატომ Jarvis HomeTech?</h2>
-                <p>ჩვენი მისიაა, შევქმნათ უსაფრთხო და კომფორტული გარემო თქვენს სახლში თანამედროვე ტექნოლოგიების დახმარებით.</p>
+                <p>ჩვენი მისიაა, შევქმნათ უსაფრთხო და კომფორტული გარემო თქვენს სახლში თანამედროვე ტექნოლოგიების დახმარებით. ჩვენ გთავაზობთ მხოლოდ სანდო და შემოწმებულ მოწყობილობებს, რომელთა მონტაჟი მარტივია და გამოყენება - მოსახერებელი.</p>
                 <div class="video-container">
                     <h3>ნახეთ ვიდეო, თუ როგორ მუშაობს სისტემა</h3>
                     <video controls muted loop autoplay playsinline style="width: 100%; border-radius: 5px;">
@@ -61,7 +77,9 @@
                 </div>
             </div>
         </section>
-
+        
+        
+        
         <section class="process">
             <div class="container">
                 <h2>როგორ ვმუშაობთ</h2>
@@ -72,7 +90,6 @@
                 </div>
             </div>
         </section>
-
         <section id="contact" class="contact">
             <div class="container">
                 <h2>დაგვიკავშირდით</h2>
@@ -86,6 +103,8 @@
                 <p id="form-status"></p>
             </div>
         </section>
+        
+        
     </main>
 
     <footer id="footer">
@@ -99,17 +118,39 @@
     </footer>
 
     <div class="floating-chat-widget">
-        <input type="checkbox" id="chat-toggle" class="chat-toggle-checkbox">
-        <label for="chat-toggle" class="chat-toggle-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="main-icon"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="close-icon"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </label>
-        <div class="chat-options">
-             <a href="https://m.me/61578859507900" target="_blank" class="chat-link messenger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 4.974 0 11.111c0 3.494 1.833 6.574 4.625 8.52V24l3.932-2.242c1.077.34 2.231.523 3.443.523C18.627 22.281 24 17.307 24 11.111S18.627 0 12 0zm1.196 14.933l-2.618-2.625-5.314 2.625 5.86-5.908 2.618 2.625 5.314-2.625-5.86 5.908z"/></svg></a>
-        </div>
+    <input type="checkbox" id="chat-toggle" class="chat-toggle-checkbox">
+    <label for="chat-toggle" class="chat-toggle-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="main-icon"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="close-icon"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </label>
+    <div class="chat-options">
+        <a href="https://m.me/61578859507900" target="_blank" class="chat-link messenger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 4.974 0 11.111c0 3.494 1.833 6.574 4.625 8.52V24l3.932-2.242c1.077.34 2.231.523 3.443.523C18.627 22.281 24 17.307 24 11.111S18.627 0 12 0zm1.196 14.933l-2.618-2.625-5.314 2.625 5.86-5.908 2.618 2.625 5.314-2.625-5.86 5.908z"/></svg></a>
     </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js" defer></script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
