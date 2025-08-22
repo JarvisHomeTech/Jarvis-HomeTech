@@ -2,8 +2,10 @@
     --primary-color: #007bff;
     --secondary-color: #212529;
     --accent-color: #e74c3c;
+    --vivid-red: #d63031;
     --success-color: #28a745;
 }
+
 /* reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
 html { scroll-behavior: smooth }
@@ -27,7 +29,7 @@ h1, h2, h3 { color: var(--secondary-color) }
 .nav-cart .nav-cart-text { font-weight: 600 }
 
 /* badges */
-.cart-badge { display: inline-block; min-width: 22px; height: 22px; border-radius: 999px; background: #ff3b3b; color: #fff; font-size: 12px; line-height: 22px; text-align: center; padding: 0 6px; margin-left: 6px }
+.cart-badge { display: inline-block; min-width: 22px; height: 22px; border-radius: 999px; background: var(--vivid-red); color: #fff; font-size: 12px; line-height: 22px; text-align: center; padding: 0 6px; margin-left: 6px }
 .cart-badge.tiny { min-width: 18px; height: 18px; line-height: 18px; font-size: 11px; position: absolute; right: -6px; top: -6px }
 
 /* sections */
@@ -73,8 +75,9 @@ section { padding: 60px 0 }
 .product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; text-align: left; }
 .product-name { font-size: 1rem; font-weight: 600; margin-bottom: 10px; min-height: 40px }
 .product-price { font-size: 1.15rem; font-weight: 700; display: flex; align-items: baseline; gap: 10px; }
-.old-price { font-size: 1rem; color: #f00; text-decoration: line-through; opacity: .7; }
-.new-price { font-size: 1.15rem; font-weight: 700; color: var(--primary-color); position: relative; top: -6px; }
+.old-price { font-size: 1rem; color: var(--vivid-red); opacity: .7; position: relative; display: inline-block; }
+.old-price::after { content: ''; position: absolute; left: -5%; top: 45%; width: 110%; height: 1.5px; background-color: var(--vivid-red); transform: rotate(-15deg); }
+.new-price { font-size: 1.15rem; font-weight: 700; color: var(--primary-color); }
 .product-price-and-cart { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 10px }
 .btn-add-to-cart-small { background: #fff; color: var(--primary-color); border: 1px solid #eef0f3; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: all .3s; box-shadow: 0 2px 5px rgba(0, 0, 0, .1) }
 .btn-add-to-cart-small:hover { background: var(--primary-color); color: #fff; transform: scale(1.1) }
@@ -92,16 +95,6 @@ section { padding: 60px 0 }
 #contact-form input, #contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1rem }
 footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 20px }
 
-/* floating chat */
-.floating-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px }
-.chat-toggle-checkbox { display: none }
-.chat-toggle-button { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: var(--primary-color); color: #fff; cursor: pointer; box-shadow: 0 6px 18px rgba(0, 0, 0, .12); font-size: 20px; border: none }
-.chat-options { display: none; flex-direction: column; gap: 8px; margin-bottom: 8px }
-.chat-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; text-decoration: none; color: #fff; font-weight: 600 }
-.chat-link.messenger { background: #0078FF }
-.chat-link.whatsapp { background: #25D366 }
-.chat-toggle-checkbox:checked~.chat-options { display: flex }
-
 /* product details page */
 .product-details-section { padding: 60px 0 }
 .product-details-layout { display: flex; flex-direction: column; gap: 20px }
@@ -109,7 +102,7 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .product-details-slider { order: 2; min-width: 0; position: relative; width: 100% }
 .product-details-info { order: 3; }
 #product-full-description { margin-top: 30px; }
-#product-price { margin-top: 50px; justify-content: center; }
+#product-price { margin-top: 50px; justify-content: center; font-size: 1.7rem; }
 .product-gallery-slider { border-radius: 12px; overflow: hidden; border: 1px solid #eef0f3 }
 .product-gallery-slider .swiper-slide { background: #f9f9f9; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; padding: 40px }
 .product-gallery-slider .swiper-slide.video-slide { padding: 0; background: #000 }
@@ -195,8 +188,18 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     #related-products { padding: 40px 0; }
     #related-products .container { padding: 0; }
     #related-products .products-title { padding: 0 15px 15px 15px; text-align: left; font-size: 1.4rem; }
-    #related-products .product-card.compact .product-info { padding: 8px; }
-    #related-products .product-card.compact .product-name { font-size: 13px; min-height: 36px; }
     .related-products-swiper .swiper-wrapper { padding-left: 15px; padding-right: 15px; }
     .related-products-swiper .swiper-button-next, .related-products-swiper .swiper-button-prev { display: none; }
+    #related-products .product-card.compact .product-info { padding: 8px; }
+    #related-products .product-card.compact .product-name { font-size: 13px; min-height: 36px; }
 }
+
+/* Floating chat widget styles */
+.floating-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px }
+.chat-toggle-checkbox { display: none }
+.chat-toggle-button { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: var(--primary-color); color: #fff; cursor: pointer; box-shadow: 0 6px 18px rgba(0, 0, 0, .12); font-size: 20px; border: none }
+.chat-options { display: none; flex-direction: column; gap: 8px; margin-bottom: 8px }
+.chat-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; text-decoration: none; color: #fff; font-weight: 600 }
+.chat-link.messenger { background: #0078FF }
+.chat-link.whatsapp { background: #25D366 }
+.chat-toggle-checkbox:checked~.chat-options { display: flex }
