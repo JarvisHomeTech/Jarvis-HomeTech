@@ -417,28 +417,31 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 
 
 
-
 /* ======================= 9. CART & PRODUCT CARD FIXES ======================= */
 
-/* --- პრობლემა #1 და #5-ის ფიქსი: პროდუქტის ბარათის და ღილაკის პოზიციის გასწორება --- */
+/* --- პრობლემა #1 და #5: სლაიდერის ზომა და ღილაკის პოზიცია --- */
 .product-card {
-    position: relative; /* ეს ასწორებს სლაიდერის სიმაღლის პრობლემას */
+    position: relative;
+    display: flex; /* ასწორებს Swiper-ის სიმაღლის პრობლემას */
+    flex-direction: column;
 }
-
+.product-card-link {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* ლინკი იკავებს მთლიან სიმაღლეს */
+}
 .product-info {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    justify-content: space-between; /* ეს ქვედა ელემენტებს ბოლოში მიიტანს */
+    justify-content: space-between;
 }
-
 .product-price-and-cart {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px; /* დაშორება სახელთან */
+    margin-top: 15px;
 }
-
 .btn-add-to-cart-small {
     background-color: white;
     color: var(--primary-color);
@@ -453,7 +456,7 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     cursor: pointer;
-    flex-shrink: 0; /* არ დაპატარავდეს */
+    flex-shrink: 0;
 }
 .btn-add-to-cart-small:hover {
     background-color: var(--primary-color);
@@ -461,29 +464,34 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     transform: scale(1.1);
 }
 
-/* --- პრობლემა #2-ის ფიქსი: დეტალების გვერდზე ორი ღილაკისთვის კონტეინერი --- */
+/* --- პრობლემა #2, #3, #4: დეტალების გვერდის ღილაკები --- */
 .product-actions {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     margin-top: 20px;
-    flex-wrap: wrap;
 }
-
-/* --- პრობლემა #3-ის ფიქსი: "კალათაში დამატება" ღილაკის გამწვანება --- */
-.btn-add-to-cart {
-    background-color: #28a745; /* მწვანე ფერი */
-    border-color: #28a745;
+.product-actions .btn {
+    flex: 1; /* ღილაკები იკავებენ თანაბარ სივრცეს */
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+}
+.btn-add-to-cart {
+    background-color: #28a745; /* მწვანე ფერი */
 }
 .btn-add-to-cart:hover {
     background-color: #218838;
 }
-
-.btn-secondary { /* მეორე ღილაკის სტილი */
-    background-color: #6c757d;
+.btn-secondary {
+    background-color: #007bff; /* ლურჯი ფერი */
 }
+.btn-secondary:hover {
+    background-color: #0056b3;
+}
+/* დანარჩენი კალათის სტილები უცვლელია */
+/* ... (თუ აქამდე დაამატეთ კალათის სტილები, დატოვეთ) ... */
 .btn-secondary:hover {
     background-color: #5a6268;
 }
+
