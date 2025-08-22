@@ -1,318 +1,81 @@
-/* ======================= 1. ძირითადი სტილები ======================= */
-:root {
-    --primary-color: #007bff;
-    --secondary-color: #212529;
+/* ======================= 9. CART & PRODUCT CARD FIXES ======================= */
+.swiper-slide {
+    height: auto;
 }
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-html {
-    scroll-behavior: smooth;
-}
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #fff;
-    color: #333;
-}
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-h1, h2, h3 {
-    color: var(--secondary-color);
-}
-.btn {
-    display: inline-block;
-    background: var(--primary-color);
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-.btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-/* ======================= 2. HEADER ======================= */
-.header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-.logo { font-weight: bold; font-size: 1.5rem; text-decoration: none; color: #14148c; }
-.nav__links { display: flex; align-items: center; gap: 30px; list-style: none; }
-.nav__links a { text-decoration: none; color: #555; font-weight: 500; transition: color 0.3s ease; }
-.nav__links a:hover { color: var(--primary-color); }
-.nav-toggle, .nav-close { display: none; }
-
-/* ======================= 3. სექციები ======================= */
-section { padding: 60px 0; }
-.hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('photos/ffffffff.jpg') no-repeat center center/cover; color: #fff; height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
-.hero h2 { font-size: 3rem; color: #fff; }
-.hero .btn { margin-top: 20px; }
-.about, .process, .contact { text-align: center; }
-.video-container { margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
-.process-steps { display: flex; justify-content: space-around; gap: 20px; margin-top: 40px; }
-.step { padding: 30px 20px; width: 32%; }
-.step i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
-
-/* ======================= 4. პროდუქტების ბლოკი ======================= */
-.products-section { padding: 60px 20px; background-color: #f9f9f9; }
-.products-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
-.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
-.product-card { background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 12px; overflow: hidden; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; height: 100%; }
-.product-card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
-.product-card-link { text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%; }
-.product-image-container { width: 100%; padding-top: 100%; position: relative; background-color: #f9f9f9; }
-.product-image-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover !important; padding: 10px; }
-.product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
-.product-name { font-size: 1rem; font-weight: 600; margin: 0 0 10px 0; min-height: 40px; }
-.product-price { font-size: 1.15rem; font-weight: 700; margin-top: auto; display: flex; align-items: baseline; justify-content: center; gap: 10px; }
-.old-price { font-size: 1rem; color: #f00; text-decoration: line-through; opacity: 0.7; }
-.new-price { font-size: 1.15rem; font-weight: 700; color: var(--primary-color); }
-
-/* ======================= 5. სლაიდერი (SwiperJS) ======================= */
-.product-slider { width: 100%; height: auto; padding: 20px 10px 50px 10px; }
-.swiper-slide { height: auto; display: flex; justify-content: center; }
-.swiper-button-next, .swiper-button-prev { color: var(--primary-color); }
-.swiper-pagination-bullet-active { background-color: var(--primary-color); }
-
-/* ======================= 6. FOOTER, CONTACT, CHAT ======================= */
-#contact-form { max-width: 600px; margin: 30px auto 0; display: flex; flex-direction: column; }
-#contact-form input, #contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1rem; }
-#contact-form button { width: auto; align-self: center; }
-footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 20px; }
-.social-icons a { color: #fff; font-size: 1.2rem; margin: 0 10px; text-decoration: none; transition: color 0.3s ease; }
-.social-icons a:hover { color: var(--primary-color); }
-.floating-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
-.chat-toggle-checkbox { display: none; }
-.chat-toggle-button { background-color: #007bff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); transition: transform 0.3s ease, background-color 0.3s ease; }
-.chat-toggle-button:hover { transform: scale(1.1); background-color: #0056b3; }
-.chat-toggle-button svg { width: 32px; height: 32px; transition: opacity 0.2s ease, transform 0.2s ease; }
-.chat-toggle-button .close-icon { opacity: 0; transform: rotate(-45deg) scale(0); position: absolute; }
-.chat-toggle-checkbox:checked + .chat-toggle-button .main-icon { opacity: 0; transform: rotate(45deg) scale(0); }
-.chat-toggle-checkbox:checked + .chat-toggle-button .close-icon { opacity: 1; transform: rotate(0) scale(1); }
-.chat-options { position: absolute; bottom: 75px; right: 5px; display: flex; flex-direction: column; gap: 15px; transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0; transform: translateY(10px); pointer-events: none; }
-.chat-toggle-checkbox:checked ~ .chat-options { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.chat-link { width: 50px; height: 50px; border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 2px 2px 8px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
-.chat-link:hover { transform: scale(1.15); }
-.chat-link.messenger { background: linear-gradient(45deg, #0062E0, #19AFFF); }
-.chat-link.whatsapp { background-color: #25D366; }
-
-/* ======================= 7. პროდუქტის დეტალური გვერდი (საბოლოო ვერსია) ======================= */
-.product-details-section {
-    padding: 60px 0;
-}
-
-/* მობილურის ვერსიის განლაგება */
-.product-details-layout {
+.product-card {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-/* JS კოდი ისევ იგივე ID-ით პოულობს სათაურს, ამიტომ h1-ის სტილი აქ გადმოვიტანოთ */
-#product-name {
-    font-size: 2.2rem; /* მობილურისთვის ზომა შევამციროთ */
-    margin-bottom: 0;
-    line-height: 1.3;
-    order: 1; /* 1. სათაური */
-}
-
-.product-details-slider {
-    order: 2; /* 2. სლაიდერი */
-    min-width: 0;
-    position: relative;
-    width: 100%;
-}
-
-.product-details-info {
-    order: 3; /* 3. დანარჩენი ინფორმაცია */
-}
-
-/* კომპიუტერის ვერსიის განლაგება */
-@media screen and (min-width: 992px) {
-    .product-details-layout {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* ვქმნით 2 სვეტიან ბადეს */
-        grid-template-rows: auto 1fr; /* ვქმნით 2 სტრიქონს, პირველი ავტომატური სიმაღლის (სათაურისთვის) */
-        gap: 0 40px; /* 0 დაშორება ზემოთ-ქვემოთ, 40px მარჯვნივ-მარცხნივ */
-        align-items: flex-start;
-    }
-
-    /* ელემენტების განლაგება ბადეში */
-    .product-details-slider {
-        grid-column: 1 / 2;  /* იკავებს 1-ელ სვეტს */
-        grid-row: 1 / 3;     /* იკავებს 2-ვე სტრიქონს */
-        order: unset;
-    }
-
-    #product-name {
-        grid-column: 2 / 3;  /* იკავებს მე-2 სვეტს */
-        grid-row: 1 / 2;     /* იკავებს 1-ელ სტრიქონს */
-        align-self: flex-end; /* სათაური ჩამოიწევს ქვემოთ, აღწერასთან ახლოს */
-        margin-bottom: 20px;
-        font-size: 2.5rem; /* ვუბრუნებთ სტანდარტულ ზომას */
-        order: unset;
-    }
-
-    .product-details-info {
-        grid-column: 2 / 3;  /* იკავებს მე-2 სვეტს */
-        grid-row: 2 / 3;     /* იკავებს მე-2 სტრიქონს */
-        order: unset;
-    }
-}
-
-.product-gallery-slider {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #eef0f3;
-}
-.product-gallery-slider .swiper-slide {
-    background-color: #f9f9f9;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-}
-.product-gallery-slider .swiper-slide.video-slide {
-    padding: 0;
-    background-color: #000;
-}
-.product-gallery-slider .swiper-slide img,
-.product-gallery-slider .swiper-slide video {
-    display: block;
-    width: 100%;
     height: 100%;
-    object-fit: contain;
 }
-.product-details-info #product-full-description {
-    line-height: 1.8;
-    color: #555;
-    margin-bottom: 30px;
-}
-.product-details-info #product-price {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 30px;
-    justify-content: flex-start;
-}
-.product-details-info .new-price {
-    font-size: 2rem;
-}
-.product-details-info .old-price {
-    font-size: 1.5rem;
-}
-.video-container iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
-    border: none;
-}
-
-/* ======================= 8. მობილურის ვერსია (Media Queries) ======================= */
-@media screen and (max-width: 768px) {
-    .hero h2 { font-size: 2.1rem; }
-    section { padding: 40px 0; }
-    .process-steps { flex-direction: column; }
-    .step { width: 100%; margin-bottom: 20px; }
-    .products-section .products-title { text-align: center; }
-    .nav-toggle { display: block; font-size: 1.5rem; cursor: pointer; color: var(--secondary-color); }
-    .nav__links { position: fixed; top: 0; right: -100%; width: 80%; height: 100%; background-color: #fff; box-shadow: -2px 0 10px rgba(0,0,0,0.1); padding: 6rem 2rem 0; flex-direction: column; align-items: flex-start; gap: 2.5rem; transition: right 0.4s ease; z-index: 100; }
-    .show-menu { right: 0; }
-    .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
-}
-
-/* ======================= START: Showcase Section "ტექნოლოგია, რომელიც ზრუნავს" ======================= */
-.showcase-section {
-    padding: 80px 0;
-    background-color: #ffffff;
-}
-.showcase-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 4rem;
-}
-.showcase-image-container {
-    text-align: center;
-}
-.showcase-image {
-    max-width: 450px;
-    width: 100%;
-}
-.section-title-left {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    text-align: left;
-    line-height: 1.2;
-    color: var(--secondary-color);
-}
-.showcase-content p {
-    color: #555;
-    margin-bottom: 2rem;
-    text-align: left;
-}
-.showcase-content ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 2.5rem;
-    text-align: left;
-}
-.showcase-content ul li {
+.product-card-link {
     display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.product-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.product-price-and-cart {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    color: #333;
+    padding-top: 10px;
 }
-.showcase-content ul li i {
-    color: var(--primary-color);
-    font-size: 1.4rem;
+.btn-add-to-cart-small {
+    background: white; color: var(--primary-color); border: 1px solid #eef0f3;
+    width: 40px; height: 40px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-size: 18px;
+    cursor: pointer; transition: all 0.3s ease; flex-shrink: 0;
 }
-.btn.btn-secondary {
-    background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    padding: 10px 28px;
+.btn-add-to-cart-small:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
 }
-.btn.btn-secondary:hover {
-    background: var(--primary-color);
-    color: #fff;
+.product-actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+.product-actions .btn {
+    flex: 1; min-width: 200px; display: flex; align-items: center;
+    justify-content: center; gap: 8px;
 }
-@media screen and (max-width: 992px) {
-    .showcase-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .showcase-image-container {
-        order: 1;
-    }
-    .showcase-content {
-        order: 2;
-    }
-    .section-title-left,
-    .showcase-content p,
-    .showcase-content ul {
-        text-align: center;
-    }
-    .showcase-content ul {
-        display: inline-block;
-        margin: 0 auto 2.5rem auto;
-        text-align: left;
-    }
-}
-/* ======================= END: Showcase Section ======================= */
+.btn-add-to-cart { background-color: #28a745; }
+.btn-add-to-cart:hover { background-color: #218838; }
+.btn-secondary { background-color: #007bff; }
+.btn-secondary:hover { background-color: #0056b3; }
 
-
-
+/* CART SIDEBAR STYLES */
+.cart-sidebar {
+    position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px;
+    height: 100%; background-color: white; z-index: 1003;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15); transition: right 0.4s ease-in-out;
+    display: flex; flex-direction: column;
+}
+.cart-sidebar.open { right: 0; }
+.cart-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); z-index: 1002;
+    opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s;
+}
+.cart-overlay.open { opacity: 1; visibility: visible; }
+.cart-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #eee; }
+.cart-header h3 { margin: 0; }
+.cart-close-btn { background: none; border: none; font-size: 28px; cursor: pointer; color: #555; }
+.cart-body { flex-grow: 1; overflow-y: auto; padding: 10px 20px; }
+#cart-items { list-style: none; padding: 0; margin: 0; }
+.cart-item { display: flex; align-items: center; margin: 15px 0; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0; }
+.cart-item-image { width: 60px; height: 60px; object-fit: cover; margin-right: 15px; border-radius: 5px; }
+.cart-item-details { flex-grow: 1; }
+.cart-item-name { font-weight: bold; margin-bottom: 5px; }
+.cart-item-price { color: var(--primary-color); }
+.cart-item-actions { display: flex; align-items: center; margin-top: 5px; }
+.cart-item-actions button { background: #f0f0f0; border: none; width: 25px; height: 25px; cursor: pointer; font-weight: bold; border-radius: 5px; }
+.cart-item-actions span { margin: 0 10px; font-weight: bold; }
+.cart-item-remove-btn { background: none; border: none; color: #e63946; font-size: 18px; cursor: pointer; margin-left: auto; }
+.cart-empty-message { text-align: center; color: #888; margin-top: 50px; }
+.cart-footer { padding: 20px; border-top: 1px solid #eee; background: #f9f9f9; }
+.cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; }
+.checkout-btn { display: flex; width: 100%; padding: 15px; font-size: 1.1rem; text-align: center; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px; }
+.messenger-btn { background-color: #0078FF; }
+.whatsapp-btn { background-color: #25D366; }
