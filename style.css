@@ -264,3 +264,41 @@ a { color: inherit }
 #related-products .swiper-button-next {
     right: 0;
 }
+
+/* ======================================================= */
+/* ===   მსგავსი პროდუქტების ბარათების ზომის კორექცია   === */
+/* ======================================================= */
+
+/* სლაიდერს ვაძლევთ ცოტა მეტ ადგილს გვერდებიდან */
+#related-products .swiper {
+    padding: 0 40px;
+}
+
+/* ვამცირებთ სურათის კონტეინერის სიმაღლეს */
+#related-products .product-image-container {
+    padding-top: 85%; /* სურათი გახდება უფრო ნაკლებად კვადრატული */
+}
+
+/* ვამცირებთ ბარათის შიდა დაშორებებს */
+#related-products .product-info {
+    padding: 10px;
+}
+
+/* ვამცირებთ ტექსტების ზომას და დაშორებებს */
+#related-products .product-name {
+    font-size: 0.9rem; /* 1rem-ის მაგივრად */
+    min-height: 36px;
+    margin-bottom: 8px;
+}
+
+#related-products .product-price .new-price,
+#related-products .product-price .old-price {
+    font-size: 1rem; /* ფასიც შედარებით პატარავდება */
+}
+
+/* ვამცირებთ კალათის ღილაკს */
+#related-products .btn-add-to-cart-small {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+}
