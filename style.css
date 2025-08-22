@@ -130,7 +130,10 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .product-details-slider { order: 2; min-width: 0; position: relative; width: 100% }
 .product-details-info { order: 3; }
 #product-full-description { margin-top: 30px; }
-#product-price { margin-top: 50px; justify-content: center; font-size: 2.2rem; }
+#product-price { margin-top: 50px; justify-content: center; font-size: 1.7rem; }
+/* პროდუქტის გვერდზე ფასის გაზრდა */
+#product-price .old-price { font-size: 2.0rem; }
+#product-price .new-price { font-size: 2.2rem; }
 .product-gallery-slider { border-radius: 12px; overflow: hidden; border: 1px solid #eef0f3 }
 .product-gallery-slider .swiper-slide { background: #f9f9f9; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; padding: 40px }
 .product-gallery-slider .swiper-slide.video-slide { padding: 0; background: #000 }
