@@ -218,17 +218,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> კალათაში დამატება';
                     addToCartBtn.addEventListener('click', () => addToCart(product));
                     actionsContainer.prepend(addToCartBtn);
+
+                    //  <<<<<<<<<<<<<<< ⭐️ ცვლილება #3: "შეკვეთა მესენჯერით" ღილაკის ლოგიკა >>>>>>>>>>>>>>>
                     const orderButton = document.getElementById('order-button');
                     if (orderButton) {
                         orderButton.removeAttribute('href');
                         orderButton.addEventListener('click', (e) => {
                             e.preventDefault();
-                            if (cart.length > 0) {
-                                window.open(`https://m.me/61578859507900?text=${encodeURIComponent(generateOrderMessage(cart))}`, '_blank');
-                            } else {
-                                const singleMsg = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
-                                window.open(`https://m.me/61578859507900?text=${encodeURIComponent(singleMsg)}`, '_blank');
-                            }
+                            // ძველ ლოგიკას, რომელიც კალათას ამოწმებდა, ვიღებთ.
+                            // ახლა ღილაკი ყოველთვის მხოლოდ მიმდინარე პროდუქტს გააგზავნის.
+                            const singleProductMessage = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
+                            const messengerLink = `https://m.me/61578859507900?text=${encodeURIComponent(singleProductMessage)}`;
+                            window.open(messengerLink, '_blank');
                         });
                     }
                 }
@@ -287,11 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ===== მსგავსი პროდუქტების ფუნქცია (ახალი კომპაქტური დიზაინით) =====
+    // ===== მსგავსი პროდუქტების ფუნქცია =====
     function renderRelatedProducts(currentProductId, allProducts) {
         let relatedProducts = allProducts.filter(p => p.id !== currentProductId);
         relatedProducts.sort(() => 0.5 - Math.random());
-        const productsToShow = relatedProducts.slice(0, 5);
+        const productsToShow = relatedProducts.slice(0, 5); // ავიღოთ 5, რომ სქროლი იყოს
         const wrapper = document.getElementById('related-products-wrapper');
         if (!wrapper) return;
         wrapper.innerHTML = productsToShow.map(product => {
@@ -311,15 +312,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
             return `<div class="swiper-slide">${productCardHTML}</div>`;
         }).join('');
+
+        // <<<<<<<<<<<<<<<<< ⭐️ ცვლილება #1: სლაიდერის უსასრულო სქროლი >>>>>>>>>>>>>>>
         new Swiper(".related-products-swiper", {
+            // --- მობილურის პარამეტრები ---
             slidesPerView: 2.3,
             spaceBetween: 12,
-            loop: false,
+            loop: false, 
+            freeMode: true, // სლაიდი გახდება ინერციული და უსასრულობის ეფექტს შექმნის
+            grabCursor: true, // სლაიდზე გამოჩნდება "ხელის" კურსორი
+            
+            // --- კომპიუტერის პარამეტრები ---
             breakpoints: {
                 769: {
                     slidesPerView: 4,
                     spaceBetween: 20,
-                    loop: productsToShow.length > 3,
+                    loop: productsToShow.length > 4,
+                    freeMode: false,
                     navigation: {
                         nextEl: "#related-products .swiper-button-next",
                         prevEl: "#related-products .swiper-button-prev",
