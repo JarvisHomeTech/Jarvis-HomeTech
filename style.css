@@ -202,3 +202,65 @@ a { color: inherit }
     padding-bottom: 60px; /* სექციის ქვედა დაშორება footer-მდე */
     background-color: #f9f9f9; /* ღია ფონი, რომ ვიზუალურად გამოირჩეს */
 }
+
+/* ================================================= */
+/* ===   მსგავსი პროდუქტების სლაიდერის გასწორება   === */
+/* ================================================= */
+
+/* 1. განვსაზღვრავთ მთავარ სექციას და ვზღუდავთ მის საზღვრებს */
+#related-products {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+    overflow: hidden; /* ეს ხელს შეუშლის შიგთავსის "გადმოსვლას" */
+}
+
+/* 2. ვაკონკრეტებთ, რომ ჩვენი Swiper კონტეინერი იყოს მოწესრიგებული */
+#related-products .swiper {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 0 45px; /* ვამატებთ ადგილს გვერდითი ღილაკებისთვის */
+}
+
+/* 3. ვასწორებთ თითოეული სლაიდის შიდა განლაგებას */
+#related-products .swiper-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto; /* სიმაღლე დამოკიდებულია კონტენტზე */
+}
+
+/* 4. ვაკონკრეტებთ სურათის ზომას, რომ არ გამოიწვიოს "აფეთქება" */
+#related-products .showcase-img-box {
+    height: 220px;
+}
+#related-products .showcase-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 5. ვასწორებთ სლაიდერის ღილაკების პოზიციას ჩვენს კონკრეტულ სლაიდერში */
+#related-products .swiper-button-next,
+#related-products .swiper-button-prev {
+    top: 40%; /* ვაყენებთ სურათის სიმაღლის ცენტრში */
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    color: var(--secondary-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+#related-products .swiper-button-next::after,
+#related-products .swiper-button-prev::after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#related-products .swiper-button-prev {
+    left: 0;
+}
+
+#related-products .swiper-button-next {
+    right: 0;
+}
