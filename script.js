@@ -145,15 +145,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return `<span class="new-price">${product.price}</span>`;
     };
 
-    // --- Main runner (გვერდების ამომცნობი) ---
-    if (document.querySelector('.product-details-section')) {
-        loadProductDetails();
-    } else {
-        loadProductLists();
-    }
-    updateCart();
+    const createProductCard = (product) => `
+        <div class="product-card">
+            <a href="product-details.html?id=${product.id}" class="product-card-link">
+                <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price-and-cart">
+                        <div class="product-price">${formatPrice(product)}</div>
+                        <button class="btn-add-to-cart-small" data-id="${product.id}" title="კალათაში დამატება"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </a>
+        </div>`;
 
-    // ===== პროდუქტების სიების ჩამტვირთავი (მთავარი და პროდუქტების გვერდი) =====
     async function loadProductLists() {
         const container = document.querySelector('#featured-products-wrapper') || document.querySelector('.products-grid');
         if (!container) return;
@@ -170,19 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (product) addToCart(product);
                 }
             });
-            const createProductCard = (product) => `
-                <div class="product-card">
-                    <a href="product-details.html?id=${product.id}" class="product-card-link">
-                        <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price-and-cart">
-                                <div class="product-price">${formatPrice(product)}</div>
-                                <button class="btn-add-to-cart-small" data-id="${product.id}" title="კალათაში დამატება"><i class="fas fa-cart-plus"></i></button>
-                            </div>
-                        </div>
-                    </a>
-                </div>`;
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
                 new Swiper('.product-slider', {
@@ -197,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error('Products load error:', error); }
     }
 
-    // ===== პროდუქტის დეტალური გვერდის ჩამტვირთავი =====
     async function loadProductDetails() {
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
@@ -211,26 +202,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('product-name').textContent = product.name;
                 document.getElementById('product-full-description').textContent = product.full_description || '';
                 document.getElementById('product-price').innerHTML = formatPrice(product);
-                const actionsContainer = document.getElementById('product-actions');
-                if (actionsContainer) {
-                    const addToCartBtn = document.createElement('button');
-                    addToCartBtn.className = 'btn btn-add-to-cart';
-                    addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> კალათაში დამატება';
-                    addToCartBtn.addEventListener('click', () => addToCart(product));
-                    actionsContainer.prepend(addToCartBtn);
-                    
-                    // ⭐️ ცვლილება #3: "შეკვეთა მესენჯერით" ღილაკის ლოგიკა
-                    const orderButton = document.getElementById('order-button');
-                    if (orderButton) {
-                        orderButton.removeAttribute('href');
-                        orderButton.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const singleProductMessage = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
-                            const messengerLink = `https://m.me/61578859507900?text=${encodeURIComponent(singleProductMessage)}`;
-                            window.open(messengerLink, '_blank');
-                        });
-                    }
+
+                const addToCartBtn = document.getElementById('add-to-cart-btn');
+                if(addToCartBtn) {
+                   addToCartBtn.addEventListener('click', () => addToCart(product));
                 }
+
+                const singleProductMessage = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
+
+                const messengerButton = document.getElementById('order-messenger-btn'); 
+                if (messengerButton) { 
+                    messengerButton.addEventListener('click', (e) => { 
+                        e.preventDefault(); 
+                        const message = (cart.length > 0) ? generateOrderMessage(cart) : singleProductMessage;
+                        const link = `https://m.me/61578859507900?text=${encodeURIComponent(message)}`; 
+                        window.open(link, '_blank'); 
+                    }); 
+                }
+
+                const whatsappButton = document.getElementById('order-whatsapp-btn');
+                if(whatsappButton) {
+                   whatsappButton.addEventListener('click', (e) => {
+                       e.preventDefault();
+                       const message = (cart.length > 0) ? generateOrderMessage(cart) : singleProductMessage;
+                       const link = `https://wa.me/995599608105?text=${encodeURIComponent(message)}`;
+                       window.open(link, '_blank');
+                   });
+                }
+                
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
                 let slidesHTML = '';
                 if (product.video && String(product.video).trim() !== "") {
@@ -238,103 +237,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 (product.images || []).forEach(img => slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`);
                 if (galleryWrapper) galleryWrapper.innerHTML = slidesHTML;
+
                 new Swiper('.product-gallery-slider', {
                     autoHeight: true, loop: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     on: { slideChange: function () { document.querySelectorAll('.product-gallery-slider video').forEach(video => video.pause()); } }
                 });
+
                 renderRelatedProducts(productId, products);
             }
         } catch (error) { console.error('Product details load error:', error); }
     }
 
-    // --- FORM AND SCROLL LOGIC ---
-    const form = document.getElementById("contact-form");
-    if (form) {
-        form.addEventListener('submit', () => {
-            setTimeout(() => { document.getElementById('form-status').textContent = 'თქვენი შეტყობინება გაგზავნილია.'; }, 300);
-        });
-    }
-
-    function scrollToSection(targetId) {
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            const header = document.querySelector('.header');
-            const headerHeight = header ? header.offsetHeight : 0;
-            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = targetPosition - headerHeight;
-            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (!href || href === '#') return;
-            e.preventDefault();
-            if (navMenu && navMenu.classList.contains('show-menu')) {
-                navMenu.classList.remove('show-menu');
-            }
-            scrollToSection(href);
-        });
-    });
-
-    window.addEventListener("load", () => {
-        if (window.location.hash) {
-            setTimeout(() => { scrollToSection(window.location.hash); }, 100);
-        }
-    });
-
-    // ===== მსგავსი პროდუქტების ფუნქცია (საბოლოო ვერსია უსასრულო ლუპით) =====
     function renderRelatedProducts(currentProductId, allProducts) {
-        let relatedProducts = allProducts.filter(p => p.id !== currentProductId);
-        
-        // ⭐️ ცვლილება #1: ვაორმაგებთ სიას, რომ ლუპმა გარანტირებულად იმუშაოს
-        const productsToShow = [...relatedProducts, ...relatedProducts];
+        const relatedProducts = allProducts.filter(p => p.id !== currentProductId);
+        if (relatedProducts.length === 0) {
+            document.getElementById('related-products')?.style.display = 'none';
+            return;
+        }
 
         const wrapper = document.getElementById('related-products-wrapper');
         if (!wrapper) return;
 
-        wrapper.innerHTML = productsToShow.map(product => {
-            const productCardHTML = `
-                <div class="product-card compact">
-                    <a href="product-details.html?id=${product.id}" class="product-card-link">
-                        <div class="product-image-container">
-                            <img src="${product.image}" alt="${product.name}">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price">
-                                ${formatPrice(product)}
-                            </div>
-                        </div>
-                    </a>
-                </div>`;
-            return `<div class="swiper-slide">${productCardHTML}</div>`;
+        wrapper.innerHTML = relatedProducts.map(product => {
+            return `<div class="swiper-slide">${createProductCard(product)}</div>`;
         }).join('');
 
-        // ვაახლებთ Swiper-ის პარამეტრებს, ახლა ლუპი ყველგან იმუშავებს
         new Swiper(".related-products-swiper", {
-            // --- მობილურის განახლებული პარამეტრები ---
             slidesPerView: 2,
             spaceBetween: 15,
-            loop: true,
+            loop: relatedProducts.length > 2,
             grabCursor: true,
-            
-            // --- კომპიუტერის პარამეტრები ---
+            navigation: {
+                nextEl: "#related-products .swiper-button-next",
+                prevEl: "#related-products .swiper-button-prev",
+            },
             breakpoints: {
                 769: {
                     slidesPerView: 4,
                     spaceBetween: 20,
-                    loop: productsToShow.length > 4,
-                    navigation: {
-                        nextEl: "#related-products .swiper-button-next",
-                        prevEl: "#related-products .swiper-button-prev",
-                    },
+                    loop: relatedProducts.length > 4,
                 }
             },
         });
     }
 
-}); // DOMContentLoaded end
+    if (document.querySelector('.product-details-section')) {
+        loadProductDetails();
+    } else {
+        loadProductLists();
+    }
+    updateCart();
+
+});
