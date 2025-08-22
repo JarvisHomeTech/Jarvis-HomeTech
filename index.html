@@ -12,36 +12,51 @@
 <body>
 
   <header class="header">
-    <a class="logo" href="index.html">JARVIS HomeTech</a>
-
-    <!-- header controls: cart icon + hamburger -->
-    <div class="header-controls">
-      <button id="cart-open-btn" class="nav-cart" aria-label="Open cart" title="ჩემი კალათა">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="nav-cart-text">ჩემი კალათა</span>
-        <span id="cart-count" class="cart-badge" aria-hidden="true">0</span>
-      </button>
-
-      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="header-left">
+      <a class="logo" href="index.html">JARVIS HomeTech</a>
     </div>
 
-    <nav>
-      <ul class="nav__links" id="nav-links">
-        <div class="nav-close" id="nav-close"><i class="fa-solid fa-xmark"></i></div>
-        <li><a href="products.html">პროდუქცია</a></li>
-        <!-- removed duplicate "ჩემი კალათა" from nav per request -->
-        <li><a href="#about">ჩვენს შესახებ</a></li>
-        <li><a href="#contact">კონტაქტი</a></li>
+    <div class="header-right">
+      <!-- cart icon with badge -->
+      <button id="cart-open-btn" class="nav-cart" aria-label="Open cart" title="ჩემი კალათა">
+        <i class="fas fa-shopping-cart cart-icon" aria-hidden="true"></i>
+        <span id="cart-count-badge" class="cart-badge" aria-hidden="true">0</span>
+      </button>
+
+      <!-- hamburger -->
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" title="მენიუ">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- slide-in mobile nav -->
+    <nav id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <a class="logo drawer-logo" href="index.html">JARVIS HomeTech</a>
+        <button id="drawer-close" class="drawer-close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <ul class="drawer-list">
+        <li class="drawer-item drawer-cart" id="drawer-cart-item">
+          <button id="drawer-cart-btn" class="drawer-cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span>ჩემი კალათა</span>
+            <span id="drawer-cart-count" class="cart-badge small">0</span>
+          </button>
+        </li>
+        <li class="drawer-item"><a href="products.html">პროდუქცია</a></li>
+        <li class="drawer-item"><a href="#about" class="drawer-link">ჩვენს შესახებ</a></li>
+        <li class="drawer-item"><a href="#contact" class="drawer-link">კონტაქტი</a></li>
       </ul>
     </nav>
+
   </header>
 
   <main>
     <section class="hero">
-      <div class="container">
+      <div class="container hero-inner">
         <h2>გახადეთ თქვენი სახლი უფრო ჭკვიანი და უსაფრთხო</h2>
         <p>ავტომატური სისტემები წყლის, გაზის გაჟონვისა და უსაფრთხოებისთვის.</p>
-        <a href="#contact" class="btn">დატოვეთ მონაცემები</a>
+        <a href="#contact" class="btn hero-btn">დატოვეთ მონაცემები</a>
       </div>
     </section>
 
@@ -60,22 +75,22 @@
     <section class="showcase-section">
       <div class="container showcase-container">
         <div class="showcase-image-container">
-          <!-- smaller constrained image/video -->
           <img src="photos/1000012403.png" alt="Smart Valve Controller" class="showcase-media" />
         </div>
-
         <div class="showcase-content">
           <h2 class="section-title-left">ტექნოლოგია, რომელიც ზრუნავს</h2>
           <p>ჩვენი ფლაგმანი მოწყობილობა — წყლისა და გაზის ჭკვიანი გადამკეტი თავისი სენსორით, მონტაჟი სრულიად უფასოდ, სწრაფად და მარტივად. ის თქვენი სახლის უხილავი მცველია, რომელიც მუშაობს 24/7.</p>
 
-          <ul>
+          <ul class="showcase-features">
             <li><i class="fas fa-check-circle"></i> ავტომატური რეაგირება წამებში</li>
             <li><i class="fas fa-check-circle"></i> იცავს შენს ოჯახს და სახლს 24/7</li>
             <li><i class="fas fa-check-circle"></i> მართე სმარტფონით დედამიწის ნებისმიერი წერტილიდან</li>
           </ul>
 
-          <a href="product-details.html?id=water-valve-01" class="btn btn-secondary">წყალი</a>
-          <a href="product-details.html?id=gas-valve-02" class="btn btn-secondary">გაზი</a>
+          <div class="showcase-actions">
+            <a href="product-details.html?id=water-valve-01" class="btn btn-secondary">წყალი</a>
+            <a href="product-details.html?id=gas-valve-02" class="btn btn-secondary">გაზი</a>
+          </div>
         </div>
       </div>
     </section>
@@ -87,7 +102,7 @@
 
         <div class="video-container">
           <h3>ნახეთ ვიდეო, თუ როგორ მუშაობს სისტემა</h3>
-          <video controls muted loop playsinline class="showcase-media video">
+          <video controls muted loop playsinline class="responsive-video">
             <source src="photos/24.mp4" type="video/mp4" />
             თქვენი ბრაუზერი არ უჭერს მხარს ვიდეოს ჩვენებას.
           </video>
@@ -99,9 +114,21 @@
       <div class="container">
         <h2>როგორ ვმუშაობთ</h2>
         <div class="process-steps">
-          <div class="step"><i class="fas fa-phone-alt"></i><h3>1. კონსულტაცია</h3><p>დაგვიკავშირდით და მიიღეთ უფასო კონსულტაცია.</p></div>
-          <div class="step"><i class="fas fa-tools"></i><h3>2. მონტაჟი</h3><p>ჩვენი სპეციალისტები სწრაფად და ხარისხიანად დაამონტაჟებენ მოწყობილობებს.</p></div>
-          <div class="step"><i class="fas fa-shield-alt"></i><h3>3. გარანტია და მხარდაჭერა</h3><p>მიიღეთ სრული გარანტია და наша გუნდის მუდმივი ტექნიკური მხარდაჭერა.</p></div>
+          <div class="step">
+            <i class="fas fa-phone-alt"></i>
+            <h3>1. კონსულტაცია</h3>
+            <p>დაგვიკავშირდით და მიიღეთ უფასო კონსულტაცია.</p>
+          </div>
+          <div class="step">
+            <i class="fas fa-tools"></i>
+            <h3>2. მონტაჟი</h3>
+            <p>ჩვენი სპეციალისტები სწრაფად და ხარისხიანად დაამონტაჟებენ მოწყობილობებს.</p>
+          </div>
+          <div class="step">
+            <i class="fas fa-shield-alt"></i>
+            <h3>3. გარანტია და მხარდაჭერა</h3>
+            <p>მიიღეთ სრული გარანტია და ჩვენი გუნდის მუდმივი ტექნიკური მხარდაჭერა.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -132,10 +159,10 @@
   </footer>
 
   <!-- CART SIDEBAR -->
-  <div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
     <div class="cart-header">
       <h3>თქვენი კალათა</h3>
-      <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="close cart">&times;</button>
     </div>
     <div class="cart-body" id="cart-body"></div>
     <div class="cart-footer">
@@ -144,18 +171,12 @@
       <a id="checkout-whatsapp-btn" class="btn checkout-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> შეკვეთა WhatsApp-ით</a>
     </div>
   </div>
-  <div class="cart-overlay" id="cart-overlay"></div>
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true"></div>
 
-  <!-- Floating chat -->
-  <div class="floating-chat-widget">
-    <input type="checkbox" id="chat-toggle" class="chat-toggle-checkbox">
-    <label for="chat-toggle" class="chat-toggle-button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="main-icon"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-    </label>
-    <div class="chat-options">
-      <a href="https://m.me/61578859507900" target="_blank" class="chat-link messenger">Messenger</a>
-    </div>
-  </div>
+  <!-- floating messenger -->
+  <a href="https://m.me/61578859507900" target="_blank" class="floating-messenger" aria-label="Messenger">
+    <i class="fab fa-facebook-messenger"></i>
+  </a>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js" defer></script>
