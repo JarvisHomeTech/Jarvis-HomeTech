@@ -286,13 +286,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ===== მსგავსი პროდუქტების ფუნქცია =====
+    // ===== მსგავსი პროდუქტების ფუნქცია (საბოლოო ვერსია უსასრულო ლუპით) =====
     function renderRelatedProducts(currentProductId, allProducts) {
         let relatedProducts = allProducts.filter(p => p.id !== currentProductId);
-        relatedProducts.sort(() => 0.5 - Math.random());
-        const productsToShow = relatedProducts.slice(0, 5);
+        
+        // ⭐️ ცვლილება #1: ვაორმაგებთ სიას, რომ ლუპმა გარანტირებულად იმუშაოს
+        const productsToShow = [...relatedProducts, ...relatedProducts];
+
         const wrapper = document.getElementById('related-products-wrapper');
         if (!wrapper) return;
+
         wrapper.innerHTML = productsToShow.map(product => {
             const productCardHTML = `
                 <div class="product-card compact">
@@ -310,20 +313,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
             return `<div class="swiper-slide">${productCardHTML}</div>`;
         }).join('');
-        
-        // ⭐️ ცვლილება #1: სლაიდერის უსასრულო სქროლი
+
+        // ვაახლებთ Swiper-ის პარამეტრებს, ახლა ლუპი ყველგან იმუშავებს
         new Swiper(".related-products-swiper", {
-            slidesPerView: 2.3,
-            spaceBetween: 12,
-            loop: false,
-            freeMode: true,
+            // --- მობილურის განახლებული პარამეტრები ---
+            slidesPerView: 2,
+            spaceBetween: 15,
+            loop: true,
             grabCursor: true,
+            
+            // --- კომპიუტერის პარამეტრები ---
             breakpoints: {
                 769: {
                     slidesPerView: 4,
                     spaceBetween: 20,
                     loop: productsToShow.length > 4,
-                    freeMode: false,
                     navigation: {
                         nextEl: "#related-products .swiper-button-next",
                         prevEl: "#related-products .swiper-button-prev",
