@@ -1,5 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Unmute videos on play ---
+    document.addEventListener('play', (event) => {
+        const target = event.target;
+        if (target && target.tagName === 'VIDEO') {
+            target.muted = false;
+        }
+    }, true);
+
     // --- Mobile Menu Logic ---
     const navMenu = document.querySelector('.nav__links');
     const navToggle = document.getElementById('nav-toggle');
@@ -150,9 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
         try {
             const response = await fetch('products.json');
-            if (!response.ok) throw new Error('Network response was not ok');
             const products = await response.json();
-            
             const createProductCard = (product) => `
                 <div class="product-card">
                     <a href="product-details.html?id=${product.id}" class="product-card-link">
@@ -181,15 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
                 new Swiper('.product-slider', {
-                    loop: true,
-                    spaceBetween: 20,
+                    loop: true, spaceBetween: 20,
                     touchStartPreventDefault: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
                 });
             } else {
-                container.innerHTML = products.map(p => createProductCard(p)).join('');
+                container.innerHTML = products.map(createProductCard).join('');
             }
         } catch (error) { console.error('Products load error:', error); }
     }
@@ -200,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!productId) return;
         try {
             const response = await fetch('products.json');
-            if (!response.ok) throw new Error('Network response was not ok');
             const products = await response.json();
             const product = products.find(p => p.id === productId);
 
@@ -217,37 +221,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const singleProductMessage = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
 
-                const messengerButton = document.getElementById('order-messenger-btn'); 
-                if (messengerButton) { 
-                    messengerButton.addEventListener('click', (e) => { 
-                        e.preventDefault(); 
+                const messengerButton = document.getElementById('order-messenger-btn');
+                if (messengerButton) {
+                    messengerButton.addEventListener('click', (e) => {
+                        e.preventDefault();
                         const message = (cart.length > 0) ? generateOrderMessage(cart) : singleProductMessage;
-                        const link = `https://m.me/61578859507900?text=${encodeURIComponent(message)}`; 
-                        window.open(link, '_blank'); 
-                    }); 
+                        const messengerLink = `https://m.me/61578859507900?text=${encodeURIComponent(message)}`;
+                        window.open(messengerLink, '_blank');
+                    });
                 }
 
                 const whatsappButton = document.getElementById('order-whatsapp-btn');
-                if(whatsappButton) {
-                   whatsappButton.addEventListener('click', (e) => {
-                       e.preventDefault();
-                       const message = singleProductMessage;
-                       const link = `https://wa.me/995599608105?text=${encodeURIComponent(message)}`;
-                       window.open(link, '_blank');
-                   });
+                if (whatsappButton) {
+                    whatsappButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const message = singleProductMessage;
+                        const link = `https://wa.me/995599608105?text=${encodeURIComponent(message)}`;
+                        window.open(link, '_blank');
+                    });
                 }
                 
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
                 let slidesHTML = '';
                 if (product.video && String(product.video).trim() !== "") {
-                    slidesHTML += `<div class="swiper-slide video-slide"><video controls muted loop autoplay playsinline><source src="${product.video}" type="video/mp4"></video></div>`;
+                    slidesHTML += `<div class="swiper-slide video-slide"><video controls muted loop playsinline><source src="${product.video}" type="video/mp4"></video></div>`;
                 }
                 (product.images || []).forEach(img => slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`);
                 if (galleryWrapper) galleryWrapper.innerHTML = slidesHTML;
 
                 new Swiper('.product-gallery-slider', {
-                    autoHeight: true,
-                    loop: false,
+                    autoHeight: true, loop: false,
                     touchStartPreventDefault: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
@@ -266,27 +269,28 @@ document.addEventListener('DOMContentLoaded', () => {
             relatedSection.style.display = 'none';
             return;
         }
+
+        const createRelatedProductCard = (product) => `
+            <div class="product-card compact">
+                <a href="product-details.html?id=${product.id}" class="product-card-link">
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">
+                            ${formatPrice(product)}
+                        </div>
+                    </div>
+                </a>
+            </div>`;
         
         const productsToShow = [...relatedProducts, ...relatedProducts];
         const wrapper = document.getElementById('related-products-wrapper');
         if (!wrapper) return;
 
         wrapper.innerHTML = productsToShow.map(product => {
-            const productCardHTML = `
-                <div class="product-card compact">
-                    <a href="product-details.html?id=${product.id}" class="product-card-link">
-                        <div class="product-image-container">
-                            <img src="${product.image}" alt="${product.name}">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price">
-                                ${formatPrice(product)}
-                            </div>
-                        </div>
-                    </a>
-                </div>`;
-            return `<div class="swiper-slide">${productCardHTML}</div>`;
+            return `<div class="swiper-slide">${createRelatedProductCard(product)}</div>`;
         }).join('');
 
         new Swiper(".related-products-swiper", {
