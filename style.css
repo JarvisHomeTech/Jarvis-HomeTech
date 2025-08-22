@@ -418,3 +418,72 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 
 
 
+/* ======================= 9. CART & PRODUCT CARD FIXES ======================= */
+
+/* --- პრობლემა #1 და #5-ის ფიქსი: პროდუქტის ბარათის და ღილაკის პოზიციის გასწორება --- */
+.product-card {
+    position: relative; /* ეს ასწორებს სლაიდერის სიმაღლის პრობლემას */
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between; /* ეს ქვედა ელემენტებს ბოლოში მიიტანს */
+}
+
+.product-price-and-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px; /* დაშორება სახელთან */
+}
+
+.btn-add-to-cart-small {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid #eee;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0; /* არ დაპატარავდეს */
+}
+.btn-add-to-cart-small:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* --- პრობლემა #2-ის ფიქსი: დეტალების გვერდზე ორი ღილაკისთვის კონტეინერი --- */
+.product-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/* --- პრობლემა #3-ის ფიქსი: "კალათაში დამატება" ღილაკის გამწვანება --- */
+.btn-add-to-cart {
+    background-color: #28a745; /* მწვანე ფერი */
+    border-color: #28a745;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-add-to-cart:hover {
+    background-color: #218838;
+}
+
+.btn-secondary { /* მეორე ღილაკის სტილი */
+    background-color: #6c757d;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
