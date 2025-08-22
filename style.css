@@ -196,9 +196,9 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     #related-products { padding: 40px 0; }
     #related-products .container { padding: 0; }
     #related-products .products-title { padding: 0 15px 15px 15px; text-align: left; font-size: 1.4rem; }
-    #related-products .product-card.compact .product-info { padding: 8px; text-align: left; }
-    #related-products .product-card.compact .product-info .product-price { justify-content: flex-start; }
-    #related-products .product-card.compact .product-name { font-size: 13px; line-height: 1.4; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 36px; }
+    .product-card.compact .product-info { padding: 8px; text-align: left; }
+    .product-card.compact .product-info .product-price { justify-content: flex-start; }
+    .product-card.compact .product-name { font-size: 13px; line-height: 1.4; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 36px; }
     .related-products-swiper .swiper-wrapper { padding-left: 15px; padding-right: 15px; }
     .related-products-swiper .swiper-button-next, .related-products-swiper .swiper-button-prev { display: none; }
 }
