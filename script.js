@@ -181,9 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
                 new Swiper('.product-slider', {
-                    loop: true,
-                    spaceBetween: 20,
-                    touchStartPreventDefault: false, // <-- სქროლვის შესწორება
+                    loop: true, spaceBetween: 20,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
@@ -231,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(whatsappButton) {
                    whatsappButton.addEventListener('click', (e) => {
                        e.preventDefault();
-                       const message = (cart.length > 0) ? generateOrderMessage(cart) : singleProductMessage;
+                       const message = singleProductMessage; // <--- შეცვლილია ლოგიკა
                        const link = `https://wa.me/995599608105?text=${encodeURIComponent(message)}`;
                        window.open(link, '_blank');
                    });
@@ -246,9 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (galleryWrapper) galleryWrapper.innerHTML = slidesHTML;
 
                 new Swiper('.product-gallery-slider', {
-                    autoHeight: true,
-                    loop: false,
-                    touchStartPreventDefault: false, // <-- სქროლვის შესწორება
+                    autoHeight: true, loop: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     on: { slideChange: function () { document.querySelectorAll('.product-gallery-slider video').forEach(video => video.pause()); } }
@@ -280,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
             spaceBetween: 15,
             loop: true,
             grabCursor: true,
-            touchStartPreventDefault: false, // <-- სქროლვის შესწორება
             breakpoints: {
                 769: {
                     slidesPerView: 4,
