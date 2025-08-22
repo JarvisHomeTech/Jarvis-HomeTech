@@ -4,130 +4,161 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.querySelector('.nav__links');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
-    if (navToggle) { navToggle.addEventListener('click', () => navMenu.classList.add('show-menu')); }
-    if (navClose) { navClose.addEventListener('click', () => navMenu.classList.remove('show-menu')); }
-
-    // ======================= START: CART LOGIC ======================= //
-
-    let cart = JSON.parse(localStorage.getItem('jarvisCartV6')) || [];
-    const cartSidebar = document.getElementById('cart-sidebar');
-    const cartOverlay = document.getElementById('cart-overlay');
-    const cartItemsContainer = document.getElementById('cart-body');
-    const cartTotalElement = document.getElementById('cart-total');
-    const navCartBtn = document.getElementById('nav-cart-btn');
-    const navCartCounterMain = document.getElementById('nav-cart-counter-main');
-    const navCartCounterMobile = document.getElementById('nav-cart-counter-mobile');
-
-    const toggleCart = () => {
-        if(cartSidebar) cartSidebar.classList.toggle('open');
-        if(cartOverlay) cartOverlay.classList.toggle('open');
-    };
-    
-    if (navCartBtn) navCartBtn.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
-    document.getElementById('cart-close-btn')?.addEventListener('click', toggleCart);
-    if(cartOverlay) cartOverlay.addEventListener('click', toggleCart);
-
-    const updateCart = () => {
-        renderCartItems();
-        updateAllCounters();
-        localStorage.setItem('jarvisCartV6', JSON.stringify(cart));
-    };
-    
-    const updateAllCounters = () => {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const counters = [navCartCounterMain, navCartCounterMobile];
-        counters.forEach(counter => {
-            if(counter) {
-                counter.textContent = totalItems;
-                counter.style.display = totalItems > 0 ? 'inline-flex' : 'none';
-            }
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.add('show-menu');
         });
-    };
-
-    const renderCartItems = () => {
-        if (!cartItemsContainer) return;
-        cartItemsContainer.innerHTML = '';
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p class="cart-empty-message">თქვენი კალათა ცარიელია.</p>';
-            if(cartTotalElement) cartTotalElement.textContent = '0.00 ₾';
-            return;
-        }
-        
-        const ul = document.createElement('ul');
-        ul.id = 'cart-items';
-        let total = 0;
-        cart.forEach(item => {
-            const priceString = item.price || '0 ₾';
-            const price = parseFloat(priceString.replace(' ₾', ''));
-            total += price * item.quantity;
-            const li = document.createElement('li');
-            li.className = 'cart-item';
-            li.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                <div class="cart-item-details">
-                    <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">${item.price}</div>
-                    <div class="cart-item-actions">
-                        <button class="quantity-change" data-id="${item.id}" data-change="-1">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-change" data-id="${item.id}" data-change="1">+</button>
-                    </div>
-                </div>
-                <button class="cart-item-remove-btn" data-id="${item.id}">&times;</button>
-            `;
-            ul.appendChild(li);
-        });
-        cartItemsContainer.appendChild(ul);
-        if(cartTotalElement) cartTotalElement.textContent = `${total.toFixed(2)} ₾`;
-    };
-
-    const addToCart = (product) => {
-        const existingItem = cart.find(item => item.id === product.id);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({ ...product, quantity: 1 });
-        }
-        updateCart();
-    };
-
-    if(cartItemsContainer) {
-        cartItemsContainer.addEventListener('click', (e) => {
-            const target = e.target.closest('button');
-            if (!target) return;
-            const id = target.dataset.id;
-            if (!id) return;
-            
-            const itemInCart = cart.find(item => item.id === id);
-            if (!itemInCart) return;
-
-            if (target.classList.contains('quantity-change')) {
-                const change = parseInt(target.dataset.change);
-                itemInCart.quantity += change;
-                if (itemInCart.quantity <= 0) cart = cart.filter(item => item.id !== id);
-            } else if (target.classList.contains('cart-item-remove-btn')) {
-                cart = cart.filter(item => item.id !== id);
-            }
-            updateCart();
+    }
+    if (navClose) {
+        navClose.addEventListener('click', () => {
+            navMenu.classList.remove('show-menu');
         });
     }
 
-    const generateOrderMessage = (items) => { /* ... (same as before) ... */ };
-    document.getElementById('checkout-messenger-btn')?.addEventListener('click', (e) => { /* ... (same as before) ... */ });
-    document.getElementById('checkout-whatsapp-btn')?.addEventListener('click', (e) => { /* ... (same as before) ... */ });
-    // ======================= END: CART LOGIC ======================= //
-
+    // --- ფუნქციების გაშვება ---
     if (document.querySelector('.product-details-section')) {
         loadProductDetails();
     } else {
         loadProductLists();
     }
-    updateCart();
 
-    const formatPrice = (product) => { /* ... (same as before) ... */ };
+    // --- ფასის ფორმატირების ფუნქცია ---
+    const formatPrice = (product) => {
+        if (product.old_price && product.old_price.trim() !== "") {
+            return `<span class="old-price">${product.old_price}</span> <span class="new-price">${product.price}</span>`;
+        }
+        return `<span class="new-price">${product.price}</span>`;
+    };
 
-    async function loadProductLists() { /* ... (same logic as the one you provided in the last turn, with the corrected createProductCard) ... */ }
-    async function loadProductDetails() { /* ... (same logic as the one you provided in the last turn, with the corrected button creation and dynamic link) ... */ }
-    
-    // ... (Your original form and scroll logic) ...
+    // --- პროდუქტების სიების ჩატვირთვის ფუნქცია ---
+    async function loadProductLists() {
+        const featuredProductsWrapper = document.querySelector('#featured-products-wrapper');
+        const productsGrid = document.querySelector('.products-grid');
+        if (!featuredProductsWrapper && !productsGrid) return;
+        try {
+            const response = await fetch('products.json');
+            if (!response.ok) throw new Error('პროდუქტების ფაილი ვერ მოიძებნა!');
+            const products = await response.json();
+            const createProductCard = (product) => `
+                <div class="product-card">
+                    <a href="product-details.html?id=${product.id}" class="product-card-link">
+                        <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name}</h3>
+                            <div class="product-price">${formatPrice(product)}</div>
+                        </div>
+                    </a>
+                </div>`;
+            if (featuredProductsWrapper) {
+                featuredProductsWrapper.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
+                new Swiper('.product-slider', {
+                    loop: true,
+                    spaceBetween: 20,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    breakpoints: {
+                        640: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        1024: { slidesPerView: 4 }
+                    }
+                });
+            }
+            if (productsGrid) {
+                productsGrid.innerHTML = products.map(createProductCard).join('');
+            }
+        } catch (error) {
+            console.error('შეცდომა პროდუქტების სიის ჩატვირთვისას:', error);
+        }
+    }
+
+    // --- პროდუქტის დეტალური გვერდის ჩატვირთვის ფუნქცია ---
+    async function loadProductDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+        if (!productId) return;
+        try {
+            const response = await fetch('products.json');
+            const products = await response.json();
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                document.title = product.name;
+                const productNameH1 = document.getElementById('product-name');
+                if(productNameH1) productNameH1.textContent = product.name;
+
+                document.getElementById('product-full-description').textContent = product.full_description;
+                document.getElementById('product-price').innerHTML = formatPrice(product);
+                
+                const orderButton = document.getElementById('order-button');
+                if(orderButton) orderButton.href = `https://m.me/61578859507900`;
+
+                const galleryWrapper = document.getElementById('product-gallery-wrapper');
+                let slidesHTML = '';
+                if (product.video && product.video.trim() !== "") {
+                    slidesHTML += `<div class="swiper-slide video-slide"><video controls muted loop autoplay playsinline><source src="${product.video}" type="video/mp4"></video></div>`;
+                }
+                product.images.forEach(img => {
+                    slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`;
+                });
+                galleryWrapper.innerHTML = slidesHTML;
+
+                new Swiper('.product-gallery-slider', {
+                    autoHeight: true,
+                    loop: false,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    on: {
+                        slideChange: function () {
+                            document.querySelectorAll('.product-gallery-slider video').forEach(video => video.pause());
+                        }
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('შეცდომა პროდუქტის დეტალების ჩატვირთვისას:', error);
+        }
+    }
+
+    // --- ფორმის ლოგიკა ---
+    const form = document.getElementById("contact-form");
+    if (form) {
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            // ... (Your form submission logic)
+        });
+    }
+
+    // --- სქროლის ლოგიკა ---
+    function scrollToSection(targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const header = document.querySelector('.header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = targetPosition - headerHeight;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (navMenu && navMenu.classList.contains('show-menu')) {
+                navMenu.classList.remove('show-menu');
+            }
+            scrollToSection(targetId);
+        });
+    });
+
+    window.addEventListener("load", () => {
+        if (window.location.hash) {
+            setTimeout(() => {
+                scrollToSection(window.location.hash);
+            }, 100);
+        }
+    });
 });
