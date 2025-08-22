@@ -244,3 +244,15 @@ a { color: inherit }
         font-size: 12px;
     }
 }
+
+/* მთავარ გვერდზე წყლის და გაზის ღილაკების გასწორება */
+.showcase-buttons {
+    display: flex;
+    justify-content: center; /* ღილაკების ცენტრში გასწორება */
+    gap: 15px; /* მათ შორის დაშორება */
+    margin-top: 20px;
+}
+
+.showcase-buttons .btn {
+    min-width: 120px; /* ღილაკების მინიმალური სიგანე, რაც მათ ზომას გაათანაბრებს */
+}
