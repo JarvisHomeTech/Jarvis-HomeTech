@@ -1,25 +1,54 @@
-/* style.css - cohesive responsive styles for header, hero, showcase, products, cart, drawer, process */
+/* UPDATED style.css — video fix, main CTA blue, product cards uniform, old/new price styling */
 
-/* variables */
+/* ====== variables ====== */
 :root{
-  --primary:#007bff;
-  --secondary:#212529;
-  --success:#28a745;
-  --accent:#e63946;
-  --bg:#ffffff;
-  --muted:#6c757d;
-  --max-container:1200px;
+  --primary: #007bff;
+  --secondary: #212529;
+  --success: #28a745;
+  --danger: #e63946;
+  --bg: #ffffff;
+  --muted: #6c757d;
+  --max-container: 1200px;
 }
 
-/* reset */
+/* ====== reset ====== */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--secondary);line-height:1.5}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--secondary);
+  background:var(--bg);
+  line-height:1.5;
+}
 .container{max-width:var(--max-container);margin:0 auto;padding:0 18px}
 a{color:inherit;text-decoration:none}
 
-/* header */
-.header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #f1f1f1;position:sticky;top:0;z-index:1200;background:#fff}
+/* ====== Buttons (make main CTAs clearly blue/form) ====== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:var(--primary);
+  color:#fff;
+  padding:11px 20px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-size:1rem;
+  font-weight:600;
+  transition:transform .12s ease, box-shadow .12s ease;
+  box-shadow: 0 6px 18px rgba(0,123,255,0.12);
+}
+.btn:hover{ transform:translateY(-3px); }
+
+/* Ensure hero CTA is prominent */
+.hero-btn{ padding:12px 24px; border-radius:14px; background:var(--primary); color:#fff; font-weight:700; }
+
+/* ====== Header ====== */
+.header{
+  display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#fff;border-bottom:1px solid #f1f1f1;position:sticky;top:0;z-index:1200;
+}
 .header-left .logo{font-weight:800;color:#14148c;font-size:1.55rem}
 .header-right{display:flex;align-items:center;gap:12px}
 .nav-cart{background:none;border:none;cursor:pointer;position:relative;padding:6px 8px;display:flex;align-items:center;gap:8px}
@@ -30,48 +59,82 @@ a{color:inherit;text-decoration:none}
 /* hamburger */
 .nav-toggle{background:none;border:none;font-size:22px;cursor:pointer;padding:8px}
 
-/* mobile drawer */
+/* drawer */
 .mobile-drawer{position:fixed;right:-110%;top:0;height:100%;width:320px;background:#fff;box-shadow:-18px 0 40px rgba(0,0,0,.12);transition:right .28s ease;padding:12px 12px;z-index:1300}
 .mobile-drawer.open{right:0}
 .drawer-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px}
-.drawer-logo{font-weight:700;color:#14148c}
-.drawer-close{background:none;border:none;font-size:18px;cursor:pointer}
 .drawer-list{list-style:none;margin-top:6px;padding:6px}
-.drawer-item{margin-bottom:6px}
-.drawer-item a, .drawer-cart-btn{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;color:var(--secondary);background:transparent;border:none;width:100%;text-align:left}
-.drawer-item a:hover, .drawer-cart-btn:hover{background:#f6f8fb}
 
-/* hero */
-.hero{background:linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 60%), url('photos/ffffffff.jpg') center/cover no-repeat;color:#fff;min-height:320px;display:flex;align-items:center;justify-content:center;text-align:center;padding:48px 18px;position:relative}
+/* ====== Hero (background + CTA) ====== */
+.hero{
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 60%),
+    url('photos/ffffffff.jpg') center/cover no-repeat;
+  color:#fff;
+  min-height:320px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:48px 18px;
+  position:relative;
+}
 .hero-inner{position:relative;z-index:2;max-width:980px;width:100%}
 .hero-inner h2{font-size:clamp(20px,5vw,44px);margin-bottom:8px;line-height:1.05;color:#fff;font-weight:700}
 .hero-inner p{font-size:clamp(14px,2.2vw,18px);color:rgba(255,255,255,0.95);margin-bottom:18px}
-.hero-btn{border-radius:12px;padding:12px 22px;font-weight:600;z-index:3;position:relative}
 
-/* showcase */
+/* ====== Showcase / About video ====== */
+/* IMPORTANT: use object-fit: contain to avoid cropping (previously caused top crop) */
 .showcase-section{padding:48px 0;background:#fff}
 .showcase-container{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
 .showcase-media{width:100%;max-width:480px;height:auto;border-radius:8px;object-fit:cover;max-height:420px}
-.responsive-video{width:100%;max-height:420px;height:auto;border-radius:8px;object-fit:cover;display:block}
+
+/* video style: contain so no top/bottom crop; centered; limited height */
+.responsive-video{
+  width:100%;
+  max-height:360px;   /* smaller, not oversized */
+  height:auto;
+  display:block;
+  margin:0 auto;
+  border-radius:8px;
+  object-fit:contain; /* key change — prevents cropping */
+  background:#000;    /* black letterbox if needed */
+}
+
+/* text + features */
 .section-title-left{font-size:clamp(18px,2.6vw,28px);margin-bottom:10px;color:var(--secondary);font-weight:700;text-align:left}
 .showcase-content p{color:#555;margin-bottom:12px}
 .showcase-features{list-style:none;padding-left:0;margin-bottom:10px;text-align:left}
 .showcase-features li{display:flex;align-items:center;gap:12px;margin-bottom:10px;color:#333}
 .showcase-features li i{color:var(--success) !important;font-size:18px}
-.showcase-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
 
-/* products */
+/* ensure showcase actions (buttons) are blue form */
+.showcase-actions .btn{ background:var(--primary); border-radius:10px; padding:10px 18px; color:#fff; box-shadow: 0 8px 20px rgba(0,123,255,.12) }
+
+/* ====== Products block ====== */
 .products-section{padding:48px 0;background:#f9f9f9}
 .products-title{font-size:1.9rem;text-align:center;margin-bottom:24px}
+
+/* grid + swiper uniformity */
 .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 
-/* product card */
-.product-card{background:#fff;border-radius:10px;border:1px solid #eef0f3;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease;min-height:340px}
+/* product card: uniform sizes, images not cropped (contain) */
+.product-card{
+  background:#fff;border-radius:10px;border:1px solid #eef0f3;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease;
+  min-height:360px; /* uniform card height */
+}
 .product-card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,.06)}
-.product-image-container{width:100%;aspect-ratio:1/1;position:relative;background:#f9fafb;overflow:hidden}
-.product-image-container img{width:100%;height:100%;object-fit:cover;display:block}
+.product-image-container{width:100%;aspect-ratio:1/1;position:relative;background:#f9fafb;overflow:hidden;padding:8px}
+.product-image-container img{width:100%;height:100%;object-fit:contain;display:block} /* contain avoids cropping */
 .product-info{padding:12px;display:flex;flex-direction:column;flex-grow:1}
 .product-name{font-weight:600;margin-bottom:8px;min-height:44px}
+
+/* price area: old price red+line-through, new price blue */
+.product-price{font-size:1.15rem;font-weight:700;display:flex;align-items:baseline;justify-content:flex-start;gap:10px;text-align:left}
+.old-price{font-size:1rem;color:var(--danger);text-decoration:line-through;opacity:0.95}
+.new-price{font-size:1.15rem;font-weight:800;color:var(--primary)}
+
+/* "add to cart" button blue and consistent */
 .product-price-and-cart{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
 .btn-add-to-cart-small{width:44px;height:44px;border-radius:10px;border:none;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;box-shadow:0 6px 16px rgba(0,123,255,.12)}
 .btn-add-to-cart-small:hover{filter:brightness(.95);transform:translateY(-2px)}
@@ -85,21 +148,21 @@ a{color:inherit;text-decoration:none}
 .product-gallery-slider .swiper-slide{display:flex;align-items:center;justify-content:center;background:#f9fafb;padding:24px;border-radius:8px}
 .product-gallery-slider img, .product-gallery-slider video{width:100%;height:100%;object-fit:contain}
 
-/* process */
+/* ====== Process / Contact / Footer ====== */
 .process{padding:48px 0;text-align:center}
 .process-steps{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;align-items:stretch}
 .step{max-width:320px;padding:18px;text-align:center}
 .step i{font-size:30px;color:var(--primary);margin-bottom:8px}
 
-/* contact */
+/* contact form */
 #contact-form{max-width:640px;margin:24px auto 0;display:flex;flex-direction:column;gap:12px}
 #contact-form input, #contact-form textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;font-size:1rem}
 
-/* footer */
+/* footer restore dark look */
 footer{background:#2c3e50;color:#ecf0f1;text-align:center;padding:40px 20px;margin-top:28px}
 footer .social-icons a{color:#fff;font-size:1.2rem;margin:0 10px;text-decoration:none}
 
-/* cart sidebar */
+/* ====== Cart sidebar ====== */
 .cart-sidebar{position:fixed;top:0;right:-110%;width:100%;max-width:420px;height:100%;background:#fff;z-index:1400;box-shadow:-12px 0 30px rgba(0,0,0,.12);transition:right .28s ease;display:flex;flex-direction:column}
 .cart-sidebar.open{right:0}
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1390;opacity:0;visibility:hidden;transition:opacity .28s}
@@ -124,7 +187,7 @@ footer .social-icons a{color:#fff;font-size:1.2rem;margin:0 10px;text-decoration
   .btn-add-to-cart-small{width:40px;height:40px;font-size:15px}
 }
 
-/* hide header badge on small screens (you asked hamburger shouldn't show number) */
+/* hide header badge on small screens (no number on hamburger area) */
 @media (max-width:768px){
   .header .cart-badge{display:none}
   .mobile-drawer .cart-badge.small{display:inline-block}
@@ -133,14 +196,13 @@ footer .social-icons a{color:#fff;font-size:1.2rem;margin:0 10px;text-decoration
   .floating-messenger{right:14px;bottom:14px;width:52px;height:52px;font-size:20px}
 }
 
-/* swiper pagination active color */
+/* swiper pagination color */
 .swiper-pagination-bullet-active{background:var(--primary) !important}
 
-/* ensure check icons are green */
+/* ensure check icons green */
 .fas.fa-check-circle, .showcase-features li i { color:var(--success) !important; }
 
-/* No underline anywhere */
-a, a * { text-decoration:none !important; }
-
-/* focus outlines slightly visible */
+/* accessibility focus */
 button:focus, a:focus { outline:3px solid rgba(0,123,255,.12); outline-offset:2px; }
+
+/* End */
