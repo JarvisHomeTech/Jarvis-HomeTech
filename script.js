@@ -315,78 +315,97 @@ document.addEventListener('DOMContentLoaded', () => {
 
  }); // DOMContentLoaded end
 
-// --- მსგავსი პროდუქტების ლოგიკა product-details.html-სთვის ---
+// --- ლოგიკა პროდუქტის დეტალების გვერდისთვის ---
 
-// ფუნქცია, რომელიც დახატავს მსგავს პროდუქტებს
-async function renderRelatedProducts(currentProductId) {
+document.addEventListener('DOMContentLoaded', () => {
+    // ვამოწმებთ, რომ ვიმყოფებით პროდუქტის დეტალურ გვერდზე
+    if (window.location.pathname.includes('product-details.html')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        if (productId) {
+            // ვიღებთ პროდუქტების მონაცემებს
+            fetchAndRenderProductData(productId);
+        }
+    }
+});
+
+
+// ერთიანი ფუნქცია მონაცემების მოსატანად და ყველაფრის დასახატად
+async function fetchAndRenderProductData(productId) {
     try {
         const response = await fetch('products.json');
         if (!response.ok) throw new Error('პროდუქტების ფაილი არ მოიძებნა');
         const allProducts = await response.json();
 
-        // 1. ვფილტრავთ, რომ მიმდინარე პროდუქტი არ გამოჩნდეს
-        let relatedProducts = allProducts.filter(p => p.id !== currentProductId);
+        // 1. ვხატავთ ძირითად პროდუქტს (თქვენი კოდი ამას უკვე აკეთებს)
+        const mainProduct = allProducts.find(p => p.id === productId);
+        if (mainProduct) {
+            // (აქ თქვენი არსებული კოდი ხატავს ძირითად პროდუქტს)
+            // მაგ: document.title = mainProduct.name; და ა.შ.
+        } else {
+            console.error('პროდუქტი ვერ მოიძებნა');
+            // შეგიძლიათ აქ შეცდომის შეტყობინება გამოიტანოთ
+            return;
+        }
 
-        // 2. ვურევთ მასივს, რომ ყოველ ჯერზე სხვადასხვა პროდუქტი გამოჩნდეს
-        relatedProducts.sort(() => 0.5 - Math.random());
-
-        // 3. ვიღებთ მხოლოდ პირველ 4 პროდუქტს
-        const productsToShow = relatedProducts.slice(0, 4);
-
-        const wrapper = document.getElementById('related-products-wrapper');
-        if (!wrapper) return; // თუ კონტეინერი ვერ ვიპოვეთ, ვჩერდებით
-
-        wrapper.innerHTML = productsToShow.map(product => `
-            <div class="swiper-slide showcase-item">
-                <a href="product-details.html?id=${product.id}" class="showcase-item-link">
-                    <div class="showcase-img-box">
-                        <img src="${product.image}" alt="${product.name}" class="showcase-img">
-                    </div>
-                    <div class="showcase-body">
-                        <h3 class="showcase-title">${product.name}</h3>
-                        <p class="showcase-description">${product.description}</p>
-                        <div class="showcase-price">
-                            <span class="current-price">${product.price}</span>
-                            ${product.old_price ? `<span class="old-price">${product.old_price}</span>` : ''}
-                        </div>
-                    </div>
-                </a>
-                <button class="btn btn-add-to-cart" onclick='addToCart("${product.id}")'>
-                    <i class="fas fa-cart-plus"></i> კალათაში დამატება
-                </button>
-            </div>
-        `).join('');
-
-        // 4. ვქმნით სლაიდერს (Swiper)
-        new Swiper(".related-products-swiper", {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: productsToShow.length > 3, // სლაიდერი იქნება უსასრულო თუ 4-ზე მეტი პროდუქტია
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            breakpoints: {
-                600: { slidesPerView: 2 },
-                820: { slidesPerView: 3 },
-                1024: { slidesPerView: 4 },
-            },
-        });
+        // 2. მას შემდეგ, რაც ძირითადი პროდუქტი დაიხატა, ვხატავთ მსგავს პროდუქტებს
+        renderRelatedProducts(productId, allProducts);
 
     } catch (error) {
-        console.error('მსგავსი პროდუქტების ჩატვირთვის შეცდომა:', error);
+        console.error('მონაცემების ჩატვირთვის შეცდომა:', error);
     }
 }
 
-// ვამოწმებთ, რომ ვიმყოფებით პროდუქტის დეტალურ გვერდზე
-if (window.location.pathname.includes('product-details.html')) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
 
-    if (productId) {
-        // ვიძახებთ ფუნქციას, როცა DOM ჩაიტვირთება
-        document.addEventListener('DOMContentLoaded', () => {
-            renderRelatedProducts(productId);
-        });
-    }
+// ფუნქცია, რომელიც ხატავს მსგავს პროდუქტებს
+function renderRelatedProducts(currentProductId, allProducts) {
+    // 1. ვფილტრავთ, რომ მიმდინარე პროდუქტი არ გამოჩნდეს
+    let relatedProducts = allProducts.filter(p => p.id !== currentProductId);
+
+    // 2. ვურევთ მასივს, რომ ყოველ ჯერზე სხვადასხვა პროდუქტი გამოჩნდეს
+    relatedProducts.sort(() => 0.5 - Math.random());
+
+    // 3. ვიღებთ მხოლოდ პირველ 4 პროდუქტს
+    const productsToShow = relatedProducts.slice(0, 4);
+
+    const wrapper = document.getElementById('related-products-wrapper');
+    if (!wrapper) return;
+
+    wrapper.innerHTML = productsToShow.map(product => `
+        <div class="swiper-slide showcase-item">
+            <a href="product-details.html?id=${product.id}" class="showcase-item-link">
+                <div class="showcase-img-box">
+                    <img src="${product.image}" alt="${product.name}" class="showcase-img">
+                </div>
+                <div class="showcase-body">
+                    <h3 class="showcase-title">${product.name}</h3>
+                    <p class="showcase-description">${product.description}</p>
+                    <div class="showcase-price">
+                        <span class="current-price">${product.price}</span>
+                        ${product.old_price ? `<span class="old-price">${product.old_price}</span>` : ''}
+                    </div>
+                </div>
+            </a>
+            <button class="btn btn-add-to-cart" onclick='addToCart("${product.id}")'>
+                <i class="fas fa-cart-plus"></i> კალათაში დამატება
+            </button>
+        </div>
+    `).join('');
+
+    // 4. ვქმნით სლაიდერს (Swiper)
+    new Swiper(".related-products-swiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: productsToShow.length > 3,
+        navigation: {
+            nextEl: "#related-products .swiper-button-next",
+            prevEl: "#related-products .swiper-button-prev",
+        },
+        breakpoints: {
+            600: { slidesPerView: 2 },
+            820: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+        },
+    });
 }
