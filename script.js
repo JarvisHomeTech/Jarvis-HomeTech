@@ -8,22 +8,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navClose) { navClose.addEventListener('click', () => navMenu.classList.remove('show-menu')); }
 
     // ======================= START: CART LOGIC ======================= //
-    let cart = JSON.parse(localStorage.getItem('jarvisCartV3')) || [];
+
+    let cart = JSON.parse(localStorage.getItem('jarvisCartV4')) || [];
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
     const cartItemsContainer = document.getElementById('cart-body');
     const cartTotalElement = document.getElementById('cart-total');
     const navCartBtn = document.getElementById('nav-cart-btn');
+    const floatingCartIcon = document.getElementById('cart-icon');
+    const cartCounterElement = document.getElementById('cart-counter');
 
     const toggleCart = () => cartSidebar.classList.toggle('open');
     
     if (navCartBtn) navCartBtn.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
+    if (floatingCartIcon) floatingCartIcon.addEventListener('click', toggleCart);
     document.getElementById('cart-close-btn').addEventListener('click', toggleCart);
     cartOverlay.addEventListener('click', toggleCart);
 
     const updateCart = () => {
         renderCartItems();
-        localStorage.setItem('jarvisCartV3', JSON.stringify(cart));
+        updateCartCounter();
+        localStorage.setItem('jarvisCartV4', JSON.stringify(cart));
     };
 
     const renderCartItems = () => {
@@ -59,6 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         cartItemsContainer.appendChild(ul);
         cartTotalElement.textContent = `${total.toFixed(2)} ₾`;
+    };
+    
+    const updateCartCounter = () => {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCounterElement.textContent = totalItems;
+        cartCounterElement.style.display = totalItems > 0 ? 'flex' : 'none';
     };
 
     const addToCart = (product) => {
@@ -166,7 +177,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
-                new Swiper('.product-slider', { /* Swiper options from your code */ });
+                new Swiper('.product-slider', {
+                    loop: true, spaceBetween: 20,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+                });
             } else {
                 container.innerHTML = products.map(createProductCard).join('');
             }
@@ -195,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 actionsContainer.prepend(addToCartBtn);
 
                 const orderButton = document.getElementById('order-button');
-                const orderMessage = generateOrderMessage([{...product, quantity: 1}]);
+                const orderMessage = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name}`;
                 orderButton.href = `https://m.me/61578859507900?text=${encodeURIComponent(orderMessage)}`;
 
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
@@ -216,15 +232,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 });
-
             }
         } catch (error) { console.error('Product details load error:', error); }
     }
 
     const form = document.getElementById("contact-form");
-    if (form) { /* Form logic... */ }
+    if (form) { /* ... Form logic ... */ }
 
-    function scrollToSection(targetId) { /* Scroll logic... */ }
+    // Scroll Logic
+    function scrollToSection(targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const header = document.querySelector('.header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = targetPosition - headerHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+    }
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if(anchor.id === 'nav-cart-btn') return;
         anchor.addEventListener('click', function (e) {
