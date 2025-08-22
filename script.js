@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('შეცდომა პროდუქტების სიის ჩატვირთვისას:', error);
             const container = productsGrid || featuredProductsWrapper;
-            if (container) container.innerHTML = `<p>პროდუქტების ჩატვირთვისას მოხდა შეცდომა.</p>`;
+            if (container) container.innerHTML = `<p>პროდუქტების ჩატვირთვისას მოხდა შეცდომა. გთხოვთ, შეამოწმოთ products.json ფაილის სინტაქსი.</p>`;
         }
     }
 
@@ -78,8 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
         if (!productId) {
-            const container = document.querySelector('.product-details-section .container');
-            if(container) container.innerHTML = '<h1>პროდუქტი არ არის მითითებული</h1>';
+            document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი არ არის მითითებული</h1>';
             return;
         }
         try {
@@ -89,14 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const product = products.find(p => p.id === productId);
             if (product) {
                 document.title = product.name;
-                const productNameH1 = document.getElementById('product-name');
-                if(productNameH1) productNameH1.textContent = product.name;
-
+                document.getElementById('product-name').textContent = product.name;
                 document.getElementById('product-full-description').textContent = product.full_description;
                 document.getElementById('product-price').innerHTML = formatPrice(product);
-                
-                const orderButton = document.getElementById('order-button');
-                if(orderButton) orderButton.href = `https://m.me/61578859507900`;
+                document.getElementById('order-button').href = `https://m.me/61578859507900`;
 
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
                 let slidesHTML = '';
@@ -122,9 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 });
+
             } else {
-                const container = document.querySelector('.product-details-section .container');
-                if(container) container.innerHTML = '<h1>პროდუქტი ვერ მოიძებნა</h1>';
+                document.querySelector('.product-details-section .container').innerHTML = '<h1>პროდუქტი ვერ მოიძებნა</h1>';
             }
         } catch (error) {
             console.error('შეცდომა პროდუქტის დეტალების ჩატვირთვისას:', error);
@@ -155,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- სქროლის ლოგიკა ---
+    // --- START: განახლებული სქროლის ლოგიკა ---
     function scrollToSection(targetId) {
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
@@ -171,10 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // კლიკზე სქროლვის დამმუშავებელი
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
+            // მობილურის მენიუს დახურვა ლინკზე კლიკისას
+            const navMenu = document.querySelector('.nav__links');
             if (navMenu && navMenu.classList.contains('show-menu')) {
                 navMenu.classList.remove('show-menu');
             }
@@ -182,12 +180,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // გვერდის ჩატვირთვისას სქროლვის დამმუშავებელი (მაგ: .../#contact ლინკისთვის)
     window.addEventListener("load", () => {
         if (window.location.hash) {
+            // მცირე დაყოვნება, რომ ყველაფერმა ჩატვირთვა მოასწროს
             setTimeout(() => {
                 scrollToSection(window.location.hash);
             }, 100);
         }
     });
+    // --- END: განახლებული სქროლის ლოგიკა ---
 
 });
