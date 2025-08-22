@@ -1,5 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Unmute videos on play ---
+    document.addEventListener('play', (event) => {
+        const target = event.target;
+        if (target && target.tagName === 'VIDEO') {
+            target.muted = false;
+        }
+    }, true);
+
     // --- Mobile Menu Logic ---
     const navMenu = document.querySelector('.nav__links');
     const navToggle = document.getElementById('nav-toggle');
@@ -145,6 +153,32 @@ document.addEventListener('DOMContentLoaded', () => {
         return `<span class="new-price">${product.price}</span>`;
     };
 
+    const createProductCard = (product) => `
+        <div class="product-card">
+            <a href="product-details.html?id=${product.id}" class="product-card-link">
+                <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price-and-cart">
+                        <div class="product-price">${formatPrice(product)}</div>
+                        <button class="btn-add-to-cart-small" data-id="${product.id}" title="კალათაში დამატება"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </a>
+        </div>`;
+
+    const createRelatedProductCard = (product) => `
+        <div class="product-card">
+            <a href="product-details.html?id=${product.id}" class="product-card-link">
+                <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price">${formatPrice(product)}</div>
+                </div>
+            </a>
+        </div>`;
+
+
     async function loadProductLists() {
         const container = document.querySelector('#featured-products-wrapper') || document.querySelector('.products-grid');
         if (!container) return;
@@ -152,20 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('products.json');
             if (!response.ok) throw new Error('Network response was not ok');
             const products = await response.json();
-            
-            const createProductCard = (product) => `
-                <div class="product-card">
-                    <a href="product-details.html?id=${product.id}" class="product-card-link">
-                        <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price-and-cart">
-                                <div class="product-price">${formatPrice(product)}</div>
-                                <button class="btn-add-to-cart-small" data-id="${product.id}" title="კალათაში დამატება"><i class="fas fa-cart-plus"></i></button>
-                            </div>
-                        </div>
-                    </a>
-                </div>`;
             
             document.body.addEventListener('click', (e) => {
                 const button = e.target.closest('.btn-add-to-cart-small');
@@ -267,43 +287,28 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        const productsToShow = [...relatedProducts, ...relatedProducts];
         const wrapper = document.getElementById('related-products-wrapper');
         if (!wrapper) return;
 
-        wrapper.innerHTML = productsToShow.map(product => {
-            const productCardHTML = `
-                <div class="product-card compact">
-                    <a href="product-details.html?id=${product.id}" class="product-card-link">
-                        <div class="product-image-container">
-                            <img src="${product.image}" alt="${product.name}">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price">
-                                ${formatPrice(product)}
-                            </div>
-                        </div>
-                    </a>
-                </div>`;
-            return `<div class="swiper-slide">${productCardHTML}</div>`;
+        wrapper.innerHTML = relatedProducts.map(product => {
+            return `<div class="swiper-slide">${createRelatedProductCard(product)}</div>`;
         }).join('');
 
         new Swiper(".related-products-swiper", {
             slidesPerView: 2,
             spaceBetween: 15,
-            loop: true,
+            loop: relatedProducts.length > 2,
             grabCursor: true,
             touchStartPreventDefault: false,
+            navigation: {
+                nextEl: "#related-products .swiper-button-next",
+                prevEl: "#related-products .swiper-button-prev",
+            },
             breakpoints: {
                 769: {
                     slidesPerView: 4,
                     spaceBetween: 20,
-                    loop: productsToShow.length > 4,
-                    navigation: {
-                        nextEl: "#related-products .swiper-button-next",
-                        prevEl: "#related-products .swiper-button-prev",
-                    },
+                    loop: relatedProducts.length > 4,
                 }
             },
         });
