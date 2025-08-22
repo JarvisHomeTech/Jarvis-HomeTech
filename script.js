@@ -1,4 +1,3 @@
-/* PART 7 / script.js (start) */
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- მობილურის მენიუს ლოგიკა ---
@@ -15,32 +14,34 @@ document.addEventListener('DOMContentLoaded', () => {
         navClose.addEventListener('click', (e) => { e.preventDefault(); navMenu.classList.remove('show-menu'); });
     }
 
-    // Close mobile menu when clicking any link
     document.querySelectorAll('.nav__links a').forEach(a => {
         a.addEventListener('click', () => navMenu.classList.remove('show-menu'));
     });
 
-    // ======================= START: CART LOGIC =======================
+    // ======================= START: CART LOGIC ======================= //
     let cart = JSON.parse(localStorage.getItem('jarvisCartV6')) || [];
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
     const cartItemsContainer = document.getElementById('cart-body');
     const cartTotalElement = document.getElementById('cart-total');
-    const navCartBtn = document.getElementById('nav-cart-btn');
     const cartCountEls = document.querySelectorAll('#cart-count, #hamburger-cart-count');
+    const navCartBtn = document.getElementById('nav-cart-btn');
 
     const toggleCart = () => {
         if (cartSidebar) cartSidebar.classList.toggle('open');
         if (cartOverlay) cartOverlay.classList.toggle('open');
     };
 
-    // Attach cart toggles (desktop text and header icon both map to same id in markup)
-    document.querySelectorAll('#nav-cart-btn, #nav-cart-btn-desktop').forEach(el => {
-        if (el) el.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
-    });
-
+    if (navCartBtn) navCartBtn.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
     document.getElementById('cart-close-btn')?.addEventListener('click', toggleCart);
     if (cartOverlay) cartOverlay.addEventListener('click', toggleCart);
+
+    const updateCartCountBadges = () => {
+        const totalCount = cart.reduce((s, it) => s + (it.quantity || 0), 0);
+        cartCountEls.forEach(el => { if (el) el.textContent = totalCount; });
+        // show only when >0
+        cartCountEls.forEach(el => { if (!el) return; el.style.display = totalCount > 0 ? 'inline-block' : 'none'; });
+    };
 
     const updateCart = () => {
         renderCartItems();
@@ -48,13 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartCountBadges();
     };
 
-    const updateCartCountBadges = () => {
-        const totalCount = cart.reduce((s, it) => s + (it.quantity || 0), 0);
-        cartCountEls.forEach(el => { if (el) el.textContent = totalCount; });
-        // also show/hide styling
-        cartCountEls.forEach(el => { if (!el) return; el.style.display = totalCount > 0 ? 'inline-block' : 'none'; });
-    };
-/* PART 8 / script.js (cart render + handlers + product lists) */
     const renderCartItems = () => {
         if (!cartItemsContainer) return;
         cartItemsContainer.innerHTML = '';
@@ -69,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let total = 0;
         cart.forEach(item => {
             const priceString = item.price || '0 ₾';
-            const price = parseFloat(priceString.replace(' ₾', '')) || 0;
+            const price = parseFloat(String(priceString).replace(' ₾', '')) || 0;
             total += price * (item.quantity || 1);
             const li = document.createElement('li');
             li.className = 'cart-item';
@@ -123,16 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const generateOrderMessage = (items) => {
-        if (items.length === 0) return 'კალათა ცარიელია.';
-        let message = 'გამარჯობა, მინდა შევუკვეთო:\\n\\n';
+        if (!items || items.length === 0) return 'კალათა ცარიელია.';
+        let message = 'გამარჯობა, მინდა შევუკვეთო:\n\n';
         let total = 0;
         items.forEach(item => {
             const priceString = item.price || '0 ₾';
-            const price = parseFloat(priceString.replace(' ₾', '')) || 0;
+            const price = parseFloat(String(priceString).replace(' ₾', '')) || 0;
             total += price * (item.quantity || 0);
-            message += `- ${item.name} (რაოდენობა: ${item.quantity})\\n`;
+            message += `- ${item.name} (რაოდენობა: ${item.quantity})\n`;
         });
-        message += `\\nსულ ჯამი: ${total.toFixed(2)} ₾`;
+        message += `\nსულ ჯამი: ${total.toFixed(2)} ₾`;
         return message;
     };
 
@@ -151,22 +145,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // ======================= END: CART LOGIC ======================= //
 
-    // --- Main Functions Runner ---
+    // --- Main runner ---
     if (document.querySelector('.product-details-section')) {
         loadProductDetails();
     } else {
         loadProductLists();
     }
-
-    updateCart(); // Render cart on every page load
+    updateCart();
 
     const formatPrice = (product) => {
-        if (product.old_price && product.old_price.trim() !== "") {
+        if (product.old_price && String(product.old_price).trim() !== "") {
             return `<span class="old-price">${product.old_price}</span> <span class="new-price">${product.price}</span>`;
         }
         return `<span class="new-price">${product.price}</span>`;
     };
-/* PART 9 / script.js (product lists, product details, form & scroll) */
+
+    // ===== loadProductLists =====
     async function loadProductLists() {
         const container = document.querySelector('#featured-products-wrapper') || document.querySelector('.products-grid');
         if (!container) return;
@@ -213,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error('Products load error:', error); }
     }
 
+    // ===== loadProductDetails =====
     async function loadProductDetails() {
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
@@ -226,31 +221,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 const productNameH1 = document.getElementById('product-name');
                 if (productNameH1) productNameH1.textContent = product.name;
 
-                document.getElementById('product-full-description').textContent = product.full_description;
+                document.getElementById('product-full-description').textContent = product.full_description || '';
                 document.getElementById('product-price').innerHTML = formatPrice(product);
 
                 const actionsContainer = document.getElementById('product-actions');
-                if(actionsContainer){
+                if (actionsContainer) {
                     const addToCartBtn = document.createElement('button');
                     addToCartBtn.className = 'btn btn-add-to-cart';
                     addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> კალათაში დამატება';
                     addToCartBtn.addEventListener('click', () => addToCart(product));
                     actionsContainer.prepend(addToCartBtn);
 
+                    // Make "order-button" act like checkout when cart has items
                     const orderButton = document.getElementById('order-button');
-                    if(orderButton){
-                        const orderMessage = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
-                        orderButton.href = `https://m.me/61578859507900?text=${encodeURIComponent(orderMessage)}`;
+                    if (orderButton) {
+                        orderButton.removeAttribute('href');
+                        orderButton.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const hasCartItems = Array.isArray(cart) && cart.length > 0;
+                            if (hasCartItems) {
+                                const message = generateOrderMessage(cart);
+                                const link = `https://m.me/61578859507900?text=${encodeURIComponent(message)}`;
+                                window.open(link, '_blank');
+                                return;
+                            }
+                            const singleMsg = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
+                            const link = `https://m.me/61578859507900?text=${encodeURIComponent(singleMsg)}`;
+                            window.open(link, '_blank');
+                        });
                     }
                 }
 
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
                 let slidesHTML = '';
-                if (product.video && product.video.trim() !== "") {
+                if (product.video && String(product.video).trim() !== "") {
                     slidesHTML += `<div class="swiper-slide video-slide"><video controls muted loop autoplay playsinline><source src="${product.video}" type="video/mp4"></video></div>`;
                 }
-                product.images.forEach(img => slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`);
-                if(galleryWrapper) galleryWrapper.innerHTML = slidesHTML;
+                (product.images || []).forEach(img => slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`);
+                if (galleryWrapper) galleryWrapper.innerHTML = slidesHTML;
 
                 new Swiper('.product-gallery-slider', {
                     autoHeight: true, loop: false,
@@ -268,7 +276,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FORM AND SCROLL LOGIC ---
     const form = document.getElementById("contact-form");
-    if (form) { /* you can keep your existing form handling here */ }
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            // default behavior is OK (Formspree), you can add custom feedback here
+            // e.g., show "sent" message in #form-status based on response
+            setTimeout(() => { document.getElementById('form-status').textContent = 'თქვენი შეტყობინება გაგზავნილია.'; }, 300);
+        });
+    }
 
     function scrollToSection(targetId) {
         const targetElement = document.querySelector(targetId);
@@ -282,14 +296,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        // if it's the cart text button - handled globally
         anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
             e.preventDefault();
-            const targetId = this.getAttribute('href');
             if (navMenu && navMenu.classList.contains('show-menu')) {
                 navMenu.classList.remove('show-menu');
             }
-            if (targetId && targetId.startsWith('#')) scrollToSection(targetId);
+            scrollToSection(href);
         });
     });
 
@@ -299,4 +313,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-}); // end DOMContentLoaded
+}); // DOMContentLoaded end
