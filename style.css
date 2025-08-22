@@ -52,11 +52,15 @@ section { padding: 60px 0 }
 /* showcase */
 .showcase-container { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem }
 .showcase-image { max-width: 450px; width: 100% }
-.section-title-left { font-size: 2.5rem; font-weight: 600; margin-bottom: 1.5rem; text-align: left; line-height: 1.2; color: var(--secondary-color) }
+/* ⭐️ ცვლილება #2: სათაურის გასწორება */
+.section-title-left { font-size: 2.5rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center; line-height: 1.2; color: var(--secondary-color) }
 .showcase-content p { color: #555; margin-bottom: 1.2rem; text-align: left }
 .showcase-content ul { list-style: none; padding: 0; margin-bottom: 2rem; text-align: left }
 .showcase-content ul li { display: flex; align-items: center; gap: 15px; margin-bottom: 1rem; font-size: 1.1rem; color: #333 }
 .showcase-content ul li i { color: var(--success-color); font-size: 1.4rem }
+/* ⭐️ ცვლილება #2: ღილაკების გასწორება */
+.showcase-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+.showcase-buttons .btn { min-width: 120px; }
 /* products */
 .products-section { padding: 60px 20px; background: #f9f9f9 }
 .products-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center }
@@ -177,9 +181,7 @@ a { color: inherit }
 #related-products {
     background-color: #f9f9f9;
 }
-/* ეს სტილები იმოქმედებს მხოლოდ 768px-ზე პატარა ეკრანებზე */
 @media screen and (max-width: 768px) {
-    /* 1. სექციის ზოგადი სტილი */
     #related-products {
         padding: 40px 0;
     }
@@ -187,22 +189,20 @@ a { color: inherit }
         padding: 0;
     }
     #related-products .section-title {
-        padding: 0 15px 15px 15px; /* სათაურს ვაძლევთ დაშორებას */
+        padding: 0 15px 15px 15px;
         text-align: left;
         font-size: 1.2rem;
     }
-    /* 2. სლაიდერის კონტეინერს ვასუფთავებთ */
     #related-products .swiper {
         padding: 0;
     }
     #related-products .swiper-wrapper {
-        padding: 0 15px; /* ვამატებთ დაშორებას სიის დასაწყისსა და ბოლოში */
+        padding: 0 15px;
     }
     #related-products .swiper-button-next,
     #related-products .swiper-button-prev {
-        display: none; /* ვმალავთ ისრებს მობილურზე */
+        display: none;
     }
-    /* 3. პროდუქტის ბარათის ახალი ფორმა */
     #related-products .product-card.compact {
         background: #fff;
         border: 1px solid #f0f0f0;
@@ -210,13 +210,12 @@ a { color: inherit }
         overflow: hidden;
     }
     #related-products .product-card.compact .product-image-container {
-        aspect-ratio: 1 / 1; /* სურათს ვქმნით იდეალურად კვადრატულს */
+        aspect-ratio: 1 / 1;
     }
     #related-products .product-card.compact img {
-        padding: 5px; /* სურათს შიგნიდან ვაძლევთ პატარა დაშორებას */
+        padding: 5px;
         object-fit: contain;
     }
-    /* 4. ტექსტური ინფორმაციის ბლოკი */
     #related-products .product-card.compact .product-info {
         padding: 8px;
         text-align: left;
@@ -225,14 +224,12 @@ a { color: inherit }
         font-size: 13px;
         line-height: 1.4;
         margin-bottom: 6px;
-        /* ტექსტს ვზღუდავთ 2 ხაზზე */
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;  
         overflow: hidden;
         min-height: 36px;
     }
-    /* 5. ფასების ბლოკი */
     #related-products .product-card.compact .product-price {
         gap: 6px;
     }
@@ -243,16 +240,4 @@ a { color: inherit }
     #related-products .product-card.compact .old-price {
         font-size: 12px;
     }
-}
-
-/* მთავარ გვერდზე წყლის და გაზის ღილაკების გასწორება */
-.showcase-buttons {
-    display: flex;
-    justify-content: center; /* ღილაკების ცენტრში გასწორება */
-    gap: 15px; /* მათ შორის დაშორება */
-    margin-top: 20px;
-}
-
-.showcase-buttons .btn {
-    min-width: 120px; /* ღილაკების მინიმალური სიგანე, რაც მათ ზომას გაათანაბრებს */
 }
