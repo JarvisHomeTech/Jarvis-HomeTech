@@ -45,6 +45,15 @@ section { padding: 60px 0; }
 .step { padding: 30px 20px; width: 100%; max-width: 350px; text-align: center; }
 .step i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
 .step h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.showcase-section { padding: 80px 0; background-color: #ffffff; }
+.showcase-container { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; }
+.showcase-image-container { text-align: center; }
+.showcase-image { max-width: 450px; width: 100%; }
+.section-title-left { font-size: 2.5rem; font-weight: 600; margin-bottom: 1.5rem; text-align: left; line-height: 1.2; color: var(--secondary-color); }
+.showcase-content p { color: #555; margin-bottom: 2rem; text-align: left; }
+.showcase-content ul { list-style: none; padding: 0; margin-bottom: 2.5rem; text-align: left; }
+.showcase-content ul li { display: flex; align-items: center; gap: 15px; margin-bottom: 1rem; font-size: 1.1rem; color: #333; }
+.showcase-content ul li i { color: var(--primary-color); font-size: 1.4rem; }
 
 /* ======================= 4. პროდუქტების ბლოკი ======================= */
 .products-section { padding: 60px 20px; background-color: #f9f9f9; }
@@ -114,6 +123,7 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .product-gallery-slider .swiper-slide img, .product-gallery-slider .swiper-slide video {
     width: 100%; height: 100%; object-fit: contain;
 }
+/* ... (Other existing styles) ... */
 
 /* ======================= 8. მობილურის ვერსია ======================= */
 @media screen and (max-width: 768px) {
@@ -122,17 +132,19 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .process-steps { flex-direction: column; }
     .step { width: 100%; margin-bottom: 20px; }
     .header { padding: 15px 20px; }
-    .nav-toggle { display: block; font-size: 1.5rem; cursor: pointer; color: var(--secondary-color); position: relative; }
-    .nav__links { display: none; } /* Hide by default */
+    .nav-toggle { display: flex; align-items: center; gap: 15px; font-size: 1.5rem; cursor: pointer; color: var(--secondary-color); position: relative; }
+    .nav__links { display: none; }
     .nav__links.show-menu {
-        display: flex; position: fixed; top: 0; right: 0; width: 80%; height: 100%;
+        display: flex; position: fixed; top: 0; right: 0; width: 80%; max-width: 320px; height: 100%;
         background-color: #fff; box-shadow: -2px 0 10px rgba(0,0,0,0.1);
         padding: 6rem 2rem 0; flex-direction: column; align-items: flex-start;
-        gap: 2.5rem; transition: right 0.4s ease;
+        gap: 2.5rem; animation: slideIn 0.4s ease-in-out;
     }
+    @keyframes slideIn { from { right: -100%; } to { right: 0; } }
     .nav-close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
     .nav-toggle .nav-cart-counter {
-        position: absolute; top: -8px; right: -10px;
+        position: absolute; top: -8px; right: -20px; font-size: 11px;
+        min-width: 18px; padding: 1px 5px;
     }
 }
 
