@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle) { navToggle.addEventListener('click', () => navMenu.classList.add('show-menu')); }
     if (navClose) { navClose.addEventListener('click', () => navMenu.classList.remove('show-menu')); }
 
-    // --- START: CART LOGIC ---
-    let cart = JSON.parse(localStorage.getItem('jarvisCartV5')) || [];
+    // ======================= START: CART LOGIC ======================= //
+    let cart = JSON.parse(localStorage.getItem('jarvisCartV6')) || [];
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
     const cartItemsContainer = document.getElementById('cart-body');
@@ -16,18 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const navCartBtn = document.getElementById('nav-cart-btn');
 
     const toggleCart = () => {
-        cartSidebar.classList.toggle('open');
-        cartOverlay.classList.toggle('open');
+        if(cartSidebar) cartSidebar.classList.toggle('open');
+        if(cartOverlay) cartOverlay.classList.toggle('open');
     };
     
     if (navCartBtn) navCartBtn.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
-    // This assumes a cart structure with these IDs exists in your HTML
     document.getElementById('cart-close-btn')?.addEventListener('click', toggleCart);
     if(cartOverlay) cartOverlay.addEventListener('click', toggleCart);
 
     const updateCart = () => {
         renderCartItems();
-        localStorage.setItem('jarvisCartV5', JSON.stringify(cart));
+        localStorage.setItem('jarvisCartV6', JSON.stringify(cart));
     };
 
     const renderCartItems = () => {
@@ -43,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ul.id = 'cart-items';
         let total = 0;
         cart.forEach(item => {
-            const price = parseFloat(item.price.replace(' ₾', ''));
+            const priceString = item.price || '0 ₾';
+            const price = parseFloat(priceString.replace(' ₾', ''));
             total += price * item.quantity;
             const li = document.createElement('li');
             li.className = 'cart-item';
@@ -97,11 +97,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const generateOrderMessage = (items) => { /* ... message generation logic ... */ };
-    // ... (Checkout button event listeners) ...
-    // --- END: CART LOGIC ---
-    
-    // --- RUN MAIN FUNCTIONS ---
+    const generateOrderMessage = (items) => {
+        if (items.length === 0) return 'კალათა ცარიელია.';
+        let message = 'გამარჯობა, მინდა შევუკვეთო:\n\n';
+        let total = 0;
+        items.forEach(item => {
+            const priceString = item.price || '0 ₾';
+            const price = parseFloat(priceString.replace(' ₾', ''));
+            total += price * item.quantity;
+            message += `- ${item.name} (რაოდენობა: ${item.quantity})\n`;
+        });
+        message += `\nსულ ჯამი: ${total.toFixed(2)} ₾`;
+        return message;
+    };
+
+    document.getElementById('checkout-messenger-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (cart.length === 0) return alert('კალათა ცარიელია!');
+        const link = `https://m.me/61578859507900?text=${encodeURIComponent(generateOrderMessage(cart))}`;
+        window.open(link, '_blank');
+    });
+
+    document.getElementById('checkout-whatsapp-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (cart.length === 0) return alert('კალათა ცარიელია!');
+        const link = `https://wa.me/995599608105?text=${encodeURIComponent(generateOrderMessage(cart))}`;
+        window.open(link, '_blank');
+    });
+    // ======================= END: CART LOGIC ======================= //
+
+    // --- Main Functions Runner ---
     if (document.querySelector('.product-details-section')) {
         loadProductDetails();
     } else {
@@ -109,8 +134,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateCart(); // Render cart on every page load
 
-    // --- HELPER FUNCTIONS & LOADERS ---
-    const formatPrice = (product) => { /* ... format price logic ... */ };
+    const formatPrice = (product) => {
+        if (product.old_price && product.old_price.trim() !== "") {
+            return `<span class="old-price">${product.old_price}</span> <span class="new-price">${product.price}</span>`;
+        }
+        return `<span class="new-price">${product.price}</span>`;
+    };
 
     async function loadProductLists() {
         const container = document.querySelector('#featured-products-wrapper') || document.querySelector('.products-grid');
@@ -175,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('product-price').innerHTML = formatPrice(product);
 
                 const actionsContainer = document.getElementById('product-actions');
-                if (actionsContainer) {
+                if(actionsContainer){
                     const addToCartBtn = document.createElement('button');
                     addToCartBtn.className = 'btn btn-add-to-cart';
                     addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> კალათაში დამატება';
@@ -183,18 +212,64 @@ document.addEventListener('DOMContentLoaded', () => {
                     actionsContainer.prepend(addToCartBtn);
 
                     const orderButton = document.getElementById('order-button');
-                    if (orderButton) {
+                    if(orderButton){
                         const orderMessage = `გამარჯობა, ამ პროდუქტის შეძენა მსურს: ${product.name} - ${product.price}`;
                         orderButton.href = `https://m.me/61578859507900?text=${encodeURIComponent(orderMessage)}`;
                     }
                 }
                 
-                // Gallery Logic...
-                // Swiper initialization...
+                const galleryWrapper = document.getElementById('product-gallery-wrapper');
+                let slidesHTML = '';
+                if (product.video && product.video.trim() !== "") {
+                    slidesHTML += `<div class="swiper-slide video-slide"><video controls muted loop autoplay playsinline><source src="${product.video}" type="video/mp4"></video></div>`;
+                }
+                product.images.forEach(img => slidesHTML += `<div class="swiper-slide"><img src="${img}" alt="${product.name}"></div>`);
+                if(galleryWrapper) galleryWrapper.innerHTML = slidesHTML;
+
+                new Swiper('.product-gallery-slider', {
+                    autoHeight: true, loop: false,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    on: {
+                        slideChange: function () {
+                            document.querySelectorAll('.product-gallery-slider video').forEach(video => video.pause());
+                        }
+                    }
+                });
             }
         } catch (error) { console.error('Product details load error:', error); }
     }
 
     // --- FORM AND SCROLL LOGIC ---
-    // ... (The rest of your form and scroll logic remains unchanged) ...
+    const form = document.getElementById("contact-form");
+    if (form) { /* ... Form logic ... */ }
+
+    function scrollToSection(targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const header = document.querySelector('.header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = targetPosition - headerHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        if(anchor.id === 'nav-cart-btn') return;
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (navMenu.classList.contains('show-menu')) {
+                navMenu.classList.remove('show-menu');
+            }
+            scrollToSection(targetId);
+        });
+    });
+    window.addEventListener("load", () => {
+        if (window.location.hash) {
+            setTimeout(() => {
+                scrollToSection(window.location.hash);
+            }, 100);
+        }
+    });
 });
