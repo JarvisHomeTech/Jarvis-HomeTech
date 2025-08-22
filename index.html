@@ -1,3 +1,4 @@
+<!-- PART 1 / index.html (start) -->
 <!DOCTYPE html>
 <html lang="ka">
 <head>
@@ -13,18 +14,33 @@
 
     <header class="header">
         <a class="logo" href="index.html">JARVIS HomeTech</a>
+
         <nav>
-            <ul class="nav__links">
-                <div class="nav-close" id="nav-close"><i class="fa-solid fa-xmark"></i></div>
+            <ul class="nav__links" id="nav-links">
+                <li class="nav-close" id="nav-close"><a href="#" aria-label="close menu"><i class="fa-solid fa-xmark"></i></a></li>
                 <li><a href="products.html">პროდუქცია</a></li>
-                <li><a href="#" id="nav-cart-btn">ჩემი კალათა</a></li>
+                <li class="nav-cart-link-desktop"><a href="#" id="nav-cart-btn-desktop">ჩემი კალათა</a></li>
                 <li><a href="#about">ჩვენს შესახებ</a></li>
                 <li><a href="#contact">კონტაქტი</a></li>
             </ul>
         </nav>
-        <div class="nav-toggle" id="nav-toggle"><i class="fa-solid fa-bars"></i></div>
-    </header>
 
+        <div class="header-controls">
+            <!-- Desktop text cart (keeps old visual on larger screens) -->
+            <a href="#" id="nav-cart-btn" class="nav-cart" title="ჩემი კალათა">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-badge">0</span>
+                <span class="nav-cart-text">ჩემი კალათა</span>
+            </a>
+
+            <!-- Hamburger (mobile) with small cart badge -->
+            <button class="nav-toggle" id="nav-toggle" aria-label="მენიუ">
+                <i class="fa-solid fa-bars"></i>
+                <span id="hamburger-cart-count" class="cart-badge tiny">0</span>
+            </button>
+        </div>
+    </header>
+<!-- PART 2 / index.html (main start - hero, products, showcase) -->
     <main>
         <section class="hero">
             <div class="container">
@@ -51,6 +67,7 @@
                 <div class="showcase-image-container">
                     <img src="photos/1000012403.png" alt="Smart Valve Controller" class="showcase-image">
                 </div>
+
                 <div class="showcase-content">
                     <h2 class="section-title-left">ტექნოლოგია, რომელიც ზრუნავს</h2>
                     <p>ჩვენი ფლაგმანი მოწყობილობა — წყლისა და გაზის ჭკვიანი გადამკეტი თავისი სენსორით, მონტაჟი სრულიად უფასოდ, სწრაფად და მარტივად. ის თქვენი სახლის უხილავი მცველია, რომელიც მუშაობს 24/7.</p>
@@ -64,11 +81,12 @@
                 </div>
             </div>
         </section>
-        
+<!-- PART 3 / index.html (about, process, contact, footer, cart, chat, scripts) -->
         <section id="about" class="about">
             <div class="container">
                 <h2>რატომ Jarvis HomeTech?</h2>
-                <p>ჩვენი მისიაა, შევქმნათ უსაფრთხო და კომფორტული გარემო თქვენს სახლში თანამედროვე ტექნოლოგიების დახმარებით. ჩვენ გთავაზობთ მხოლოდ სანდო და შემოწმებულ მოწყობილობებს, რომელთა მონტაჟი მარტივია და გამოყენება - მოსახერებელი.</p>
+                <p>ჩვენი მისიაა, შევქმნათ უსაფრთხო და კომფორტული გარემო თქვენს სახლში თანამედროვე ტექნოლოგიების დახმარებით. ჩვენ გთავაზობთ მხოლოდ სანდო და შემოწმებულ მოწყობილობებს, რომელთა მონტაჟი მარტივია და გამოყენება - მოსახერხებელი.</p>
+
                 <div class="video-container">
                     <h3>ნახეთ ვიდეო, თუ როგორ მუშაობს სისტემა</h3>
                     <video controls muted loop autoplay playsinline style="width: 100%; border-radius: 5px;">
@@ -89,20 +107,23 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="contact" class="contact">
             <div class="container">
                 <h2>დაგვიკავშირდით</h2>
-                <p>დაგვიტოვეთ თქვენი მონაცემები და ჩვენი სპეციალისტი დაგიკავშირდებათ 15 წუთში.</p>
+                <p>დაგვიტოვეთ თქვენი მონაცემები და ჩვენი სპეციალისტი დაგიკავშირდება 15 წუთში.</p>
+
                 <form id="contact-form" action="https://formspree.io/f/myzpadrg" method="POST">
                     <input type="text" name="name" placeholder="თქვენი სახელი" required>
                     <input type="tel" name="phone" placeholder="თქვენი ტელეფონის ნომერი" required>
                     <textarea name="message" placeholder="თქვენი შეტყობინება (არასავალდებულო)"></textarea>
                     <button type="submit" class="btn">გაგზავნა</button>
                 </form>
+
                 <p id="form-status"></p>
             </div>
         </section>
+
     </main>
 
     <footer id="footer">
@@ -115,10 +136,11 @@
         </div>
     </footer>
 
+    <!-- CART SIDEBAR -->
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h3>თქვენი კალათა</h3>
-            <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+            <button class="cart-close-btn" id="cart-close-btn" aria-label="close cart">&times;</button>
         </div>
         <div class="cart-body" id="cart-body"></div>
         <div class="cart-footer">
@@ -132,17 +154,18 @@
     </div>
     <div class="cart-overlay" id="cart-overlay"></div>
 
+    <!-- FLOATING CHAT WIDGET -->
     <div class="floating-chat-widget">
-         <input type="checkbox" id="chat-toggle" class="chat-toggle-checkbox">
-         <label for="chat-toggle" class="chat-toggle-button">
-             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="main-icon"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="close-icon"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-         </label>
-         <div class="chat-options">
-             <a href="https://m.me/61578859507900" target="_blank" class="chat-link messenger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 4.974 0 11.111c0 3.494 1.833 6.574 4.625 8.52V24l3.932-2.242c1.077.34 2.231.523 3.443.523C18.627 22.281 24 17.307 24 11.111S18.627 0 12 0zm1.196 14.933l-2.618-2.625-5.314 2.625 5.86-5.908 2.618 2.625 5.314-2.625-5.86 5.908z"/></svg></a>
-         </div>
+        <input type="checkbox" id="chat-toggle" class="chat-toggle-checkbox">
+        <label for="chat-toggle" class="chat-toggle-button" aria-hidden="true">
+            <i class="fab fa-facebook-messenger"></i>
+        </label>
+        <div class="chat-options">
+            <a href="https://m.me/61578859507900" target="_blank" class="chat-link messenger"><i class="fab fa-facebook-messenger"></i><span>Messenger</span></a>
+            <a href="https://wa.me/995599608105" target="_blank" class="chat-link whatsapp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+        </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js" defer></script>
 
