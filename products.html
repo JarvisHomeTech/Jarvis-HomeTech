@@ -10,24 +10,34 @@
 </head>
 <body>
   <header class="header">
-    <a class="logo" href="index.html">JARVIS HomeTech</a>
-
-    <div class="header-controls">
-      <button id="cart-open-btn" class="nav-cart" aria-label="Open cart" title="ჩემი კალათა">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="nav-cart-text">ჩემი კალათა</span>
-        <span id="cart-count" class="cart-badge">0</span>
-      </button>
-
-      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="header-left">
+      <a class="logo" href="index.html">JARVIS HomeTech</a>
     </div>
 
-    <nav>
-      <ul class="nav__links" id="nav-links">
-        <div class="nav-close" id="nav-close"><i class="fa-solid fa-xmark"></i></div>
-        <li><a href="products.html">პროდუქცია</a></li>
-        <li><a href="index.html#about">ჩვენს შესახებ</a></li>
-        <li><a href="index.html#contact">კონტაქტი</a></li>
+    <div class="header-right">
+      <button id="cart-open-btn" class="nav-cart" aria-label="Open cart" title="ჩემი კალათა">
+        <i class="fas fa-shopping-cart cart-icon" aria-hidden="true"></i>
+        <span id="cart-count-badge" class="cart-badge">0</span>
+      </button>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" title="მენიუ"><i class="fa-solid fa-bars"></i></button>
+    </div>
+
+    <nav id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <a class="logo drawer-logo" href="index.html">JARVIS HomeTech</a>
+        <button id="drawer-close" class="drawer-close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <ul class="drawer-list">
+        <li class="drawer-item drawer-cart">
+          <button id="drawer-cart-btn" class="drawer-cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span>ჩემი კალათა</span>
+            <span id="drawer-cart-count" class="cart-badge small">0</span>
+          </button>
+        </li>
+        <li class="drawer-item"><a href="products.html">პროდუქცია</a></li>
+        <li class="drawer-item"><a href="index.html#about">ჩვენს შესახებ</a></li>
+        <li class="drawer-item"><a href="index.html#contact">კონტაქტი</a></li>
       </ul>
     </nav>
   </header>
@@ -51,11 +61,11 @@
     </div>
   </footer>
 
-  <!-- cart sidebar + overlay (same as index) -->
-  <div class="cart-sidebar" id="cart-sidebar">
+  <!-- cart sidebar + overlay -->
+  <div class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
     <div class="cart-header">
       <h3>თქვენი კალათა</h3>
-      <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="close cart">&times;</button>
     </div>
     <div class="cart-body" id="cart-body"></div>
     <div class="cart-footer">
@@ -64,9 +74,7 @@
       <a id="checkout-whatsapp-btn" class="btn checkout-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> შეკვეთა WhatsApp-ით</a>
     </div>
   </div>
-  <div class="cart-overlay" id="cart-overlay"></div>
-
-  <div class="floating-chat-widget"></div>
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true"></div>
 
   <script src="script.js" defer></script>
 </body>
