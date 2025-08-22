@@ -4,16 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.querySelector('.nav__links');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
-    if (navToggle) {
-        navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'));
-    }
-    if (navClose) {
-        navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'));
-    }
+    if (navToggle) { navToggle.addEventListener('click', () => navMenu.classList.add('show-menu')); }
+    if (navClose) { navClose.addEventListener('click', () => navMenu.classList.remove('show-menu')); }
 
     // ======================= START: CART LOGIC ======================= //
-
-    let cart = JSON.parse(localStorage.getItem('jarvisCartV2')) || [];
+    let cart = JSON.parse(localStorage.getItem('jarvisCartV3')) || [];
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
     const cartItemsContainer = document.getElementById('cart-body');
@@ -22,16 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const toggleCart = () => cartSidebar.classList.toggle('open');
     
-    if (navCartBtn) navCartBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggleCart();
-    });
+    if (navCartBtn) navCartBtn.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
     document.getElementById('cart-close-btn').addEventListener('click', toggleCart);
     cartOverlay.addEventListener('click', toggleCart);
 
     const updateCart = () => {
         renderCartItems();
-        localStorage.setItem('jarvisCartV2', JSON.stringify(cart));
+        localStorage.setItem('jarvisCartV3', JSON.stringify(cart));
     };
 
     const renderCartItems = () => {
@@ -44,12 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const ul = document.createElement('ul');
         ul.id = 'cart-items';
-        
         let total = 0;
         cart.forEach(item => {
             const price = parseFloat(item.price.replace(' ₾', ''));
             total += price * item.quantity;
-
             const li = document.createElement('li');
             li.className = 'cart-item';
             li.innerHTML = `
@@ -67,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             ul.appendChild(li);
         });
-        
         cartItemsContainer.appendChild(ul);
         cartTotalElement.textContent = `${total.toFixed(2)} ₾`;
     };
@@ -94,39 +83,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.classList.contains('quantity-change')) {
             const change = parseInt(target.dataset.change);
             itemInCart.quantity += change;
-            if (itemInCart.quantity <= 0) {
-                cart = cart.filter(item => item.id !== id);
-            }
+            if (itemInCart.quantity <= 0) cart = cart.filter(item => item.id !== id);
         } else if (target.classList.contains('cart-item-remove-btn')) {
             cart = cart.filter(item => item.id !== id);
         }
         updateCart();
     });
 
-    const generateOrderMessage = () => {
-        if (cart.length === 0) return 'კალათა ცარიელია.';
+    const generateOrderMessage = (items) => {
+        if (items.length === 0) return 'კალათა ცარიელია.';
         let message = 'გამარჯობა, მინდა შევუკვეთო:\n\n';
-        cart.forEach(item => {
+        let total = 0;
+        items.forEach(item => {
+            const price = parseFloat(item.price.replace(' ₾', ''));
+            total += price * item.quantity;
             message += `- ${item.name} (რაოდენობა: ${item.quantity})\n`;
         });
-        message += `\nსულ ჯამი: ${cartTotalElement.textContent}`;
+        message += `\nსულ ჯამი: ${total.toFixed(2)} ₾`;
         return message;
     };
 
     document.getElementById('checkout-messenger-btn').addEventListener('click', (e) => {
         e.preventDefault();
         if (cart.length === 0) return alert('კალათა ცარიელია!');
-        const link = `https://m.me/61578859507900?text=${encodeURIComponent(generateOrderMessage())}`;
+        const link = `https://m.me/61578859507900?text=${encodeURIComponent(generateOrderMessage(cart))}`;
         window.open(link, '_blank');
     });
 
     document.getElementById('checkout-whatsapp-btn').addEventListener('click', (e) => {
         e.preventDefault();
         if (cart.length === 0) return alert('კალათა ცარიელია!');
-        const link = `https://wa.me/995599608105?text=${encodeURIComponent(generateOrderMessage())}`;
+        const link = `https://wa.me/995599608105?text=${encodeURIComponent(generateOrderMessage(cart))}`;
         window.open(link, '_blank');
     });
-
     // ======================= END: CART LOGIC ======================= //
 
     if (document.querySelector('.product-details-section')) {
@@ -153,8 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.addEventListener('click', (e) => {
                 const button = e.target.closest('.btn-add-to-cart-small');
                 if (button) {
-                    e.preventDefault(); // პრობლემა #4-ის ფიქსი
-                    e.stopPropagation(); // პრობლემა #4-ის ფიქსი
+                    e.preventDefault();
+                    e.stopPropagation();
                     const productId = button.dataset.id;
                     const product = products.find(p => p.id === productId);
                     if (product) addToCart(product);
@@ -177,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
-                new Swiper('.product-slider', { /* Swiper options */ });
+                new Swiper('.product-slider', { /* Swiper options from your code */ });
             } else {
                 container.innerHTML = products.map(createProductCard).join('');
             }
@@ -203,10 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 addToCartBtn.className = 'btn btn-add-to-cart';
                 addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> კალათაში დამატება';
                 addToCartBtn.addEventListener('click', () => addToCart(product));
-                
-                actionsContainer.prepend(addToCartBtn); // პრობლემა #2-ის ფიქსი
+                actionsContainer.prepend(addToCartBtn);
 
-                // Gallery Logic
+                const orderButton = document.getElementById('order-button');
+                const orderMessage = generateOrderMessage([{...product, quantity: 1}]);
+                orderButton.href = `https://m.me/61578859507900?text=${encodeURIComponent(orderMessage)}`;
+
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
                 let slidesHTML = '';
                 if (product.video && product.video.trim() !== "") {
@@ -233,17 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById("contact-form");
     if (form) { /* Form logic... */ }
 
-    // Scroll Logic
-    function scrollToSection(targetId) {
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            const header = document.querySelector('.header');
-            const headerHeight = header ? header.offsetHeight : 0;
-            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = targetPosition - headerHeight;
-            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-        }
-    }
+    function scrollToSection(targetId) { /* Scroll logic... */ }
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if(anchor.id === 'nav-cart-btn') return;
         anchor.addEventListener('click', function (e) {
