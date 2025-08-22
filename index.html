@@ -17,12 +17,21 @@
             <ul class="nav__links">
                 <div class="nav-close" id="nav-close"><i class="fa-solid fa-xmark"></i></div>
                 <li><a href="products.html">პროდუქცია</a></li>
-                <li><a href="#" id="nav-cart-btn">ჩემი კალათა</a></li>
+                <li>
+                    <a href="#" id="nav-cart-btn" class="nav-cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>ჩემი კალათა</span>
+                        <span class="nav-cart-counter" id="nav-cart-counter-main">0</span>
+                    </a>
+                </li>
                 <li><a href="#about">ჩვენს შესახებ</a></li>
                 <li><a href="#contact">კონტაქტი</a></li>
             </ul>
         </nav>
-        <div class="nav-toggle" id="nav-toggle"><i class="fa-solid fa-bars"></i></div>
+        <div class="nav-toggle" id="nav-toggle">
+            <i class="fa-solid fa-bars"></i>
+            <span class="nav-cart-counter" id="nav-cart-counter-mobile">0</span>
+        </div>
     </header>
 
     <main>
@@ -47,22 +56,22 @@
         </section>
 
         <section class="showcase-section">
-            <div class="container showcase-container">
-                <div class="showcase-image-container">
-                    <img src="photos/1000012403.png" alt="Smart Valve Controller" class="showcase-image">
-                </div>
-                <div class="showcase-content">
-                    <h2 class="section-title-left">ტექნოლოგია, რომელიც ზრუნავს</h2>
-                    <p>ჩვენი ფლაგმანი მოწყობილობა — წყლისა და გაზის ჭკვიანი გადამკეტი თავისი სენსორით, მონტაჟი სრულიად უფასოდ, სწრაფად და მარტივად. ის თქვენი სახლის უხილავი მცველია, რომელიც მუშაობს 24/7.</p>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> ავტომატური რეაგირება წამებში</li>
-                        <li><i class="fas fa-check-circle"></i> იცავს შენს ოჯახს და სახლს 24/7</li>
-                        <li><i class="fas fa-check-circle"></i> მართე სმარტფონით დედამიწის ნებისმიერი წერტილიდან</li>
-                    </ul>
-                    <a href="product-details.html?id=water-valve-01" class="btn btn-secondary">წყალი</a>
-                    <a href="product-details.html?id=gas-valve-02" class="btn btn-secondary">გაზი</a>
-                </div>
-            </div>
+             <div class="container showcase-container">
+                 <div class="showcase-image-container">
+                     <img src="photos/1000012403.png" alt="Smart Valve Controller" class="showcase-image">
+                 </div>
+                 <div class="showcase-content">
+                     <h2 class="section-title-left">ტექნოლოგია, რომელიც ზრუნავს</h2>
+                     <p>ჩვენი ფლაგმანი მოწყობილობა — წყლისა და გაზის ჭკვიანი გადამკეტი თავისი სენსორით, მონტაჟი სრულიად უფასოდ, სწრაფად და მარტივად. ის თქვენი სახლის უხილავი მცველია, რომელიც მუშაობს 24/7.</p>
+                     <ul>
+                         <li><i class="fas fa-check-circle"></i> ავტომატური რეაგირება წამებში</li>
+                         <li><i class="fas fa-check-circle"></i> იცავს შენს ოჯახს და სახლს 24/7</li>
+                         <li><i class="fas fa-check-circle"></i> მართე სმარტფონით დედამიწის ნებისმიერი წერტილიდან</li>
+                     </ul>
+                     <a href="product-details.html?id=water-valve-01" class="btn btn-secondary">წყალი</a>
+                     <a href="product-details.html?id=gas-valve-02" class="btn btn-secondary">გაზი</a>
+                 </div>
+             </div>
         </section>
         
         <section id="about" class="about">
