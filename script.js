@@ -1,50 +1,76 @@
+/* PART 7 / script.js (start) */
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- მობილურის მენიუს ლოგიკა ---
     const navMenu = document.querySelector('.nav__links');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
-    if (navToggle) { navToggle.addEventListener('click', () => navMenu.classList.add('show-menu')); }
-    if (navClose) { navClose.addEventListener('click', () => navMenu.classList.remove('show-menu')); }
 
-    // ======================= START: CART LOGIC ======================= //
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('show-menu');
+        });
+    }
+    if (navClose) {
+        navClose.addEventListener('click', (e) => { e.preventDefault(); navMenu.classList.remove('show-menu'); });
+    }
+
+    // Close mobile menu when clicking any link
+    document.querySelectorAll('.nav__links a').forEach(a => {
+        a.addEventListener('click', () => navMenu.classList.remove('show-menu'));
+    });
+
+    // ======================= START: CART LOGIC =======================
     let cart = JSON.parse(localStorage.getItem('jarvisCartV6')) || [];
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
     const cartItemsContainer = document.getElementById('cart-body');
     const cartTotalElement = document.getElementById('cart-total');
     const navCartBtn = document.getElementById('nav-cart-btn');
+    const cartCountEls = document.querySelectorAll('#cart-count, #hamburger-cart-count');
 
     const toggleCart = () => {
-        if(cartSidebar) cartSidebar.classList.toggle('open');
-        if(cartOverlay) cartOverlay.classList.toggle('open');
+        if (cartSidebar) cartSidebar.classList.toggle('open');
+        if (cartOverlay) cartOverlay.classList.toggle('open');
     };
-    
-    if (navCartBtn) navCartBtn.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
+
+    // Attach cart toggles (desktop text and header icon both map to same id in markup)
+    document.querySelectorAll('#nav-cart-btn, #nav-cart-btn-desktop').forEach(el => {
+        if (el) el.addEventListener('click', (e) => { e.preventDefault(); toggleCart(); });
+    });
+
     document.getElementById('cart-close-btn')?.addEventListener('click', toggleCart);
-    if(cartOverlay) cartOverlay.addEventListener('click', toggleCart);
+    if (cartOverlay) cartOverlay.addEventListener('click', toggleCart);
 
     const updateCart = () => {
         renderCartItems();
         localStorage.setItem('jarvisCartV6', JSON.stringify(cart));
+        updateCartCountBadges();
     };
 
+    const updateCartCountBadges = () => {
+        const totalCount = cart.reduce((s, it) => s + (it.quantity || 0), 0);
+        cartCountEls.forEach(el => { if (el) el.textContent = totalCount; });
+        // also show/hide styling
+        cartCountEls.forEach(el => { if (!el) return; el.style.display = totalCount > 0 ? 'inline-block' : 'none'; });
+    };
+/* PART 8 / script.js (cart render + handlers + product lists) */
     const renderCartItems = () => {
         if (!cartItemsContainer) return;
         cartItemsContainer.innerHTML = '';
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p class="cart-empty-message">თქვენი კალათა ცარიელია.</p>';
-            if(cartTotalElement) cartTotalElement.textContent = '0.00 ₾';
+            if (cartTotalElement) cartTotalElement.textContent = '0.00 ₾';
             return;
         }
-        
+
         const ul = document.createElement('ul');
         ul.id = 'cart-items';
         let total = 0;
         cart.forEach(item => {
             const priceString = item.price || '0 ₾';
-            const price = parseFloat(priceString.replace(' ₾', ''));
-            total += price * item.quantity;
+            const price = parseFloat(priceString.replace(' ₾', '')) || 0;
+            total += price * (item.quantity || 1);
             const li = document.createElement('li');
             li.className = 'cart-item';
             li.innerHTML = `
@@ -58,37 +84,36 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="quantity-change" data-id="${item.id}" data-change="1">+</button>
                     </div>
                 </div>
-                <button class="cart-item-remove-btn" data-id="${item.id}">&times;</button>
+                <button class="cart-item-remove-btn" data-id="${item.id}" aria-label="remove">&times;</button>
             `;
             ul.appendChild(li);
         });
         cartItemsContainer.appendChild(ul);
-        if(cartTotalElement) cartTotalElement.textContent = `${total.toFixed(2)} ₾`;
+        if (cartTotalElement) cartTotalElement.textContent = `${total.toFixed(2)} ₾`;
     };
 
     const addToCart = (product) => {
         const existingItem = cart.find(item => item.id === product.id);
         if (existingItem) {
-            existingItem.quantity++;
+            existingItem.quantity = (existingItem.quantity || 0) + 1;
         } else {
             cart.push({ ...product, quantity: 1 });
         }
         updateCart();
     };
 
-    if(cartItemsContainer) {
+    if (cartItemsContainer) {
         cartItemsContainer.addEventListener('click', (e) => {
             const target = e.target.closest('button');
             if (!target) return;
             const id = target.dataset.id;
             if (!id) return;
-            
             const itemInCart = cart.find(item => item.id === id);
             if (!itemInCart) return;
 
             if (target.classList.contains('quantity-change')) {
-                const change = parseInt(target.dataset.change);
-                itemInCart.quantity += change;
+                const change = parseInt(target.dataset.change, 10);
+                itemInCart.quantity = (itemInCart.quantity || 0) + change;
                 if (itemInCart.quantity <= 0) cart = cart.filter(item => item.id !== id);
             } else if (target.classList.contains('cart-item-remove-btn')) {
                 cart = cart.filter(item => item.id !== id);
@@ -99,15 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const generateOrderMessage = (items) => {
         if (items.length === 0) return 'კალათა ცარიელია.';
-        let message = 'გამარჯობა, მინდა შევუკვეთო:\n\n';
+        let message = 'გამარჯობა, მინდა შევუკვეთო:\\n\\n';
         let total = 0;
         items.forEach(item => {
             const priceString = item.price || '0 ₾';
-            const price = parseFloat(priceString.replace(' ₾', ''));
-            total += price * item.quantity;
-            message += `- ${item.name} (რაოდენობა: ${item.quantity})\n`;
+            const price = parseFloat(priceString.replace(' ₾', '')) || 0;
+            total += price * (item.quantity || 0);
+            message += `- ${item.name} (რაოდენობა: ${item.quantity})\\n`;
         });
-        message += `\nსულ ჯამი: ${total.toFixed(2)} ₾`;
+        message += `\\nსულ ჯამი: ${total.toFixed(2)} ₾`;
         return message;
     };
 
@@ -132,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         loadProductLists();
     }
+
     updateCart(); // Render cart on every page load
 
     const formatPrice = (product) => {
@@ -140,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return `<span class="new-price">${product.price}</span>`;
     };
-
+/* PART 9 / script.js (product lists, product details, form & scroll) */
     async function loadProductLists() {
         const container = document.querySelector('#featured-products-wrapper') || document.querySelector('.products-grid');
         if (!container) return;
@@ -172,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </a>
                 </div>`;
-            
+
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
                 new Swiper('.product-slider', {
@@ -199,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.title = product.name;
                 const productNameH1 = document.getElementById('product-name');
                 if (productNameH1) productNameH1.textContent = product.name;
-                
+
                 document.getElementById('product-full-description').textContent = product.full_description;
                 document.getElementById('product-price').innerHTML = formatPrice(product);
 
@@ -217,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         orderButton.href = `https://m.me/61578859507900?text=${encodeURIComponent(orderMessage)}`;
                     }
                 }
-                
+
                 const galleryWrapper = document.getElementById('product-gallery-wrapper');
                 let slidesHTML = '';
                 if (product.video && product.video.trim() !== "") {
@@ -242,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FORM AND SCROLL LOGIC ---
     const form = document.getElementById("contact-form");
-    if (form) { /* ... Form logic ... */ }
+    if (form) { /* you can keep your existing form handling here */ }
 
     function scrollToSection(targetId) {
         const targetElement = document.querySelector(targetId);
@@ -254,22 +280,23 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
     }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        if(anchor.id === 'nav-cart-btn') return;
+        // if it's the cart text button - handled globally
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            if (navMenu.classList.contains('show-menu')) {
+            if (navMenu && navMenu.classList.contains('show-menu')) {
                 navMenu.classList.remove('show-menu');
             }
-            scrollToSection(targetId);
+            if (targetId && targetId.startsWith('#')) scrollToSection(targetId);
         });
     });
+
     window.addEventListener("load", () => {
         if (window.location.hash) {
-            setTimeout(() => {
-                scrollToSection(window.location.hash);
-            }, 100);
+            setTimeout(() => { scrollToSection(window.location.hash); }, 100);
         }
     });
-});
+
+}); // end DOMContentLoaded
