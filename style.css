@@ -241,3 +241,10 @@ a { color: inherit }
         font-size: 12px;
     }
 }
+
+/* მთავარ გვერდზე ვიდეოს გაზრდა კომპიუტერის ვერსიისთვის */
+@media screen and (min-width: 769px) {
+    .responsive-video {
+        max-width: 728px; /* არსებული 560px + 30% */
+    }
+}
