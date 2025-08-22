@@ -159,6 +159,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </a>
         </div>`;
 
+    // ეს ფუნქცია ქმნის ბარათს "კალათაში დამატების" ღილაკის გარეშე
+    const createRelatedProductCard = (product) => `
+        <div class="product-card">
+            <a href="product-details.html?id=${product.id}" class="product-card-link">
+                <div class="product-image-container"><img src="${product.image}" alt="${product.name}"></div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price">${formatPrice(product)}</div>
+                </div>
+            </a>
+        </div>`;
+
+
     async function loadProductLists() {
         const container = document.querySelector('#featured-products-wrapper') || document.querySelector('.products-grid');
         if (!container) return;
@@ -181,13 +194,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
                 new Swiper('.product-slider', {
-                    loop: true, spaceBetween: 20,
+                    loop: true,
+                    spaceBetween: 20,
+                    touchStartPreventDefault: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
                 });
             } else {
-                container.innerHTML = products.map(createProductCard).join('');
+                container.innerHTML = products.map(p => createProductCard(p)).join('');
             }
         } catch (error) { console.error('Products load error:', error); }
     }
@@ -229,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(whatsappButton) {
                    whatsappButton.addEventListener('click', (e) => {
                        e.preventDefault();
-                       const message = singleProductMessage; // <--- შეცვლილია ლოგიკა
+                       const message = singleProductMessage;
                        const link = `https://wa.me/995599608105?text=${encodeURIComponent(message)}`;
                        window.open(link, '_blank');
                    });
@@ -244,7 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (galleryWrapper) galleryWrapper.innerHTML = slidesHTML;
 
                 new Swiper('.product-gallery-slider', {
-                    autoHeight: true, loop: false,
+                    autoHeight: true,
+                    loop: false,
+                    touchStartPreventDefault: false,
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                     on: { slideChange: function () { document.querySelectorAll('.product-gallery-slider video').forEach(video => video.pause()); } }
@@ -263,28 +280,28 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        const productsToShow = [...relatedProducts, ...relatedProducts];
         const wrapper = document.getElementById('related-products-wrapper');
         if (!wrapper) return;
 
-        wrapper.innerHTML = productsToShow.map(product => {
-            return `<div class="swiper-slide">${createProductCard(product)}</div>`;
+        wrapper.innerHTML = relatedProducts.map(product => {
+            return `<div class="swiper-slide">${createRelatedProductCard(product)}</div>`;
         }).join('');
 
         new Swiper(".related-products-swiper", {
             slidesPerView: 2,
             spaceBetween: 15,
-            loop: true,
+            loop: relatedProducts.length > 2,
             grabCursor: true,
+            touchStartPreventDefault: false,
+            navigation: {
+                nextEl: "#related-products .swiper-button-next",
+                prevEl: "#related-products .swiper-button-prev",
+            },
             breakpoints: {
                 769: {
                     slidesPerView: 4,
                     spaceBetween: 20,
-                    loop: productsToShow.length > 4,
-                    navigation: {
-                        nextEl: "#related-products .swiper-button-next",
-                        prevEl: "#related-products .swiper-button-prev",
-                    },
+                    loop: relatedProducts.length > 4,
                 }
             },
         });
