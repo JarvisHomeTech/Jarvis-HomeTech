@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- მობილურის მენიუს ლოგიკა ---
+    // --- Mobile Menu Logic ---
     const navMenu = document.querySelector('.nav__links');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
@@ -164,7 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
         try {
             const response = await fetch('products.json');
+            if (!response.ok) throw new Error('Network response was not ok');
             const products = await response.json();
+            
             document.body.addEventListener('click', (e) => {
                 const button = e.target.closest('.btn-add-to-cart-small');
                 if (button) {
@@ -175,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (product) addToCart(product);
                 }
             });
+
             if (container.id === 'featured-products-wrapper') {
                 container.innerHTML = products.map(p => `<div class="swiper-slide">${createProductCard(p)}</div>`).join('');
                 new Swiper('.product-slider', {
@@ -195,8 +198,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!productId) return;
         try {
             const response = await fetch('products.json');
+            if (!response.ok) throw new Error('Network response was not ok');
             const products = await response.json();
             const product = products.find(p => p.id === productId);
+
             if (product) {
                 document.title = product.name;
                 document.getElementById('product-name').textContent = product.name;
@@ -252,8 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderRelatedProducts(currentProductId, allProducts) {
         const relatedProducts = allProducts.filter(p => p.id !== currentProductId);
-        if (relatedProducts.length === 0) {
-            document.getElementById('related-products')?.style.display = 'none';
+        const relatedSection = document.getElementById('related-products');
+        if (relatedProducts.length === 0 && relatedSection) {
+            relatedSection.style.display = 'none';
             return;
         }
 
@@ -283,11 +289,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Main runner ---
     if (document.querySelector('.product-details-section')) {
         loadProductDetails();
     } else {
         loadProductLists();
     }
     updateCart();
-
 });
