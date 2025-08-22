@@ -84,7 +84,8 @@ section { padding: 60px 0 }
 .product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; text-align: left; }
 .product-name { font-size: 1rem; font-weight: 600; margin-bottom: 10px; min-height: 40px }
 .product-price { font-size: 1.2rem; font-weight: 700; display: flex; align-items: baseline; gap: 10px; }
-.old-price { font-size: 1.05rem; font-weight: 600; color: var(--vivid-red); text-decoration: line-through; }
+.old-price { font-size: 1.05rem; font-weight: 600; color: var(--vivid-red); position: relative; display: inline-block; }
+.old-price::after { content: ''; position: absolute; left: -5%; top: 50%; width: 110%; height: 1.5px; background-color: var(--vivid-red); transform: rotate(-15deg); }
 .new-price { font-size: 1.2rem; font-weight: 700; color: var(--primary-color); position: relative; top: -8px; }
 .product-price-and-cart { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 10px }
 #related-products .product-price { margin-top: auto; padding-top: 10px; }
@@ -131,7 +132,6 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
 .product-details-info { order: 3; }
 #product-full-description { margin-top: 30px; }
 #product-price { margin-top: 50px; justify-content: center; font-size: 1.7rem; }
-/* პროდუქტის გვერდზე ფასის გაზრდა */
 #product-price .old-price { font-size: 2.0rem; }
 #product-price .new-price { font-size: 2.2rem; }
 .product-gallery-slider { border-radius: 12px; overflow: hidden; border: 1px solid #eef0f3 }
