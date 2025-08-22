@@ -78,7 +78,7 @@ section { padding: 60px 0 }
 .old-price { font-size: 1rem; color: var(--vivid-red); text-decoration: line-through; }
 .new-price { font-size: 1.15rem; font-weight: 700; color: var(--primary-color); position: relative; top: -8px; }
 .product-price-and-cart { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 10px }
-#related-products .product-price { margin-top: auto; padding-top: 10px; } /* ფასების გასწორება */
+#related-products .product-price { margin-top: auto; padding-top: 10px; }
 .btn-add-to-cart-small { background: #fff; color: var(--primary-color); border: 1px solid #eef0f3; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: all .3s; box-shadow: 0 2px 5px rgba(0, 0, 0, .1) }
 .btn-add-to-cart-small:hover { background: var(--primary-color); color: #fff; transform: scale(1.1) }
 
@@ -94,6 +94,9 @@ section { padding: 60px 0 }
 #contact-form { max-width: 600px; margin: 30px auto 0; display: flex; flex-direction: column }
 #contact-form input, #contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1rem }
 footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 20px }
+.social-icons { margin-top: 15px; }
+.social-icons a { color: #ecf0f1; font-size: 1.5rem; margin: 0 10px; transition: color 0.3s; }
+.social-icons a:hover { color: var(--primary-color); }
 
 /* floating chat */
 .floating-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px }
@@ -197,9 +200,9 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     #related-products { padding: 40px 0; }
     #related-products .container { padding: 0; }
     #related-products .products-title { padding: 0 15px; margin-bottom: 15px; text-align: left; font-size: 1.4rem; }
-    .product-card.compact .product-info { padding: 8px; text-align: left; }
-    .product-card.compact .product-info .product-price { justify-content: flex-start; }
-    .product-card.compact .product-name { font-size: 13px; line-height: 1.4; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 36px; }
+    #related-products .product-card.compact .product-info { padding: 8px; text-align: left; }
+    #related-products .product-card.compact .product-info .product-price { justify-content: flex-start; }
+    #related-products .product-card.compact .product-name { font-size: 13px; line-height: 1.4; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 36px; }
     .related-products-swiper .swiper-wrapper { padding-left: 15px; padding-right: 15px; }
     .related-products-swiper .swiper-button-next, .related-products-swiper .swiper-button-prev { display: none; }
 }
