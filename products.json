@@ -86,7 +86,7 @@
         "image": "photos/1119.jpg",
         "images": [
             "photos/1119.jpg"
-        ],
+        ]
         
     },
     {
@@ -99,11 +99,12 @@
         "image": "photos/1120.jpg",
         "images": [
             "photos/1120.jpg"
-        ],
+        ]
         
     }
    
 ]
+
 
 
 
