@@ -86,7 +86,8 @@
         "image": "photos/1119.jpg",
         "images": [
             "photos/1119.jpg"
-        ]
+        ],
+        "video": "photos/17.mp4"
         
     },
     {
@@ -99,11 +100,13 @@
         "image": "photos/1120.jpg",
         "images": [
             "photos/1120.jpg"
-        ]
+        ],
+        "video": "photos/54.mp4"
         
     }
    
 ]
+
 
 
 
