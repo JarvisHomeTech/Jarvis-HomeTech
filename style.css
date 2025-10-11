@@ -26,7 +26,7 @@ h1, h2, h3 { color: var(--secondary-color) }
 
 /* header */
 .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, .05); position: sticky; top: 0; z-index: 1100 }
-.logo { font-weight: 700; font-size: 1.5rem; color: #14148c; text-decoration: none }
+.logo { font-weight: 700; font-size: 1.5rem; color: #007bff; text-decoration: none }
 .nav__links { display: flex; align-items: center; gap: 30px; list-style: none }
 .nav__links li { list-style: none }
 .nav__links a { text-decoration: none; color: #555; font-weight: 500; transition: color .2s }
@@ -229,3 +229,4 @@ footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 40px 
     .related-products-swiper .swiper-wrapper { padding-left: 15px; padding-right: 15px; }
     .related-products-swiper .swiper-button-next, .related-products-swiper .swiper-button-prev { display: none; }
 }
+
